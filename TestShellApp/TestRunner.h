@@ -19,6 +19,6 @@ public:
 private:
 	Result_e callSsdApi(Command cmd);
 
-	TestVector_t m_TestVector;
+	TestVector_t m_TestCommandVector;
 	//ssdApiBase* m_ApiBase;
 };

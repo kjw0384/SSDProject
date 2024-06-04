@@ -14,9 +14,9 @@ public:
 };
 
 TEST_F(TestRunnerFixture, InputCmd) {
-	EXPECT_EQ(m_testRunner.inputCmd(m_command), SUCCESS);
+	EXPECT_EQ(m_testRunner.inputCmd(m_command), Result_e::SUCCESS);
 }
 
 TEST_F(TestRunnerFixture, RunTest) {
-	EXPECT_EQ(m_testRunner.run(), SUCCESS);
+	EXPECT_EQ(m_testRunner.run(), Result_e::SUCCESS);
 }

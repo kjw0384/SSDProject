@@ -1,6 +1,6 @@
 #pragma once
 
-enum Result_e {
+enum class Result_e {
 	SUCCESS,
 	FAIL,
 };
