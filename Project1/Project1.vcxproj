@@ -130,6 +130,16 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ShellStringParser.cpp" />
+    <ClCompile Include="ReadCommand.cpp" />
+    <ClCompile Include="SSDDevice.cpp" />
+    <ClCompile Include="WriteCommand.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="Invoker.h" />
+    <ClInclude Include="ReadCommand.h" />
+    <ClInclude Include="NANDDevice.h" />
+    <ClInclude Include="WriteCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
