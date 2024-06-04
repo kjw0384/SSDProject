@@ -22,6 +22,7 @@ TEST_F(ShellExecuteFixture, CommandNotValid) {
 	checkErrorCode("ADF 1 0x59261655", 2);
 }
 
-TEST_F(ShellExecuteFixture, WriteNormal) {
+TEST_F(ShellExecuteFixture, WriteArgumentCountError) {
 	checkErrorCode("W 1 0x59261655 E", 3);
 }
+	
