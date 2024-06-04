@@ -1,13 +1,13 @@
-/*int main(void) {
+int main(void) {
 
 }
-*/
+
 #include "Invoker.h"
 #include "SSDDevice.h"
 #include "ReadCommand.h"
 #include "WriteCommand.h"
 #include <memory>
-
+/*
 int main() {
     SSDDevice device;
 
@@ -19,4 +19,4 @@ int main() {
     invoker.executeCommand();
 
     return 0;
-}
+}*/
