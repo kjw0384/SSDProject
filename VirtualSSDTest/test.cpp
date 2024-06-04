@@ -5,7 +5,7 @@
 
 using namespace testing;
 
-class MockSSDDevice : public SSDDevice {
+class MockNANDDevice : public NANDDevice {
 public:
 	MOCK_METHOD(void, read, (const int address), (override));
 	MOCK_METHOD(void, write, (const int address, const string& data), (override));
@@ -13,7 +13,7 @@ public:
 
 class CommandTestFixture : public testing::Test {
 public:
-	MockSSDDevice mockDevice;
+	MockNANDDevice mockDevice;
 	const int address = 7;
 	const string data = "0x12345678";
 };

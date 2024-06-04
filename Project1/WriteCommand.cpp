@@ -1,5 +1,5 @@
 #include "WriteCommand.h"
-#include "SSDDevice.h"
+#include "NANDDevice.h"
 
 void WriteCommand::execute() {
     device->write(address, data);

@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-class SSDDevice {
+class NANDDevice {
 public:
     virtual void read(const int address) {
         cout << "Reading from LBA: " << address << endl;

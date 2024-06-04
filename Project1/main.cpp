@@ -1,15 +1,11 @@
-/*int main(void) {
-
-}
-*/
 #include "Invoker.h"
-#include "SSDDevice.h"
+#include "NANDDevice.h"
 #include "ReadCommand.h"
 #include "WriteCommand.h"
 #include <memory>
 
 int main() {
-    SSDDevice device;
+    NANDDevice device;
 
     Invoker invoker;
     invoker.setCommand(new ReadCommand(&device, 1));
