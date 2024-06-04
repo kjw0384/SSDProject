@@ -1,11 +1,14 @@
 #include "./DataBuffer.h"
 
 
-bool DataBuffer::readCacheData(int addr, const int& data)
+bool DataBuffer::readCacheData(int addr, unsigned int * data)
 {
-	return false;
+	if (cacheMemory.find(addr) == cacheMemory.end()) return false;
+
+	*data = cacheMemory.find(addr)->second;
+	return true;
 }
 void DataBuffer::writeCacheData(int addr, unsigned int data)
 {
-
+	cacheMemory[addr] = data;
 }

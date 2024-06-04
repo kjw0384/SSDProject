@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <direct.h>
+#include <map>
 
 using namespace std;
 
@@ -17,10 +18,10 @@ public:
 		return instance;
 	}
 
-	bool readCacheData(int addr, const int& data);
+	bool readCacheData(int addr, unsigned int * data);
 	void writeCacheData(int addr, unsigned int data);
 
 private:
 	DataBuffer() {}
-	vector<int> cacheMemory;
+	map<int, unsigned int> cacheMemory;
 };

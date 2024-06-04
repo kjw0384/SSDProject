@@ -11,15 +11,15 @@ public:
 };
 
 TEST_F(DataBufferFixture, DataBufferReadEmptyTest) {
-	int data = 0;
-	bool ret = dataBuffer.readCacheData(10, data);
+	unsigned int data = 0;
+	bool ret = dataBuffer.readCacheData(10, &data);
 	EXPECT_EQ(ret, false);
 }
 
 TEST_F(DataBufferFixture, DataBufferWriteTest) {
 
 	dataBuffer.writeCacheData(10, 0x500);
-	int data = 0;
-	bool ret = dataBuffer.readCacheData(10, data);
+	unsigned int data = 0;
+	bool ret = dataBuffer.readCacheData(10, &data);
 	EXPECT_EQ(data, 0x500);
 }
