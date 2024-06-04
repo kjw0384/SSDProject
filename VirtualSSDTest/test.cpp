@@ -37,7 +37,7 @@ TEST_F(DataBufferFixture, DataBufferWriteTest) {
 	unsigned int data = 0;
 	bool ret = dataBuffer.readCacheData(10, &data);
 	EXPECT_EQ(data, 0x500);
-
+}
 
 TEST_F(CommandTestFixture, Read) {
 	EXPECT_CALL(mockDevice, read)
