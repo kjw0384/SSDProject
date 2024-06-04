@@ -6,11 +6,11 @@
 TEST(TestRunnerSuite, InputCmd) {
 	TestRunner testRunner;
 	Command	cmd;
-	EXPECT_EQ(testRunner.inputCmd(cmd), SUCESS);
+	EXPECT_EQ(testRunner.inputCmd(cmd), SUCCESS);
 }
 
 TEST(TestRunnerSuite, RunTest) {
 	TestRunner testRunner;
 	Command	cmd;
-	EXPECT_EQ(testRunner.run(), SUCESS);
+	EXPECT_EQ(testRunner.run(), SUCCESS);
 }
