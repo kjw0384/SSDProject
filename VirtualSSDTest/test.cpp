@@ -1,7 +1,11 @@
+#include <iostream>
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
+#include "../Project1/ShellStringParser.cpp"
 
-TEST(TestCaseName, TestName) {
-  EXPECT_EQ(1, 1);
-  EXPECT_TRUE(true);
+using namespace std;
+
+TEST(ShellExecute, NoCommandExecute) {
+	ShellStringParser s;
+	EXPECT_EQ(s.validCheck(""), 1) << "Error Return not 1" << endl;
 }
