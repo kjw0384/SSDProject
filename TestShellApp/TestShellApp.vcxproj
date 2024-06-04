@@ -128,6 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestScriptParser.cpp" />
+    <ClCompile Include="TestScriptValidChecker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TestScriptParser.h" />
+    <ClInclude Include="TestScriptValidChecker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
