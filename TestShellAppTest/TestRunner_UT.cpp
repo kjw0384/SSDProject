@@ -3,9 +3,9 @@
 
 #include "../TestShellApp/TestRunner.cpp"
 
-class TetRunnerFixture : public ::testing::Test {
+class TestRunnerFixture : public ::testing::Test {
 public:
-	TetRunnerFixture() {
+	TestRunnerFixture() {
 		m_command = {"READ", 23, 0x7777};
 	}
 
@@ -13,10 +13,10 @@ public:
 	Command m_command; 
 };
 
-TEST_F(TetRunnerFixture, InputCmd) {
+TEST_F(TestRunnerFixture, InputCmd) {
 	EXPECT_EQ(m_testRunner.inputCmd(m_command), SUCCESS);
 }
 
-TEST_F(TetRunnerFixture, RunTest) {
+TEST_F(TestRunnerFixture, RunTest) {
 	EXPECT_EQ(m_testRunner.run(), SUCCESS);
 }
