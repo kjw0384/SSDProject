@@ -16,6 +16,6 @@ private:
 public:
     WriteCommand(NANDDevice* device, const int address, const string& data)
         : device(device), address(address), data(data) {}
-
+        
     void execute() override;
 };
