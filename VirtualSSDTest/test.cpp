@@ -5,17 +5,23 @@
 
 using namespace std;
 
-TEST(ShellExecute, NoCommandExecute) {
-	ShellStringParser s;
-	EXPECT_EQ(s.validCheck(""), 1) << "Error Return not 1" << endl;
+class ShellExecuteFixture : public testing::Test {
+public:
+	ShellStringParser parser;
+	void checkErrorCode(string inputStr, int errorCode) {
+		int errorResult = parser.validCheck(inputStr);
+		EXPECT_EQ(errorResult, errorCode) << "Error Return not " << errorCode << endl;
+	}
+};
+
+TEST_F(ShellExecuteFixture, NoCommandExecute) {
+	checkErrorCode("", 1);
 }
 
-TEST(ShellExecute, CommandNotValid) {
-	ShellStringParser s;
-	EXPECT_EQ(s.validCheck("ADF 1 0x59261655"), 2) << "Error Return not 2" << endl;
+TEST_F(ShellExecuteFixture, CommandNotValid) {
+	checkErrorCode("ADF 1 0x59261655", 2);
 }
 
-TEST(ShellExecute, WriteNormal) {
-	ShellStringParser s;
-	EXPECT_EQ(s.validCheck("W 1 0x59261655 E"), 3) << "Error Return not 2" << endl;
+TEST_F(ShellExecuteFixture, WriteNormal) {
+	checkErrorCode("W 1 0x59261655 E", 3);
 }

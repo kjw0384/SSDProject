@@ -9,6 +9,7 @@ public:
 	const int ERROR_CMD_NOT_VALID = 1;
 	const int ERROR_CMD_NOT_FOUND = 2;
 	const int ERROR_CMD_ARGC_ERROR = 3;
+
 	int validCheck(string inputCmd) {
 		// Error
 		if (inputCmd == "")
