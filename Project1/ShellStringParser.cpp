@@ -4,39 +4,41 @@
 
 using namespace std;
 
+enum class ShellStringParserError {
+	NO_ERROR,
+	CMD_EMPTY,
+	CMD_NOT_FOUND,
+	CMD_ARGC_ERROR,
+	CMD_ARGV_ERROR
+};
+
+
 class ShellStringParser {
 public:
-	const int ERROR_CMD_NOT_VALID = 1;
-	const int ERROR_CMD_NOT_FOUND = 2;
-	const int ERROR_CMD_ARGC_ERROR = 3;
-	const int ERROR_CMD_ARGV_ERROR = 4;
 
-	int validCheck(string inputCmd) {
+	ShellStringParserError validCheck(string inputCmd) {
 		// Error
 		if (inputCmd == "")
-			return ERROR_CMD_NOT_VALID;
+			return ShellStringParserError::CMD_EMPTY;
 		
 		vector<string> cmdVec = split(inputCmd);
 		if (cmdVec[0] != "W" && cmdVec[0] != "R")
 		{
-			return ERROR_CMD_NOT_FOUND;
+			return ShellStringParserError::CMD_NOT_FOUND;
 		}
 		if (cmdVec[0] == "W")
 		{
-			//Check Size
 			if (cmdVec.size() != 3)
-				return ERROR_CMD_ARGC_ERROR;
+				return ShellStringParserError::CMD_ARGC_ERROR;
 
-			//Check LBA
 			if (isNotLBA(cmdVec[1]))
-				return ERROR_CMD_ARGV_ERROR;
+				return ShellStringParserError::CMD_ARGV_ERROR;
 
-			//Check Value
 			if (isNotValue(cmdVec[2]))
-				return ERROR_CMD_ARGV_ERROR;
+				return ShellStringParserError::CMD_ARGV_ERROR;
 		}
 
-		return 0;
+		return ShellStringParserError::NO_ERROR;
 	}
 
 	bool isNotLBA(string strLBA) {
