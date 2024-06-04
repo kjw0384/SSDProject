@@ -1,9 +1,8 @@
 #pragma once
 #include "Command.h"
+#include "SSDDevice.h"
 #include <string>
 #include <iostream>
-
-class SSDDevice;
 
 class ReadCommand : public Command {
 private:

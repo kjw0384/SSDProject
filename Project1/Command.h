@@ -1,8 +1,8 @@
 #pragma once
 
 using namespace std;
-
-class Command {
+#define interface struct
+interface Command {
 public:
     virtual ~Command() {}
     virtual void execute() = 0;

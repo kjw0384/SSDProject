@@ -1,7 +1,7 @@
-int main(void) {
+/*int main(void) {
 
 }
-/*
+*/
 #include "Invoker.h"
 #include "SSDDevice.h"
 #include "ReadCommand.h"
@@ -20,4 +20,3 @@ int main() {
 
     return 0;
 }
-*/
