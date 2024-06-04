@@ -1,8 +1,11 @@
 #pragma once
+
 #include "Command.h"
 #include "NANDdevice.h"
+
 #include <string>
 #include <iostream>
+
 
 class ReadCommand : public Command {
 private:

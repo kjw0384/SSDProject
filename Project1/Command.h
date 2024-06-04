@@ -1,7 +1,9 @@
 #pragma once
 
-using namespace std;
 #define interface struct
+
+using namespace std;
+
 interface Command {
 public:
     virtual ~Command() {}

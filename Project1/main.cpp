@@ -1,9 +1,13 @@
+int main(void) {
+
+}
+
 #include "Invoker.h"
 #include "NANDDevice.h"
 #include "ReadCommand.h"
 #include "WriteCommand.h"
 #include <memory>
-
+/*
 int main() {
     NANDDevice device;
 
@@ -15,4 +19,4 @@ int main() {
     invoker.executeCommand();
 
     return 0;
-}
+}*/
