@@ -1,25 +1,24 @@
 #include "ShellStringParser.h"
 
 
-ShellStringParserError ShellStringParser::validCheck(string inputCmd) {
+ShellStringParserError ShellStringParser::validCheck(vector<string> inputCmdVec) {
 	// Error
-	if (inputCmd == "")
+	if (inputCmdVec.empty())
 		return ShellStringParserError::CMD_EMPTY;
 
-	vector<string> cmdVec = split(inputCmd);
-	if (cmdVec[0] != "W" && cmdVec[0] != "R")
+	if (inputCmdVec[0] != "W" && inputCmdVec[0] != "R")
 	{
 		return ShellStringParserError::CMD_NOT_FOUND;
 	}
-	if (cmdVec[0] == "W")
+	if (inputCmdVec[0] == "W")
 	{
-		if (cmdVec.size() != 3)
+		if (inputCmdVec.size() != 3)
 			return ShellStringParserError::CMD_ARGC_ERROR;
 
-		if (isNotLBA(cmdVec[1]))
+		if (isNotLBA(inputCmdVec[1]))
 			return ShellStringParserError::CMD_ARGV_ERROR;
 
-		if (isNotValue(cmdVec[2]))
+		if (isNotValue(inputCmdVec[2]))
 			return ShellStringParserError::CMD_ARGV_ERROR;
 	}
 
@@ -44,23 +43,4 @@ bool ShellStringParser::isNotValue(string strValue) {
 		return true;
 
 	return false;
-}
-
-vector<string> ShellStringParser::split(string inputCmd) {
-	vector<string> cmdVector;
-	int nPrevPos = 0;
-	int nNextPos = inputCmd.find(" ");
-	string str = "";
-	while (nNextPos != string::npos) {
-		str = inputCmd.substr(nPrevPos, nNextPos - nPrevPos);
-		if (str != "")
-			cmdVector.push_back(str);
-		nPrevPos = nNextPos + 1;
-		nNextPos = inputCmd.find(" ", nNextPos + 1);
-	}
-	str = inputCmd.substr(nPrevPos, nNextPos - nPrevPos);
-	if (str != "")
-		cmdVector.push_back(str);
-
-	return cmdVector;
 }
