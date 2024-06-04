@@ -139,6 +139,7 @@
     <ClInclude Include="Invoker.h" />
     <ClInclude Include="ReadCommand.h" />
     <ClInclude Include="NANDDevice.h" />
+    <ClInclude Include="ShellStringParser.h" />
     <ClInclude Include="WriteCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
