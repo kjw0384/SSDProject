@@ -12,7 +12,10 @@ TEST(ShellExecute, NoCommandExecute) {
 
 TEST(ShellExecute, CommandNotValid) {
 	ShellStringParser s;
-	EXPECT_EQ(s.validCheck("ADF 1 0X59261655"), 2) << "Error Return not 2" << endl;
+	EXPECT_EQ(s.validCheck("ADF 1 0x59261655"), 2) << "Error Return not 2" << endl;
 }
 
-
+TEST(ShellExecute, WriteNormal) {
+	ShellStringParser s;
+	EXPECT_EQ(s.validCheck("W 1 0x59261655 E"), 3) << "Error Return not 2" << endl;
+}

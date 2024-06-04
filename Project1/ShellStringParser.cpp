@@ -8,6 +8,7 @@ class ShellStringParser {
 public:
 	const int ERROR_CMD_NOT_VALID = 1;
 	const int ERROR_CMD_NOT_FOUND = 2;
+	const int ERROR_CMD_ARGC_ERROR = 3;
 	int validCheck(string inputCmd) {
 		// Error
 		if (inputCmd == "")
@@ -17,6 +18,15 @@ public:
 		if (cmdVec[0] != "W" && cmdVec[0] != "R")
 		{
 			return ERROR_CMD_NOT_FOUND;
+		}
+		if (cmdVec[0] == "W")
+		{
+			//Check Size
+			if (cmdVec.size() != 3)
+				return ERROR_CMD_ARGC_ERROR;
+			//Check LBA
+
+			//Check Value
 		}
 
 		return 0;
