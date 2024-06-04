@@ -1,9 +1,16 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
+#include "../Project1/DataBuffer.cpp"
 #include "../Project1/ReadCommand.cpp"
 #include "../Project1/WriteCommand.cpp"
 
 using namespace testing;
+
+class DataBufferFixture : public testing::Test
+{
+public:
+	DataBuffer& dataBuffer = DataBuffer::getInstance();
+};
 
 class MockNANDDevice : public NANDDevice {
 public:
@@ -17,6 +24,20 @@ public:
 	const int address = 7;
 	const string data = "0x12345678";
 };
+
+TEST_F(DataBufferFixture, DataBufferReadEmptyTest) {
+	unsigned int data = 0;
+	bool ret = dataBuffer.readCacheData(10, &data);
+	EXPECT_EQ(ret, false);
+}
+
+TEST_F(DataBufferFixture, DataBufferWriteTest) {
+
+	dataBuffer.writeCacheData(10, 0x500);
+	unsigned int data = 0;
+	bool ret = dataBuffer.readCacheData(10, &data);
+	EXPECT_EQ(data, 0x500);
+
 
 TEST_F(CommandTestFixture, Read) {
 	EXPECT_CALL(mockDevice, read)
