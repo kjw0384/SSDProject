@@ -1,7 +1,16 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-TEST(TestCaseName, TestName) {
-	EXPECT_EQ(1, 1);
-	EXPECT_TRUE(true);
+#include "../TestShellApp/TestRunner.cpp"
+
+TEST(TestRunnerSuite, InputCmd) {
+	TestRunner testRunner;
+	Command	cmd;
+	EXPECT_EQ(testRunner.inputCmd(cmd), SUCESS);
+}
+
+TEST(TestRunnerSuite, RunTest) {
+	TestRunner testRunner;
+	Command	cmd;
+	EXPECT_EQ(testRunner.run(), SUCESS);
 }

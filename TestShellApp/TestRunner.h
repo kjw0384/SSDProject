@@ -4,18 +4,21 @@
 #include <string>
 
 #include "TestCommand.h" 
+#include "TestShellCommon.h" 
 
 using namespace std;
 
 class TestRunner {
 public:
-	void inputCmd(Command cmd) {
-	}
+	typedef vector<Command> TestVector_t;
 
-	void run(Command cmd) {
-	}
+	Result_e inputCmd(Command cmd);
+
+	Result_e run();
 
 private:
-	vector<Command> m_TestVector;
+	Result_e callSsdApi(Command cmd);
+
+	TestVector_t m_TestVector;
 	//ssdApiBase* m_ApiBase;
 };
