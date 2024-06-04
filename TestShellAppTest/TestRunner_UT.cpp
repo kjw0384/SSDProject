@@ -3,14 +3,20 @@
 
 #include "../TestShellApp/TestRunner.cpp"
 
-TEST(TestRunnerSuite, InputCmd) {
-	TestRunner testRunner;
-	Command	cmd;
-	EXPECT_EQ(testRunner.inputCmd(cmd), SUCCESS);
+class TetRunnerFixture : public ::testing::Test {
+public:
+	TetRunnerFixture() {
+		m_command = {"READ", 23, 0x7777};
+	}
+
+	TestRunner m_testRunner;
+	Command m_command; 
+};
+
+TEST_F(TetRunnerFixture, InputCmd) {
+	EXPECT_EQ(m_testRunner.inputCmd(m_command), SUCCESS);
 }
 
-TEST(TestRunnerSuite, RunTest) {
-	TestRunner testRunner;
-	Command	cmd;
-	EXPECT_EQ(testRunner.run(), SUCCESS);
+TEST_F(TetRunnerFixture, RunTest) {
+	EXPECT_EQ(m_testRunner.run(), SUCCESS);
 }
