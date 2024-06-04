@@ -9,6 +9,7 @@ public:
 	const int ERROR_CMD_NOT_VALID = 1;
 	const int ERROR_CMD_NOT_FOUND = 2;
 	const int ERROR_CMD_ARGC_ERROR = 3;
+	const int ERROR_CMD_ARGV_ERROR = 4;
 
 	int validCheck(string inputCmd) {
 		// Error
@@ -25,12 +26,37 @@ public:
 			//Check Size
 			if (cmdVec.size() != 3)
 				return ERROR_CMD_ARGC_ERROR;
+
 			//Check LBA
+			if (isNotLBA(cmdVec[1]))
+				return ERROR_CMD_ARGV_ERROR;
 
 			//Check Value
+			if (isNotValue(cmdVec[2]))
+				return ERROR_CMD_ARGV_ERROR;
 		}
 
 		return 0;
+	}
+
+	bool isNotLBA(string strLBA) {
+		regex txt_regex("^[0-9]+$");
+		if (regex_match(strLBA, txt_regex) == false)
+			return true;
+
+		int nLBA = atoi(strLBA.c_str());
+		if (nLBA < 0 || nLBA > 100)
+			return true;
+
+		return false;
+	}
+
+	bool isNotValue(string strValue) {
+		regex txt_regex("^0x[0-9A-F]{8}$");
+		if (regex_match(strValue, txt_regex) == false)
+			return true;
+
+		return false;
 	}
 	
 	vector<string> split(string inputCmd) {

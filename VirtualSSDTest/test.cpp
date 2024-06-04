@@ -25,4 +25,14 @@ TEST_F(ShellExecuteFixture, CommandNotValid) {
 TEST_F(ShellExecuteFixture, WriteArgumentCountError) {
 	checkErrorCode("W 1 0x59261655 E", 3);
 }
-	
+
+TEST_F(ShellExecuteFixture, WriteArgumentsFormatError) {
+	checkErrorCode("W qfe5 0x59261655", 4);
+	checkErrorCode("W 1 0X59261655", 4);
+	checkErrorCode("W 1 0", 4);
+}
+
+TEST_F(ShellExecuteFixture, WriteArgumentsLBAError) {
+	checkErrorCode("W -1 0x59261655", 4);
+	checkErrorCode("W 999 0x59261655", 4);
+}
