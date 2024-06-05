@@ -6,7 +6,7 @@
 class TestRunnerFixture : public ::testing::Test {
 public:
 	TestRunnerFixture() {
-		m_command = {"READ", 23, 0x7777};
+		m_command = {"READ", 23, "0x77777777"};
 	}
 
 	TestRunner m_testRunner;
