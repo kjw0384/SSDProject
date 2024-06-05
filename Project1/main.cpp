@@ -16,18 +16,20 @@ int main(int argc, char* argv[]) {
     }
     ShellStringParser parser;
     parser.validCheck(arguments);
-}
 
-/*
-int main() {
+    string command = argv[1];
+    int adress = stoi(argv[2]);
+
     NANDDevice device;
-
     Invoker invoker;
-    invoker.setCommand(new ReadCommand(&device, 1));
-    invoker.executeCommand();
 
-    invoker.setCommand(new WriteCommand(&device, 2, "0xAAAAAAAA"));
-    invoker.executeCommand();
-
-    return 0;
-}*/
+    if (command == "R") {
+        invoker.setCommand(new ReadCommand(&device, adress));
+        invoker.executeCommand();
+    }
+    if (command == "W") {
+        string data = argv[3];
+        invoker.setCommand(new WriteCommand(&device, adress, data));
+        invoker.executeCommand();
+    }
+}
