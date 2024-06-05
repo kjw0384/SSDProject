@@ -3,6 +3,7 @@
 #include "../Project1/DataBuffer.cpp"
 #include "../Project1/ReadCommand.cpp"
 #include "../Project1/WriteCommand.cpp"
+#include "../Project1/FileManager.cpp"
 
 using namespace testing;
 
@@ -23,6 +24,19 @@ public:
 	MockNANDDevice mockDevice;
 	const int address = 7;
 	const string data = "0x12345678";
+};
+
+class FileManagerFixture : public testing::Test {
+public:
+	FileManager& fileManager = FileManager::getInstance();
+	
+	void initData(vector<string>& exp)
+	{
+		for (int addr = 0; addr < 99; addr++)
+		{
+			exp.push_back("0x00000000");
+		}
+	}
 };
 
 TEST_F(DataBufferFixture, DataBufferReadEmptyTest) {
@@ -53,4 +67,24 @@ TEST_F(CommandTestFixture, Write) {
 
 	WriteCommand writeCmd(&mockDevice, address, data);
 	writeCmd.execute();
+}
+
+TEST_F(FileManagerFixture, FirstReadNandFile) {
+	vector<string> exp;
+	initData(exp);
+
+	vector<string> ret = fileManager.readFromNand();
+	EXPECT_EQ(ret, exp);
+}
+
+TEST_F(FileManagerFixture, WriteNandAndResult) {
+	vector<string> exp;
+	initData(exp);
+
+	exp[40] = "0x12345678";
+
+	fileManager.writeToNand(exp);
+	vector<string> ret = fileManager.readFromNand();
+	fileManager.writeToResult(ret[40]);
+	EXPECT_EQ(ret, exp);
 }

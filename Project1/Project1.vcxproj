@@ -128,6 +128,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataBuffer.cpp" />
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ReadCommand.cpp" />
     <ClCompile Include="SSDDevice.cpp" />
@@ -135,6 +137,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
+    <ClInclude Include="DataBuffer.h" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="Invoker.h" />
     <ClInclude Include="ReadCommand.h" />
     <ClInclude Include="NANDDevice.h" />
