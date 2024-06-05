@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
 
+using namespace std;
+
 typedef std::string cmdType_t;
 typedef int Index_t;
-typedef unsigned int value_t;
+typedef string value_t;
 
 struct Command {
 	cmdType_t type;
