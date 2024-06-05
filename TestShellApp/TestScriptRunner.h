@@ -10,11 +10,11 @@
 
 using namespace std;
 
-class TestRunner {
+class TestScriptRunner {
 public:
-	explicit TestRunner(VirtualSsdProcessInterface* pSsdProcIf, ReadIOInterface* pReadResultIO);
 	typedef vector<Command> TestVector_t;
 
+	explicit TestScriptRunner(VirtualSsdProcessInterface* pSsdProcIf, ReadIOInterface* pReadResultIO);
 	Result_e inputCmd(Command cmd);
 	Result_e run();
 

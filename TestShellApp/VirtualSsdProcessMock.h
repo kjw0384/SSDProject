@@ -4,12 +4,8 @@
 
 class VirtualSsdProcessMock : public VirtualSsdProcessInterface {
 public:
-	virtual Result_e sendReadIpc() {
-
-	}
-
-	virtual Result_e sendWriteIpc() {
-	}
+	MOCK_METHOD(Result_e, sendReadIpc, (const int address), (override));
+	MOCK_METHOD(Result_e, sendWriteIpc, (const int address, const string data), (override));
 
 private:
 };

@@ -15,4 +15,6 @@ TEST(TestShellTestSuite, ReadIO) {
     EXPECT_CALL(mockReadIO, GetReadResult)
         .Times(AtLeast(1))
         .WillRepeatedly(Return("0x12345678"));
+
+    EXPECT_EQ(mockReadIO.GetReadResult(), "0x12345678");
 }
