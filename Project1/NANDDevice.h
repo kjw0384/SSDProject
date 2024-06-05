@@ -1,17 +1,17 @@
 #pragma once
-
 #include <iostream>
+#include <vector>
 #include <string>
+#include "FileManager.h"
 
 using namespace std;
 
 class NANDDevice {
 public:
-    virtual void read(const int address) {
-        cout << "Reading from LBA: " << address << endl;
-    }
+    NANDDevice();
+    virtual void read(const int address);
+    virtual void write(const int address, const string& data);
 
-    virtual void write(const int address, const string& data) {
-        cout << "Writing data to LBA: " << address << endl;
-    }
+private:
+    FileManager& fileManager;
 };
