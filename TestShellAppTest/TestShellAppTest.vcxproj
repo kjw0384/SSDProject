@@ -59,6 +59,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -100,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="..\packages\gmock.1.11.0\lib\native\src\gmock\src\gmock_main.cc" />
     <ClCompile Include="ReadIOTest.cpp" />
+    <ClCompile Include="ResultFileReaderTest.cpp" />
     <ClCompile Include="TestScriptRunnerTest.cpp" />
     <ClCompile Include="TestScriptParserTest.cpp" />
     <ClCompile Include="TestScriptValidCheckerTest.cpp" />
