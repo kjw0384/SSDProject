@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "../TestShellApp/FileIO.h"
+#include "../TestShellApp/ReadIOInterface.h"
 
 using namespace testing;
 
