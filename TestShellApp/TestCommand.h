@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+using namespace std;
+
 typedef std::string cmdType_t;
 typedef int Index_t;
 typedef std::string value_t;

@@ -2,6 +2,14 @@
 #include "gmock/gmock.h"
 
 #include "../TestShellApp/TestRunner.cpp"
+#include "../TestShellApp/VirtualSsdProcessInterface.h"
+
+class VirtualSsdProcessMock : public VirtualSsdProcessInterface {
+public:
+	MOCK_METHOD(Result_e, sendReadIpc, (const int address), (override));
+	MOCK_METHOD(Result_e, sendWriteIpc, (const int address, const string data), (override));
+private:
+};
 
 class TestRunnerFixture : public ::testing::Test {
 public:
@@ -9,7 +17,7 @@ public:
 		m_command = {"READ", 23, "0x77777777"};
 	}
 
-	TestRunner m_testRunner;
+	TestRunner m_testRunner {nullptr, nullptr} ;
 	Command m_command; 
 };
 
