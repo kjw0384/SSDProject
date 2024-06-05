@@ -1,12 +1,15 @@
 #include "NANDDevice.h"
 
+NANDDevice::NANDDevice() : fileManager(FileManager::getInstance()) {
+    fileManager.setFilePath();
+}
+
 void NANDDevice::read(const int address) {
     FileManager& fileManager = FileManager::getInstance();
     fileManager.setFilePath();
 
     vector<string> getData = fileManager.readFromNand();
     fileManager.writeToResult(getData[address]);
-    cout << "Read from LBA: " << address << ", value: " << getData[address] << endl;
 }
 
 void NANDDevice::write(const int address, const string& data) {
@@ -16,5 +19,4 @@ void NANDDevice::write(const int address, const string& data) {
     vector<string> setData = fileManager.readFromNand();
     setData[address] = data;
     fileManager.writeToNand(setData);
-    cout << "Write to LBA: " << address << ", value: " << setData[address] << endl;
 }
