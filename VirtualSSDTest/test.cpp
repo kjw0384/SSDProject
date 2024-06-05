@@ -5,6 +5,7 @@
 #include "../Project1/ReadCommand.cpp"
 #include "../Project1/WriteCommand.cpp"
 #include "../Project1/FileManager.cpp"
+#include "../Project1/NANDDevice.cpp"
 
 using namespace std;
 using namespace testing;
