@@ -11,7 +11,6 @@ Result_e TestScriptRunner::inputCmd(Command cmd) {
 }
 
 Result_e TestScriptRunner::run() {
-	//for (TestVector_t::iterator vectIt = m_TestVector.begin(); vectIt != m_TestVector.end(); ++vectIt) {
 	for (Command cmdVectIt : m_TestCommandVector){
 		if (callSsdProcess(cmdVectIt) == Result_e::FAIL) return Result_e::FAIL;
 	}

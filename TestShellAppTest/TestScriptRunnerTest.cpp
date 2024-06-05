@@ -3,14 +3,9 @@
 
 #include "../TestShellApp/TestScriptRunner.cpp"
 #include "../TestShellApp/VirtualSsdProcessInterface.h"
+#include "../TestShellApp/VirtualSsdProcessMock.h"
 
-class VirtualSsdProcessMock : public VirtualSsdProcessInterface {
-public:
-	MOCK_METHOD(Result_e, sendReadIpc, (const int address), (override));
-	MOCK_METHOD(Result_e, sendWriteIpc, (const int address, const string data), (override));
-
-private:
-};
+using namespace testing;
 
 //TODO: check mock redundancy of MocReadIO class (duplicated to TestReadIOTest.cpp)
 class MockReadIO : public ReadIOInterface {
@@ -28,12 +23,23 @@ public:
 
 TEST_F(TestRunnerFixture, InputCmd) {
 	Command testCmd = { "READ", 23, "0x77777777" };
-	//TODO: check if m_testRunner contins command
 	EXPECT_EQ(m_testRunner.inputCmd(testCmd), Result_e::SUCCESS);
 }
 
-TEST_F(TestRunnerFixture, RunTest) {
+TEST(VirtualSsdProcMock, RunTest) {
+	VirtualSsdProcessMock mockVirtualSSDproc; 
+	MockReadIO mockReadIO;
+
+	EXPECT_CALL(mockVirtualSSDproc, sendReadIpc)
+		.Times(1)
+		.WillOnce(Return(Result_e::SUCCESS));
+
+	EXPECT_CALL(mockReadIO, GetReadResult)
+		.Times(1)
+		.WillOnce(Return("0x77777777"));	
+
 	Command testCmd = { "READ", 23, "0x77777777" };
-	m_testRunner.inputCmd(testCmd);
-	EXPECT_EQ(m_testRunner.run(), Result_e::SUCCESS);
+	TestScriptRunner testRunner(&mockVirtualSSDproc, &mockReadIO);
+	testRunner.inputCmd(testCmd);
+	EXPECT_EQ(testRunner.run(), Result_e::SUCCESS);
 }
