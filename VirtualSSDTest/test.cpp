@@ -32,7 +32,10 @@ public:
 	
 	void initData(vector<string>& exp)
 	{
-		for (int addr = 0; addr < 100; addr++)
+		const int START_LBA = 0;
+		const int END_LBA = 100;
+
+		for (int addr = START_LBA; addr < END_LBA; addr++)
 		{
 			exp.push_back("0x00000000");
 		}
