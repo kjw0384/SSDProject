@@ -137,7 +137,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ShellStringParser.cpp" />
     <ClCompile Include="ReadCommand.cpp" />
-    <ClCompile Include="SSDDevice.cpp" />
+    <ClCompile Include="NANDDevice.cpp" />
     <ClCompile Include="WriteCommand.cpp" />
   </ItemGroup>
   <ItemGroup>

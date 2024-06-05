@@ -7,13 +7,8 @@ using namespace std;
 
 class VirtaulSsdProcess : public VirtualSsdProcessInterface {
 public:
-	virtual Result_e sendReadIpc() {
-		cout << "sendReadIpc is not implemented" << endl;
-	}
-
-	virtual Result_e sendWriteIpc() {
-		cout << "sendWriteIpc is not implemented" << endl;
-	}
+	Result_e sendReadIpc(const int address);
+	Result_e sendWriteIpc(const int address, const string data);
 
 private:
 
