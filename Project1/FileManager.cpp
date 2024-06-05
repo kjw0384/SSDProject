@@ -29,7 +29,7 @@ void FileManager::writeToNand(vector<string> dataBuf)
 	ofstream file(NAND_FILE);
 	if (!file.is_open())
 	{
-		cout << "Nand.txt file open fail" << endl;  //todo : exception 贸府?
+		cout << "Nand.txt file open fail" << endl;  //todo : exception?
 		return;
 	}
 
@@ -64,7 +64,7 @@ void FileManager::writeToResult(string data)
 	ofstream file(RESULT_FILE);
 	if (!file.is_open())
 	{
-		cout << "Nand.txt file open fail" << endl;  //todo : exception 贸府?
+		cout << "Nand.txt file open fail" << endl;  //todo : exception?
 		return;
 	}
 

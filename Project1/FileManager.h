@@ -9,7 +9,7 @@ const string NAND_FILE = "./Result/nand.txt";
 const string RESULT_FILE = "./Result/result.txt";
 const string DEFAULT_DATA = "0x00000000";
 const int START_LBA = 0;
-const int END_LBA = 99;
+const int END_LBA = 100;
 
 
 class FileManager{
