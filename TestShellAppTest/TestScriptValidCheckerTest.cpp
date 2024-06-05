@@ -17,7 +17,7 @@ class InvalidCommandValidationTest : public ::testing::TestWithParam<std::string
 INSTANTIATE_TEST_CASE_P(InvalidCommandStrings,
     InvalidCommandValidationTest,
     ::testing::Values(
-        "write 3", "read 3 0xAAAABBBB", "exit 3",
+        "write 3", "read 3 0xAAAABBBB", "read 333", "exit 3",
         "helpp", "fullwrite 3", "fullread 0xAAAABBBB"
     ));
 
