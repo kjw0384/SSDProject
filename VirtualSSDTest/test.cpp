@@ -13,34 +13,49 @@ using namespace testing;
 class ShellExecuteFixture : public testing::Test {
 public:
 	ShellStringParser parser;
-	void checkErrorCode(string inputStr, ShellStringParserError errorCode) {
-		ShellStringParserError errorResult = parser.validCheck(inputStr);
+	void checkErrorCode(vector<string> inputCmdVec, ShellStringParserError errorCode) {
+		ShellStringParserError errorResult = parser.validCheck(inputCmdVec);
 		EXPECT_EQ(errorResult, errorCode) << "Error Return Fail " << endl;
 	}
 };
 
 TEST_F(ShellExecuteFixture, NoCommandExecute) {
-	checkErrorCode("", ShellStringParserError::CMD_EMPTY);
+	checkErrorCode({}, ShellStringParserError::CMD_EMPTY);
 }
 
 TEST_F(ShellExecuteFixture, CommandNotFound) {
-	checkErrorCode("ADF 1 0x59261655", ShellStringParserError::CMD_NOT_FOUND);
+	checkErrorCode({ "ADF", "1", "0x59261655" }, ShellStringParserError::CMD_NOT_FOUND);
 }
 
 TEST_F(ShellExecuteFixture, WriteArgumentCountError) {
-	checkErrorCode("W 1 0x59261655 E", ShellStringParserError::CMD_ARGC_ERROR);
+	checkErrorCode({ "W", "1", "0x59261655", "E" }, ShellStringParserError::CMD_ARGC_ERROR);
 }
 
 TEST_F(ShellExecuteFixture, WriteArgumentsFormatError) {
-	checkErrorCode("W qfe5 0x59261655", ShellStringParserError::CMD_ARGV_ERROR);
-	checkErrorCode("W 1 0X59261655", ShellStringParserError::CMD_ARGV_ERROR);
-	checkErrorCode("W 1 0", ShellStringParserError::CMD_ARGV_ERROR);
+	checkErrorCode({ "W", "qfe5", "0x59261655" }, ShellStringParserError::CMD_ARGV_ERROR);
+	checkErrorCode({ "W", "1", "0X59261655" }, ShellStringParserError::CMD_ARGV_ERROR);
+	checkErrorCode({ "W", "1", "0" }, ShellStringParserError::CMD_ARGV_ERROR);
 }
 
 TEST_F(ShellExecuteFixture, WriteArgumentsLBAError) {
-	checkErrorCode("W -1 0x59261655", ShellStringParserError::CMD_ARGV_ERROR);
-	checkErrorCode("W 999 0x59261655", ShellStringParserError::CMD_ARGV_ERROR);
+	checkErrorCode({ "W", "-1", "0x59261655" }, ShellStringParserError::CMD_ARGV_ERROR);
+	checkErrorCode({ "W", "999", "0x59261655" }, ShellStringParserError::CMD_ARGV_ERROR);
 }
+
+TEST_F(ShellExecuteFixture, ReadArgumentCountError) {
+	checkErrorCode({ "R", "1", "0x59261655" }, ShellStringParserError::CMD_ARGC_ERROR);
+	checkErrorCode({ "R" }, ShellStringParserError::CMD_ARGC_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, ReadArgumentsFormatError) {
+	checkErrorCode({ "R", "qfe5" }, ShellStringParserError::CMD_ARGV_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, ReadArgumentsLBAError) {
+	checkErrorCode({ "R", "-1" }, ShellStringParserError::CMD_ARGV_ERROR);
+	checkErrorCode({ "R", "999" }, ShellStringParserError::CMD_ARGV_ERROR);
+}
+
 
 
 class DataBufferFixture : public testing::Test
