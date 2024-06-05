@@ -9,6 +9,10 @@ using std::vector;
 
 class TestScriptParserFixture : public testing::Test {
 public:
+    TestScriptParserFixture() {
+        parser = new TestScriptParser();
+    }
+
     const int TYPE_ONLY_SIZE = 1;
     const int TYPE_AND_INDEX_SIZE = 2;
     const int TYPE_INDEX_AND_VALUE_SIZE = 3;
@@ -58,6 +62,5 @@ TEST_F(TestScriptParserFixture, getTestCmdSuccess) {
 }
 
 TEST_F(TestScriptParserFixture, getTestCmdFailed) {
-    parser = new TestScriptParser();
     EXPECT_THROW(parser->getTestCmd(), std::exception);
 }
