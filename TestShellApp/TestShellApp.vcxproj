@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="VirtualSsdProcessMock.h" />
     <ClInclude Include="TestScriptValidChecker.h" />
+    <ClInclude Include="FileIO.h" />
     <ClInclude Include="TestShellCommon.h" />
     <ClInclude Include="VirtualSsdProcess.h" />
     <ClInclude Include="VirtualSsdProcessInterface.h" />
