@@ -38,11 +38,8 @@
     <ClInclude Include="TestShellCommon.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TestScriptParser.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScriptValidChecker.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="FileIO.h">
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

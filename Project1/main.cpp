@@ -1,22 +1,35 @@
-int main(void) {
-
-}
+#include <memory>
+#include <iostream>1
+#include <vector>
 
 #include "Invoker.h"
 #include "NANDDevice.h"
 #include "ReadCommand.h"
 #include "WriteCommand.h"
-#include <memory>
-/*
-int main() {
+#include "ShellStringParser.h"
+
+int main(int argc, char* argv[]) {
+    vector<string> arguments;
+    for (int i = 1; i < argc; i++)
+    {
+        arguments.push_back(argv[i]);
+    }
+    ShellStringParser parser;
+    parser.validCheck(arguments);
+
+    string command = argv[1];
+    int adress = stoi(argv[2]);
+
     NANDDevice device;
-
     Invoker invoker;
-    invoker.setCommand(new ReadCommand(&device, 1));
-    invoker.executeCommand();
 
-    invoker.setCommand(new WriteCommand(&device, 2, "0xAAAAAAAA"));
-    invoker.executeCommand();
-
-    return 0;
-}*/
+    if (command == "R") {
+        invoker.setCommand(new ReadCommand(&device, adress));
+        invoker.executeCommand();
+    }
+    if (command == "W") {
+        string data = argv[3];
+        invoker.setCommand(new WriteCommand(&device, adress, data));
+        invoker.executeCommand();
+    }
+}
