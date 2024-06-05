@@ -19,6 +19,7 @@ int main(int argc, char* argv[]) {
 
     string command = argv[1];
     int adress = stoi(argv[2]);
+    string data = argv[3];
 
     NANDDevice device;
     Invoker invoker;
@@ -28,7 +29,6 @@ int main(int argc, char* argv[]) {
         invoker.executeCommand();
     }
     if (command == "W") {
-        string data = argv[3];
         invoker.setCommand(new WriteCommand(&device, adress, data));
         invoker.executeCommand();
     }
