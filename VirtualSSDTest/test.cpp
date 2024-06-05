@@ -81,15 +81,8 @@ class FileManagerFixture : public testing::Test {
 public:
 	FileManager& fileManager = FileManager::getInstance();
 	
-	void initData(vector<string>& exp)
+	void initData()
 	{
-		const int START_LBA = 0;
-		const int END_LBA = 100;
-
-		for (int addr = START_LBA; addr < END_LBA; addr++)
-		{
-			exp.push_back("0x00000000");
-		}
 		fileManager.setFilePath();
 	}
 };
@@ -126,14 +119,16 @@ TEST_F(CommandTestFixture, Write) {
 
 
 TEST_F(FileManagerFixture, WriteNandAndResult) {
-	string exp = "0x22222222";
+	initData();
 
-	vector<string> ret = fileManager.readFromNand();
-	ret[0] = exp;
+	int addr = 1;
+	vector<string> ret =  fileManager.readFromNand();
+	ret[addr] = "0x22222222";
 	fileManager.writeToNand(ret);
 
 	vector<string> ret2 = fileManager.readFromNand();
-	fileManager.writeToResult(ret2[0]);
-	EXPECT_EQ(ret2[0], exp);
+	fileManager.writeToResult(ret2[addr]);
+
+	EXPECT_EQ(ret2, ret);
 }
 
