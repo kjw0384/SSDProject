@@ -10,6 +10,7 @@ ShellStringParserError ShellStringParser::validCheck(vector<string> inputCmdVec)
 	{
 		return ShellStringParserError::CMD_NOT_FOUND;
 	}
+
 	if (inputCmdVec[0] == "W")
 	{
 		if (inputCmdVec.size() != 3)
@@ -20,6 +21,15 @@ ShellStringParserError ShellStringParser::validCheck(vector<string> inputCmdVec)
 
 		if (isNotValue(inputCmdVec[2]))
 			return ShellStringParserError::CMD_ARGV_ERROR;
+	}
+	if (inputCmdVec[0] == "R")
+	{
+		if (inputCmdVec.size() != 2)
+			return ShellStringParserError::CMD_ARGC_ERROR;
+
+		if (isNotLBA(inputCmdVec[1]))
+			return ShellStringParserError::CMD_ARGV_ERROR;
+
 	}
 
 	return ShellStringParserError::NO_ERROR;

@@ -41,6 +41,21 @@ TEST_F(ShellExecuteFixture, WriteArgumentsLBAError) {
 	checkErrorCode({ "W", "999", "0x59261655" }, ShellStringParserError::CMD_ARGV_ERROR);
 }
 
+TEST_F(ShellExecuteFixture, ReadArgumentCountError) {
+	checkErrorCode({ "R", "1", "0x59261655"}, ShellStringParserError::CMD_ARGC_ERROR);
+	checkErrorCode({ "R" }, ShellStringParserError::CMD_ARGC_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, ReadArgumentsFormatError) {
+	checkErrorCode({ "R", "qfe5" }, ShellStringParserError::CMD_ARGV_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, ReadArgumentsLBAError) {
+	checkErrorCode({ "R", "-1" }, ShellStringParserError::CMD_ARGV_ERROR);
+	checkErrorCode({ "R", "999" }, ShellStringParserError::CMD_ARGV_ERROR);
+}
+
+
 
 class DataBufferFixture : public testing::Test
 {
