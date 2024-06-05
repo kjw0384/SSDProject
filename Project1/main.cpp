@@ -1,12 +1,23 @@
-int main(void) {
-
-}
+#include <memory>
+#include <iostream>1
+#include <vector>
 
 #include "Invoker.h"
 #include "NANDDevice.h"
 #include "ReadCommand.h"
 #include "WriteCommand.h"
-#include <memory>
+#include "ShellStringParser.h"
+
+int main(int argc, char* argv[]) {
+    vector<string> arguments;
+    for (int i = 1; i < argc; i++)
+    {
+        arguments.push_back(argv[i]);
+    }
+    ShellStringParser parser;
+    parser.validCheck(arguments);
+}
+
 /*
 int main() {
     NANDDevice device;
