@@ -5,7 +5,7 @@ string ResultFileReader::GetReadResult() {
 	ifstream resultFileStream(RESULT_FILE);
 
 	if (resultFileStream.is_open() != true) {
-		cout << "Nand.txt file open fail" << endl;  //todo : exception?
+		cout << "result.txt file open fail" << endl;  //todo : exception?
 		return "";
 	}
 
