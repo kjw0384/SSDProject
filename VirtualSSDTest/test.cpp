@@ -74,13 +74,13 @@ TEST_F(CommandTestFixture, Write) {
 }
 
 TEST_F(FileManagerFixture, WriteNandAndResult) {
-	vector<string> exp;
-	initData(exp);
+	string exp = "0x22222222";
 
-	exp[0] = "0xAA55AA55";
-
-	fileManager.writeToNand(exp);
 	vector<string> ret = fileManager.readFromNand();
-	fileManager.writeToResult(ret[0]);
-	EXPECT_EQ(ret, exp);
+	ret[0] = exp;
+	fileManager.writeToNand(ret);
+
+	vector<string> ret2 = fileManager.readFromNand();
+	fileManager.writeToResult(ret2[0]);
+	EXPECT_EQ(ret2[0], exp);
 }

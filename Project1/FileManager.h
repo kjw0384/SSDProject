@@ -5,8 +5,8 @@
 using namespace std;
 
 const string DATA_DIR = "./Result";
-const string NAND_FILE = "./Result/nand.txt";
-const string RESULT_FILE = "./Result/result.txt";
+const string NAND_FILE = DATA_DIR + "/nand.txt";
+const string RESULT_FILE = DATA_DIR + "/result.txt";
 const string DEFAULT_DATA = "0x00000000";
 const int START_LBA = 0;
 const int END_LBA = 100;
