@@ -21,6 +21,5 @@ public:
 private:
 	bool isNotLBA(string strLBA);
 	bool isNotValue(string strValue);
-	vector<string> split(string inputCmd);
 };
 
