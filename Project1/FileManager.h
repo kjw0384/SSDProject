@@ -11,7 +11,6 @@ const string DEFAULT_DATA = "0x00000000";
 const int START_LBA = 0;
 const int END_LBA = 100;
 
-
 class FileManager{
 public:
 	static FileManager& getInstance()
@@ -27,10 +26,8 @@ public:
 
 private:
 	FileManager() {}
-	//string NAND_Path;
-	//string RESULT_Path;
+	vector<string> Files = { NAND_FILE , RESULT_FILE };
 
 	void getNandData(ifstream& file, vector<string>& ret);
-	void initNandData(vector<string>& ret);
 	void createOutputFiles();
 };

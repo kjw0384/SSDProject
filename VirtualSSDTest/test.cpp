@@ -32,7 +32,7 @@ public:
 	
 	void initData(vector<string>& exp)
 	{
-		for (int addr = 0; addr < 99; addr++)
+		for (int addr = 0; addr < 100; addr++)
 		{
 			exp.push_back("0x00000000");
 		}

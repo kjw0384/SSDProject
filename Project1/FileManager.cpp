@@ -1,6 +1,5 @@
 #include <string>
 #include <vector>
-#include <deque>
 #include <filesystem>
 #include <iostream>
 #include <fstream>
@@ -12,9 +11,7 @@ using namespace std;
 vector<string> FileManager::readFromNand()
 {
 	ifstream file(NAND_FILE);
-	vector<string> ret;
-
-	initNandData(ret);
+	vector ret(END_LBA, DEFAULT_DATA);
 
 	if (!file.is_open())  return ret;
 
@@ -39,14 +36,6 @@ void FileManager::writeToNand(vector<string> dataBuf)
 	};
 
 	file.close();
-}
-
-void FileManager::initNandData(vector<string>& ret)
-{
-	for (int addr = START_LBA; addr < END_LBA; addr++)
-	{
-		ret.push_back(DEFAULT_DATA);
-	}
 }
 
 void FileManager::getNandData(ifstream& file, vector<string>& ret)
@@ -74,30 +63,19 @@ void FileManager::writeToResult(string data)
 
 void FileManager::createOutputFiles()
 {
-	//std::filesystem::path filePath(NAND_FILE);
-	if (std::filesystem::exists(NAND_FILE) == false)
+	for (string target : Files)
 	{
-		ofstream file(NAND_FILE);
-		if (file)
+		if (std::filesystem::exists(target) == false)
 		{
-			file.close();
-		}
-		else
-		{
-			cout << "NAND File Open Error" << endl;
-		}
-	}
-
-	if (std::filesystem::exists(RESULT_FILE) == false)
-	{
-		ofstream file(RESULT_FILE);
-		if (file)
-		{
-			file.close();
-		}
-		else
-		{
-			cout << "RESULT File Open Error" << endl;
+			ofstream file(target);
+			if (file)
+			{
+				file.close();
+			}
+			else
+			{
+				cout << "File Open Error" << endl;
+			}
 		}
 	}
 }
