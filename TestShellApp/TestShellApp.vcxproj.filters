@@ -38,9 +38,6 @@
     <ClInclude Include="TestShellCommon.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ReadIOInterface.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="VirtualSsdProcess.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -54,7 +51,10 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="TestScriptValidChecker.h">
-      <Filter>소스 파일</Filter>
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadIOInterface.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
