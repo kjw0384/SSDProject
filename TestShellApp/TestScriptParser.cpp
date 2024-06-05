@@ -4,17 +4,6 @@
 #include <sstream>
 #include <stdexcept>
 
-vector<string> TestScriptParser::splitTestScript(const string & testScript) {
-    vector<string> scriptTokens;
-    std::istringstream ss(testScript);
-    string token;
-
-    while (ss >> token) {
-        scriptTokens.push_back(token);
-    }
-    return scriptTokens;
-}
-
 Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
     Command cmd;
     if (scriptTokens.size() > 0) {
@@ -29,21 +18,24 @@ Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
     return cmd;
 }
 
-Result_e TestScriptParser::executeParse(const string& testScript) {
+Result_e TestScriptParser::executeParse(vector<string> arguments) {
+
+    string testScript="";
+    for (int i = 0; i < arguments.size(); ++i) {
+        testScript += arguments[i];
+        testScript += " ";
+        if (i == arguments.size() - 1) testScript.pop_back();
+    }
 
     if (checker.isValidCommand(testScript) == false) {
         return Result_e::FAIL;
     }
 
-    vector<string> scriptTokens = splitTestScript((testScript));
-    testCmd = parseTestScript(scriptTokens);
+    testCmd = parseTestScript(arguments);
 
     return Result_e::SUCCESS;
 }
 
 Command TestScriptParser::getTestCmd() {
-    if (testCmd.type.empty()) {
-        throw std::exception();
-    }
     return testCmd;
 }

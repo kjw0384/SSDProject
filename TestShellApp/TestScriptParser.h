@@ -13,9 +13,8 @@ using std::vector;
 class TestScriptParser {
 public:
    
-    vector<string> splitTestScript(const string& testScript);
     Command parseTestScript(vector<string> scriptTokens);
-    Result_e executeParse(const string& testScript);
+    Result_e executeParse(vector<string> arguments);
     Command getTestCmd();
 
 private:
