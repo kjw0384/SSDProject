@@ -5,6 +5,7 @@
 #include "../Project1/DataBuffer.cpp"
 #include "../Project1/ReadCommand.cpp"
 #include "../Project1/WriteCommand.cpp"
+#include "../Project1/FileManager.cpp"
 
 using namespace std;
 using namespace testing;
@@ -61,6 +62,23 @@ public:
 	const string data = "0x12345678";
 };
 
+class FileManagerFixture : public testing::Test {
+public:
+	FileManager& fileManager = FileManager::getInstance();
+	
+	void initData(vector<string>& exp)
+	{
+		const int START_LBA = 0;
+		const int END_LBA = 100;
+
+		for (int addr = START_LBA; addr < END_LBA; addr++)
+		{
+			exp.push_back("0x00000000");
+		}
+		fileManager.setFilePath();
+	}
+};
+
 TEST_F(DataBufferFixture, DataBufferReadEmptyTest) {
 	unsigned int data = 0;
 	bool ret = dataBuffer.readCacheData(10, &data);
@@ -89,5 +107,18 @@ TEST_F(CommandTestFixture, Write) {
 
 	WriteCommand writeCmd(&mockDevice, address, data);
 	writeCmd.execute();
+}
+
+
+TEST_F(FileManagerFixture, WriteNandAndResult) {
+	string exp = "0x22222222";
+
+	vector<string> ret = fileManager.readFromNand();
+	ret[0] = exp;
+	fileManager.writeToNand(ret);
+
+	vector<string> ret2 = fileManager.readFromNand();
+	fileManager.writeToResult(ret2[0]);
+	EXPECT_EQ(ret2[0], exp);
 }
 
