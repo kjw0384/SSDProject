@@ -41,6 +41,30 @@ TEST_F(ShellExecuteFixture, WriteArgumentsLBAError) {
 	checkErrorCode({ "W", "999", "0x59261655" }, ShellStringParserError::CMD_ARGV_ERROR);
 }
 
+TEST_F(ShellExecuteFixture, WriteNormal) {
+	checkErrorCode({ "W", "99", "0x00000000" }, ShellStringParserError::NO_ERROR);
+	checkErrorCode({ "W", "0", "0x0FBD6F80" }, ShellStringParserError::NO_ERROR);
+	checkErrorCode({ "W", "35", "0x1234ABCD" }, ShellStringParserError::NO_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, ReadArgumentCountError) {
+	checkErrorCode({ "R", "1", "0x59261655"}, ShellStringParserError::CMD_ARGC_ERROR);
+	checkErrorCode({ "R" }, ShellStringParserError::CMD_ARGC_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, ReadArgumentsFormatError) {
+	checkErrorCode({ "R", "qfe5" }, ShellStringParserError::CMD_ARGV_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, ReadArgumentsLBAError) {
+	checkErrorCode({ "R", "-1" }, ShellStringParserError::CMD_ARGV_ERROR);
+	checkErrorCode({ "R", "999" }, ShellStringParserError::CMD_ARGV_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, ReadNormal) {
+	checkErrorCode({ "R", "0" }, ShellStringParserError::NO_ERROR);
+	checkErrorCode({ "R", "12" }, ShellStringParserError::NO_ERROR);
+}
 
 class DataBufferFixture : public testing::Test
 {
