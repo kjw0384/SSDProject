@@ -1,7 +1,18 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
+#include "../TestShellApp/FileIO.h"
 
-TEST(TestCaseName, TestName) {
-	EXPECT_EQ(1, 1);
-	EXPECT_TRUE(true);
+using namespace testing;
+
+class MockReadIO : public ReadIOInterface {
+public:
+    MOCK_METHOD(string, GetReadResult, (), (override));
+};
+
+TEST(TestShellTestSuite, ReadIO) {
+    MockReadIO mockReadIO;
+
+    EXPECT_CALL(mockReadIO, GetReadResult)
+        .Times(AtLeast(1))
+        .WillRepeatedly(Return("0x12345678"));
 }

@@ -132,6 +132,7 @@
     <ClCompile Include="DataBuffer.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShellStringParser.cpp" />
     <ClCompile Include="ReadCommand.cpp" />
     <ClCompile Include="SSDDevice.cpp" />
     <ClCompile Include="WriteCommand.cpp" />

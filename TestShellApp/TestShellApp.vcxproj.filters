@@ -18,5 +18,43 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="TestRunner.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestRunner.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCommand.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScriptValidChecker.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadIOinterface.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadIOinterface.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TestShellCommon.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScriptValidChecker.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualSsdProcessInterface.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualSsdProcess.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualSsdProcessMock.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
