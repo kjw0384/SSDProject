@@ -23,11 +23,11 @@ int main(int argc, char* argv[]) {
     NANDDevice device;
     Invoker invoker;
 
-    if (command == "R") {
+    if (command == "R" || command == "r") {
         invoker.setCommand(new ReadCommand(&device, adress));
         invoker.executeCommand();
     }
-    if (command == "W") {
+    if (command == "W" || command == "w") {
         string data = argv[3];
         invoker.setCommand(new WriteCommand(&device, adress, data));
         invoker.executeCommand();
