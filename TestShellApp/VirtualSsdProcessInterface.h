@@ -1,6 +1,8 @@
 #pragma once
-
+#include <string>
 #include "TestShellCommon.h"
+
+using std::string;
 
 class VirtualSsdProcessInterface {
 public:
