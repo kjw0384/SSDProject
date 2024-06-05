@@ -11,8 +11,8 @@ string ResultFileReader::GetReadResult() {
 
 	string Result = getResultData(resultFileStream);
 	resultFileStream.close();
-	//return Result; temp return till result file format
-	return "0x12345678";
+
+	return Result;
 }
 
 string ResultFileReader::getResultData(ifstream& rInputStream) {
