@@ -128,13 +128,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="TestCommand.h" />
-    <ClCompile Include="TestRunner.h" />
+    <ClCompile Include="TestScriptRunner.h" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TestRunner.cpp" />
+    <ClCompile Include="TestScriptRunner.cpp" />
+    <ClCompile Include="TestScriptParser.cpp" />
+    <ClCompile Include="TestScriptValidChecker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReadIOInterface.h" />
+    <ClInclude Include="TestScriptParser.h" />
+    <ClInclude Include="TestScriptValidChecker.h" />
     <ClInclude Include="TestShellCommon.h" />
+    <ClInclude Include="VirtualSsdProcess.h" />
+    <ClInclude Include="VirtualSsdProcessInterface.h" />
+    <ClInclude Include="VirtualSsdProcessMock.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

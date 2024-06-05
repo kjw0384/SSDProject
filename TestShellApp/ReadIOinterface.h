@@ -14,6 +14,6 @@ public:
 class FileReadIO : public ReadIOInterface {
 public:
     virtual string GetReadResult() {
-
+        return "NULL";
     }
 };

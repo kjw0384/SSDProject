@@ -18,14 +18,20 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TestRunner.cpp">
+    <ClCompile Include="TestScriptRunner.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TestRunner.h">
+    <ClCompile Include="TestScriptRunner.h">
       <Filter>헤더 파일</Filter>
     </ClCompile>
     <ClCompile Include="TestCommand.h">
       <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScriptParser.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScriptValidChecker.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +39,21 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ReadIOInterface.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualSsdProcess.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualSsdProcessInterface.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualSsdProcessMock.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScriptParser.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScriptValidChecker.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
