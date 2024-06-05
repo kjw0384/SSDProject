@@ -36,6 +36,7 @@ public:
 		{
 			exp.push_back("0x00000000");
 		}
+		fileManager.setFilePath();
 	}
 };
 
