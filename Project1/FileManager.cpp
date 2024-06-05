@@ -33,7 +33,7 @@ void FileManager::writeToNand(vector<string> dataBuf)
 	for (string data : dataBuf)
 	{
 		file << data << endl;
-	};
+	}
 
 	file.close();
 }
@@ -87,6 +87,10 @@ void FileManager::setFilePath()
 		if (_mkdir(DATA_DIR.c_str()) == 0)
 		{
 			createOutputFiles();
+		}
+		else
+		{
+			cout << "Result Dir Make Fail" << endl;
 		}
 	}
 	else
