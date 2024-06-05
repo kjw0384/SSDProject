@@ -8,8 +8,8 @@ using std::regex;
 
 bool TestScriptValidChecker::isValidCommand(string command) {
 	vector<regex> patterns = {
-		regex("^write +[0-9]+ +0x[0-9a-fA-F]{8}$"),
-		regex("^read +[0-9]$"),
+		regex("^write +[0-9]{1,2} +0[xX][0-9a-fA-F]{8}$"),
+		regex("^read +[0-9]{1,2}$"),
 		regex("^exit$"),
 		regex("^help$"),
 		regex("^fullwrite$"),
