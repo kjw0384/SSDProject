@@ -3,8 +3,9 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <cctype>
 
-vector<string> TestScriptParser::splitTestScript(const string & testScript) {
+vector<string> TestScriptParser::splitTestScript(const string& testScript) {
     vector<string> scriptTokens;
     std::istringstream ss(testScript);
     string token;
@@ -29,16 +30,33 @@ Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
     return cmd;
 }
 
-Result_e TestScriptParser::executeParse(const string& testScript) {
-
-    if (checker.isValidCommand(testScript) == false) {
-        return Result_e::FAIL;
+CommandType_e TestScriptParser::getCommandType(cmdType_t type) {
+    if (type == "exit") {
+        return CommandType_e::EXIT;
+    } 
+    if (type == "help") {
+        return CommandType_e::HELP;
     }
+    if (type == "read") {
+        return CommandType_e::READ;
+    }
+    if (type == "write") {
+        return CommandType_e::WRITE;
+    }
+    if (type == "fullread") {
+        return CommandType_e::FULLREAD;
+    }
+    if (type == "fullwrite") {
+        return CommandType_e::FULLWRITE;
+    }
+    return CommandType_e::EXIT;
+}
 
-    vector<string> scriptTokens = splitTestScript((testScript));
+CommandType_e TestScriptParser::executeParse(const string& testScript) {
+
+    vector<string> scriptTokens = splitTestScript(testScript);
     testCmd = parseTestScript(scriptTokens);
-
-    return Result_e::SUCCESS;
+    return getCommandType(testCmd.type);
 }
 
 Command TestScriptParser::getTestCmd() {

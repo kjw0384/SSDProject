@@ -53,12 +53,14 @@ TEST_F(TestScriptParserFixture, parseTestScript) {
 TEST_F(TestScriptParserFixture, getTestCmdSuccess) {
     parser = new TestScriptParser();
 
-    parser->executeParse("write 3 0xAAAABBBB");
+    string testScript = "write 3 0xAAAAFFFF";
+
+    parser->executeParse(testScript);
     Command cmd = parser->getTestCmd();
 
     EXPECT_EQ(cmd.type, "write");
     EXPECT_EQ(cmd.LBAIndexNum, 3);
-    EXPECT_EQ(cmd.value, "0xAAAABBBB");
+    EXPECT_EQ(cmd.value, "0xAAAAFFFF");
 }
 
 TEST_F(TestScriptParserFixture, getTestCmdFailed) {
