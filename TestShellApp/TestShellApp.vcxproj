@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CommandHandler.cpp" />
     <ClCompile Include="ResultFileReader.cpp" />
     <ClCompile Include="TestCommand.h" />
     <ClCompile Include="TestScriptRunner.h" />
@@ -138,6 +139,7 @@
     <ClCompile Include="VirtualSsdProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommandHandler.h" />
     <ClInclude Include="ReadIOInterface.h" />
     <ClInclude Include="ResultFileReader.h" />
     <ClInclude Include="TestScriptParser.h" />

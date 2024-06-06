@@ -3,6 +3,18 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <cctype>
+
+vector<string> TestScriptParser::splitTestScript(const string& testScript) {
+    vector<string> scriptTokens;
+    std::istringstream ss(testScript);
+    string token;
+
+    while (ss >> token) {
+        scriptTokens.push_back(token);
+    }
+    return scriptTokens;
+}
 
 Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
     Command cmd;
@@ -18,24 +30,38 @@ Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
     return cmd;
 }
 
-Result_e TestScriptParser::executeParse(vector<string> arguments) {
-
-    string testScript="";
-    for (int i = 0; i < arguments.size(); ++i) {
-        testScript += arguments[i];
-        testScript += " ";
-        if (i == arguments.size() - 1) testScript.pop_back();
+CommandType_e TestScriptParser::getCommandType(cmdType_t type) {
+    if (type == "exit") {
+        return CommandType_e::EXIT;
+    } 
+    if (type == "help") {
+        return CommandType_e::HELP;
     }
-
-    if (checker.isValidCommand(testScript) == false) {
-        return Result_e::FAIL;
+    if (type == "read") {
+        return CommandType_e::READ;
     }
+    if (type == "write") {
+        return CommandType_e::WRITE;
+    }
+    if (type == "fullread") {
+        return CommandType_e::FULLREAD;
+    }
+    if (type == "fullwrite") {
+        return CommandType_e::FULLWRITE;
+    }
+    return CommandType_e::EXIT;
+}
 
-    testCmd = parseTestScript(arguments);
+CommandType_e TestScriptParser::executeParse(const string& testScript) {
 
-    return Result_e::SUCCESS;
+    vector<string> scriptTokens = splitTestScript(testScript);
+    testCmd = parseTestScript(scriptTokens);
+    return getCommandType(testCmd.type);
 }
 
 Command TestScriptParser::getTestCmd() {
+    if (testCmd.type.empty()) {
+        throw std::exception();
+    }
     return testCmd;
 }
