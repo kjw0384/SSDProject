@@ -7,18 +7,19 @@
 #include "ResultFileReader.h"
 
 using std::vector;
+using std::cout;
 
-int main(int argc, char* argv[]) {
-
+static void RunMain() {
     CommandHandler& handler = CommandHandler::getCommandHandler();
-    
+
     while (true) {
         string testScript = "";
+        std::cout << "> ";
         std::getline(std::cin, testScript);
 
         Result_e result = handler.runCommand(testScript);
         if (result == Result_e::FAIL) {
-            std::cout << "INVALID COMMAND"<<std::endl;
+            std::cout << "INVALID COMMAND" << std::endl;
             continue;
         }
 
@@ -33,8 +34,16 @@ int main(int argc, char* argv[]) {
         TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
         runner->inputCmd(cmd);
 
-        std::cout << "Run..." << std::endl;
         runner->run();
     }
-    return 0;
+}
+
+int main(int argc, char* argv[]) {
+    try {
+        cout << "*** TestShellApp version 1.0 ***\n";
+        RunMain();
+    }
+    catch (const std::exception& e) {
+        cout << "EXCEPTION! : " << e.what() << std::endl;
+    }
 }

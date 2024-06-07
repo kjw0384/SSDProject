@@ -27,6 +27,9 @@ Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
     if (scriptTokens.size() > 2) {
         cmd.value = scriptTokens[2];
     }
+    if (cmd.type == "fullwrite") {
+        cmd.value = scriptTokens[1];
+    }
     return cmd;
 }
 
