@@ -14,3 +14,9 @@ void NANDDevice::write(const int address, const string& data) {
     setData[address] = data;
     fileManager.writeToNand(setData);
 }
+
+void NANDDevice::erase(const int address, const int size) {
+    for (int addr = address; addr < address + size; ++addr) {
+        write(addr, "0x00000000");
+    }
+}
