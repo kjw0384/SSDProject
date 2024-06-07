@@ -123,6 +123,7 @@ bool FileManager::readBufferData(int addr, string& data)
 
 	return dataBuffer.getData(addr, data);
 }
+
 bool FileManager::writeBufferData(int addr, string data)
 {
 	readFromBuffer();
@@ -167,4 +168,15 @@ void FileManager::writeToBuffer(map<int, string> dataBuf)
 map<int, string> FileManager::getBufferMemory()
 {
 	return dataBuffer.getBufferMemory();
+}
+
+void FileManager::initBufferFile()
+{
+	ofstream file(BUFFER_FILE);
+	if (!file.is_open())
+	{
+		cout << "Buffer.txt file open fail" << endl;  //todo : exception?
+		return;
+	}
+	file.close();
 }

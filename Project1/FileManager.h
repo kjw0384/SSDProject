@@ -29,6 +29,7 @@ public:
 	bool readBufferData(int addr, string& data);
 	bool writeBufferData(int addr, string data);
 	map<int, string> getBufferMemory();
+	void initBufferFile();
 
 private:
 	FileManager() : dataBuffer(DataBuffer::getInstance()) {};

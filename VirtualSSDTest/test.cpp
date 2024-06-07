@@ -91,5 +91,37 @@ TEST_F(FileManagerFixture, WriteBufferData) {
 	EXPECT_EQ(data, ret);
 }
 
+TEST_F(CommandFixture, BufferTest1) {
+	int adress = 10;
+	string data = "";
 
+	for (int i = 0; i < 6; i++)
+	{
+		invoker.setCommand(new WriteCommand(&device, adress, "0x00000001"));
+		invoker.executeCommand();
+	}
 
+	invoker.setCommand(new WriteCommand(&device, adress, "0x00000002"));
+	invoker.executeCommand();
+
+	invoker.setCommand(new ReadCommand(&device, adress));
+	invoker.executeCommand();
+}
+
+TEST_F(CommandFixture, FlushTest) {
+	int adress = 10;
+	string data = "";
+
+	for (int i = 0; i < 9; i++)
+	{
+		string data = "0x0000000A";
+		invoker.setCommand(new WriteCommand(&device, i, data));
+		invoker.executeCommand();
+	}
+
+	invoker.setCommand(new WriteCommand(&device, adress, "0x00000002"));
+	invoker.executeCommand();
+
+	invoker.setCommand(new ReadCommand(&device, adress));
+	invoker.executeCommand();
+}
