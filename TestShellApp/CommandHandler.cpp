@@ -2,14 +2,15 @@
 #include <iostream>
 #include "CommandHandler.h"
 #include "IScenario.h"
+#include "../TestScenario/TestScenario.h"
 
 Result_e CommandHandler::runCommand(const string& testScript) {
-
+    TestScenario testScenario;
     if (checker.isValidCommand(testScript) == false) {
-        if (checker.isValidScenario(testScript) == false) {
+        if (checker.isValidScenario(testScript, testScenario) == false) {
             return Result_e::FAIL;
         }
-        handleScenario(testScript);
+        handleScenario(testScript, testScenario);
         return Result_e::SUCCESS;
     }
 
@@ -46,17 +47,8 @@ void CommandHandler::handleHelp() {
     std::cout << "exit: Exit the program.\n";
 }
 
-static IScenario* getScenario(const string& testScenario) {
-    if (testScenario == "testapp1")
-        return new test1app();
-    else if (testScenario == "testapp2")
-        return new test2app();
-
-}
-
-void CommandHandler::handleScenario(const string& testScenario) {
-    std::cout << "Run Scenario " << testScenario << "\n";
+void CommandHandler::handleScenario(const string& testScenario, TestScenario& scenarioLib) {
     // Call DLL to get the scenario class
-    IScenario* scenario = getScenario(testScenario);
+    IScenario* scenario = scenarioLib.getScenario(testScenario);
     scenario->run();
 }

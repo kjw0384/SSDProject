@@ -10,17 +10,3 @@ public:
 	virtual ~IScenario() {}
 	virtual void run() = 0;
 };
-
-class test1app : public IScenario {
-public:
-	void run() override {
-		cout << "runScenario()\n";
-	}
-};
-
-class test2app : public IScenario {
-public:
-	void run() override {
-		cout << "runScenario()\n";
-	}
-};
