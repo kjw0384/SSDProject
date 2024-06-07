@@ -3,6 +3,7 @@
 #include "TestCommand.h"
 #include "TestScriptParser.h"
 #include "TestScriptValidChecker.h"
+#include "../TestScenario/TestScenario.h"
 
 class CommandHandler {
 public:
@@ -15,9 +16,7 @@ public:
 	Command getCommand();
 	void handleHelp();
 
-	// TO-DO 
-	//void handleFullread();
-	//void handleFullwrite();
+	void handleScenario(const string& testScenario, TestScenario& scenarioLib);
 
 private:
 	CommandHandler() {}
