@@ -129,7 +129,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestScriptDescriptor_ReadAndCompare.h" />
-    <ClCompile Include="TestScript.cpp" />
     <ClCompile Include="TestScriptDBAPI.cpp" />
     <ClCompile Include="TestScriptDataBase.cpp" />
     <ClCompile Include="TestScriptDataBase.h" />

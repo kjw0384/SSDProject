@@ -21,9 +21,6 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TestScript.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="TestScriptDBAPI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>

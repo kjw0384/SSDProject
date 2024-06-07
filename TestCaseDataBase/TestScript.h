@@ -9,7 +9,7 @@ struct Command {
 
 using namespace std;
 
-class TestScript {
+class TestScript { 
 public: 
 	string getName() {
 		return m_name;
