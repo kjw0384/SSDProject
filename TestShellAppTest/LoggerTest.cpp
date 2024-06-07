@@ -6,11 +6,12 @@ using namespace testing;
 
 
 TEST(LoggerTest, writeLog) {
-	if (filesystem::exists(LOG_FILE))
-		filesystem::remove(LOG_FILE);
-	Logger::writeLog("abcd");
-	ifstream file(LOG_FILE);
+	if (filesystem::exists(LOG_DIR))
+		filesystem::remove_all(LOG_DIR);
+	Logger::writeLog("abcd", __FUNCTION__);
+	ifstream file(LOG_FULL_PATH_NAME);
 	string data;
 	getline(file, data);
 	EXPECT_EQ(data, "abcd");
 }
+
