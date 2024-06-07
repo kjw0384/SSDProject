@@ -1,11 +1,17 @@
-#include "CommandHandler.h"
 #include <sstream>
 #include <iostream>
+#include "CommandHandler.h"
+#include "IScenario.h"
+#include "../TestScenario/TestScenario.h"
 
 Result_e CommandHandler::runCommand(const string& testScript) {
-
+    TestScenario testScenario;
     if (checker.isValidCommand(testScript) == false) {
-        return Result_e::FAIL;
+        if (checker.isValidScenario(testScript, testScenario) == false) {
+            return Result_e::FAIL;
+        }
+        handleScenario(testScript, testScenario);
+        return Result_e::SUCCESS;
     }
 
     CommandType_e commandType = parser.executeParse(testScript);
@@ -39,4 +45,10 @@ void CommandHandler::handleHelp() {
     std::cout << "fullread: Read data from LBA 0 to LBA 99.\n\n";
 
     std::cout << "exit: Exit the program.\n";
+}
+
+void CommandHandler::handleScenario(const string& testScenario, TestScenario& scenarioLib) {
+    // Call DLL to get the scenario class
+    IScenario* scenario = scenarioLib.getScenario(testScenario);
+    scenario->run();
 }
