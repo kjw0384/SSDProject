@@ -1,14 +1,29 @@
 #include "./DataBuffer.h"
 
-
-bool DataBuffer::readCacheData(int addr, unsigned int * data)
+void DataBuffer::setBufferMemory(map<int, string> mapBuf)
 {
-	if (cacheMemory.find(addr) == cacheMemory.end()) return false;
+	BufferMemory = mapBuf;
+}
 
-	*data = cacheMemory[addr];
+map<int, string> DataBuffer::getBufferMemory()
+{
+	return BufferMemory;
+}
+
+int DataBuffer::getBufferSize()
+{
+	return BufferMemory.size();
+}
+
+bool DataBuffer::getData(int addr, string& data)
+{
+	if (BufferMemory.find(addr) == BufferMemory.end()) return false;
+
+	data = BufferMemory[addr];
 	return true;
 }
-void DataBuffer::writeCacheData(int addr, unsigned int data)
+
+void DataBuffer::setData(int addr, string data)
 {
-	cacheMemory[addr] = data;
+	BufferMemory[addr] = data;
 }
