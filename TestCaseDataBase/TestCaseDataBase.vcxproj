@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{95fd4bb5-9af4-4453-a897-f2e6caae2e31}</ProjectGuid>
-    <RootNamespace>TestShellApp</RootNamespace>
+    <ProjectGuid>{db47eabe-6acd-4da6-af3a-006a9d303ad1}</ProjectGuid>
+    <RootNamespace>TestCaseDataBase</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -104,7 +104,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,27 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CommandHandler.cpp" />
-    <ClCompile Include="ResultFileReader.cpp" />
-    <ClCompile Include="TestCaseContianer.cpp" />
-    <ClCompile Include="TestCommand.h" />
-    <ClCompile Include="TestScriptRunner.h" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TestScriptRunner.cpp" />
-    <ClCompile Include="TestScriptParser.cpp" />
-    <ClCompile Include="TestScriptValidChecker.cpp" />
-    <ClCompile Include="VirtualSsdProcess.cpp" />
+    <ClCompile Include="TestScript.cpp" />
+    <ClCompile Include="TestScriptAndCompare.cpp" />
+    <ClCompile Include="TestScriptConvertAPI.cpp" />
+    <ClCompile Include="TestScriptDataBase.cpp" />
+    <ClCompile Include="TestScriptDataBase.h" />
+    <ClCompile Include="TestScriptRead.cpp" />
+    <ClCompile Include="TestScriptReadAndCompare.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CommandHandler.h" />
-    <ClInclude Include="ReadIOInterface.h" />
-    <ClInclude Include="ResultFileReader.h" />
-    <ClInclude Include="TestScriptParser.h" />
-    <ClInclude Include="TestScriptValidChecker.h" />
-    <ClInclude Include="TestShellCommon.h" />
-    <ClInclude Include="VirtualSsdProcess.h" />
-    <ClInclude Include="VirtualSsdProcessInterface.h" />
-    <ClInclude Include="VirtualSsdProcessMock.h" />
+    <ClInclude Include="TestScript.h" />
+    <ClInclude Include="TestScriptDBAPI.h" />
+    <ClInclude Include="TestScriptDescriptor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,2 @@
+#include "TestScriptReadAndCompare.h"
+
