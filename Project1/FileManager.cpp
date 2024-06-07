@@ -48,7 +48,7 @@ void FileManager::getNandData(ifstream& file, vector<string>& ret)
 	}
 }
 
-void FileManager::getBufferData(ifstream& file, map<int, string>& ret)
+void FileManager::getBufferData(ifstream& file)
 {
 	string line = "";
 	while (getline(file, line))
@@ -61,8 +61,18 @@ void FileManager::getBufferData(ifstream& file, map<int, string>& ret)
 			splitLine.push_back(token);
 		}
 	
-		int add = std::stoi(splitLine[0]);
-		ret[add] = splitLine[1];
+		CommandFormat cmd;
+		cmd.command = splitLine[0];
+		cmd.startAddr = std::stoi(splitLine[1]);
+		cmd.endAddr = std::stoi(splitLine[2]);
+		cmd.data = splitLine[3];
+
+		commandBuffer.pushCommandBuffer(cmd);
+		
+		for (int add = cmd.startAddr; add < cmd.endAddr; add++)
+		{
+			commandBuffer.setData(add, cmd.data);
+		}
 	}
 }
 
@@ -121,35 +131,43 @@ bool FileManager::readBufferData(int addr, string& data)
 {
 	readFromBuffer();
 
-	return dataBuffer.getData(addr, data);
+	return commandBuffer.getData(addr, data);
 }
 
 bool FileManager::writeBufferData(int addr, string data)
 {
 	readFromBuffer();
-	dataBuffer.setData(addr, data);
 
-	writeToBuffer(dataBuffer.getBufferMemory());
+	CommandFormat Newcmd = { "PGM", addr, addr + 1, data };
+	commandBuffer.insertCommand(Newcmd);
+	writeToBuffer();
 
-	return (dataBuffer.getBufferSize() >= 10);
+	return (commandBuffer.getBufferSize() >= 10);
+}
+
+bool FileManager::eraseBufferData(int addr, int size)
+{
+	readFromBuffer();
+	CommandFormat Newcmd = { "ERS", addr, addr + size, DEFAULT_DATA };
+	commandBuffer.insertCommand(Newcmd);
+	writeToBuffer();
+
+	return (commandBuffer.getBufferSize() >= 10);
 }
 
 void FileManager::readFromBuffer()
 {
 	ifstream file(BUFFER_FILE);
-	map<int, string> ret;
 
 	if (file.is_open())
 	{
-		getBufferData(file, ret);
+		getBufferData(file);
 		file.close();
 	}
-	dataBuffer.setBufferMemory(ret);
-	
 	return;
 }
 
-void FileManager::writeToBuffer(map<int, string> dataBuf)
+void FileManager::writeToBuffer()
 {
 	ofstream file(BUFFER_FILE);
 	if (!file.is_open())
@@ -158,16 +176,17 @@ void FileManager::writeToBuffer(map<int, string> dataBuf)
 		return;
 	}
 
-	for (auto data : dataBuf)
+	vector<CommandFormat> cmdBuf = commandBuffer.getCommandBuffer();
+	for (auto cmd : cmdBuf)
 	{
-		file << data.first << " " <<data.second << endl;
+		file << cmd.command << " " << cmd.startAddr << " " << cmd.endAddr << " " << cmd.data <<endl;
 	}
 	file.close();
 }
 
 map<int, string> FileManager::getBufferMemory()
 {
-	return dataBuffer.getBufferMemory();
+	return commandBuffer.getBufferMemory();
 }
 
 void FileManager::initBufferFile()

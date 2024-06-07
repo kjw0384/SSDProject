@@ -132,7 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DataBuffer.cpp" />
+    <ClCompile Include="CommandBuffer.cpp" />
     <ClCompile Include="EraseCommand.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -143,7 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
-    <ClInclude Include="DataBuffer.h" />
+    <ClInclude Include="CommandBuffer.h" />
     <ClInclude Include="EraseCommand.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Invoker.h" />

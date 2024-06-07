@@ -1,21 +1,16 @@
 #include <iostream>
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "../Project1/DataBuffer.cpp"
+#include "../Project1/CommandBuffer.cpp"
 #include "../Project1/ReadCommand.cpp"
 #include "../Project1/WriteCommand.cpp"
+#include "../Project1/EraseCommand.cpp"
 #include "../Project1/FileManager.cpp"
 #include "../Project1/NANDDevice.cpp"
 #include "../Project1/Invoker.h"
 
 using namespace std;
 using namespace testing;
-
-class DataBufferFixture : public testing::Test
-{
-public:
-	DataBuffer& dataBuffer = DataBuffer::getInstance();
-};
 
 class MockNANDDevice : public NANDDevice {
 public:
@@ -123,5 +118,45 @@ TEST_F(CommandFixture, FlushTest) {
 	invoker.executeCommand();
 
 	invoker.setCommand(new ReadCommand(&device, adress));
+	invoker.executeCommand();
+}
+
+TEST_F(CommandFixture, eraseMergeTest1) {
+	int adress = 2;
+	string data = "";
+
+	FileManager& fileManager = FileManager::getInstance();
+	fileManager.initialize();
+
+	invoker.setCommand(new EraseCommand(&device, adress, 5));
+	invoker.executeCommand();
+
+	fileManager.initialize();
+	invoker.setCommand(new EraseCommand(&device, 7, 3));
+	invoker.executeCommand();
+}
+
+
+TEST_F(CommandFixture, eraseMergeTest2) {
+	int adress = 2;
+	string data = "";
+
+	FileManager& fileManager = FileManager::getInstance();
+	fileManager.initialize();
+
+	for (int i = 4; i < 8; i++)
+	{
+		fileManager.initialize();
+		string data = "0x0000000B";
+		invoker.setCommand(new WriteCommand(&device, i, data));
+		invoker.executeCommand();
+	}
+
+	fileManager.initialize();
+	invoker.setCommand(new EraseCommand(&device, adress, 5));
+	invoker.executeCommand();
+
+	fileManager.initialize();
+	invoker.setCommand(new EraseCommand(&device, 7, 7));
 	invoker.executeCommand();
 }

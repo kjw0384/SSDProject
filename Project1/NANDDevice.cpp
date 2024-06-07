@@ -25,6 +25,14 @@ void NANDDevice::write(const int address, const string& data) {
     }
 }
 
+void NANDDevice::erase(const int address, const int size) {
+
+    if (fileManager.eraseBufferData(address, size))
+    {
+        flush();
+    }
+}
+
 void NANDDevice::flush() {
 
     vector<string> setData = fileManager.readFromNand();
@@ -40,9 +48,3 @@ void NANDDevice::flush() {
 
 }
 
-void NANDDevice::erase(const int address, const int size) {
-    for (int addr = address; addr < address + size; ++addr) {
-        write(addr, "0x00000000");
-    }
-
-}

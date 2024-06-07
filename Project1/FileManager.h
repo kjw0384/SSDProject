@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "DataBuffer.h"
+#include "CommandBuffer.h"
 
 using namespace std;
 
@@ -28,18 +28,22 @@ public:
 
 	bool readBufferData(int addr, string& data);
 	bool writeBufferData(int addr, string data);
+	bool eraseBufferData(int addr, int size);
 	map<int, string> getBufferMemory();
 	void initBufferFile();
-
+	void initialize()
+	{
+		commandBuffer.initialize();
+	}
 private:
-	FileManager() : dataBuffer(DataBuffer::getInstance()) {};
+	FileManager() : commandBuffer(CommandBuffer::getInstance()) {};
 
 	vector<string> Files = { NAND_FILE , RESULT_FILE, BUFFER_FILE };
-	DataBuffer& dataBuffer;
+	CommandBuffer& commandBuffer;
 
 	void readFromBuffer();
-	void writeToBuffer(map<int, string>);
+	void writeToBuffer();
 	void getNandData(ifstream& file, vector<string>& ret);
-	void getBufferData(ifstream& file, map<int, string>& ret);
+	void getBufferData(ifstream& file);
 	void createOutputFiles();
 };
