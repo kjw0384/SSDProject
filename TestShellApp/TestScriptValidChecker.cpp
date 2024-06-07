@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include "TestScriptValidChecker.h"
-#include "../TestScenario/TestScenario.h"
+#include "../TestScenario/TestScenarioAPI.h"
 
 using std::vector;
 using std::string;
@@ -26,7 +26,7 @@ bool TestScriptValidChecker::isValidCommand(string command) {
 	return false;
 }
 
-bool TestScriptValidChecker::isValidScenario(string command, TestScenario& testScenario) {
+bool TestScriptValidChecker::isValidScenario(string command, TestScenarioAPI& testScenario) {
 	vector<string> scenarios = testScenario.getScenarios();
 	if (auto it = std::find(scenarios.begin(), scenarios.end(), command);
 		it != scenarios.end())

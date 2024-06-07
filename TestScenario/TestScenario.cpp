@@ -1,4 +1,4 @@
-#include "TestScenario.h"
+#include "TestScenarioAPI.h"
 #include "../TestShellApp/IScenario.h"
 
 class test1app : public IScenario {
@@ -15,7 +15,7 @@ public:
 	}
 };
 
-IScenario* TestScenario::getScenario(const string& testScenario)
+IScenario* TestScenarioAPI::getScenario(const string& testScenario)
 {
 	IScenario* scenario{};
 	if (testScenario == "testapp1")
@@ -25,7 +25,7 @@ IScenario* TestScenario::getScenario(const string& testScenario)
 	return scenario;
 }
 
-vector<string> TestScenario::getScenarios()
+vector<string> TestScenarioAPI::getScenarios()
 {
 	vector<string> scenarios{ "testapp1", "testapp2" };
 	return scenarios;

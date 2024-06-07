@@ -1,11 +1,11 @@
 #pragma once
 #include <string>
-#include "../TestScenario/TestScenario.h"
+#include "../TestScenario/TestScenarioAPI.h"
 
 using std::string;
 
 class TestScriptValidChecker {
 public:
 	bool isValidCommand(string command);
-	bool isValidScenario(string command, TestScenario& testScenario);
+	bool isValidScenario(string command, TestScenarioAPI& testScenario);
 };

@@ -132,7 +132,6 @@
     <ClCompile Include="TestScriptDBAPI.cpp" />
     <ClCompile Include="TestScriptDataBase.cpp" />
     <ClCompile Include="TestScriptDataBase.h" />
-    <ClCompile Include="TestScriptRead.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestScript.h" />
