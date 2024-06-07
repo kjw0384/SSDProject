@@ -15,9 +15,7 @@ public:
 	Command getCommand();
 	void handleHelp();
 
-	// TO-DO 
-	//void handleFullread();
-	//void handleFullwrite();
+	void handleScenario(const string& testScenario);
 
 private:
 	CommandHandler() {}

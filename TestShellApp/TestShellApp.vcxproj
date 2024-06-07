@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandHandler.h" />
+    <ClInclude Include="IScenario.h" />
     <ClInclude Include="ReadIOInterface.h" />
     <ClInclude Include="ResultFileReader.h" />
     <ClInclude Include="TestScriptParser.h" />
