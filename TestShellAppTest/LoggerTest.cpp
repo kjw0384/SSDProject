@@ -6,10 +6,10 @@ using namespace testing;
 
 
 TEST(LoggerTest, writeLog) {
-	if (filesystem::exists("log.txt"))
-		filesystem::remove("log.txt");
+	if (filesystem::exists(LOG_FILE))
+		filesystem::remove(LOG_FILE);
 	Logger::writeLog("abcd");
-	ifstream file("log.txt");
+	ifstream file(LOG_FILE);
 	string data;
 	getline(file, data);
 	EXPECT_EQ(data, "abcd");

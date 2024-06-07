@@ -6,18 +6,25 @@
 #include <ctime>
 #include <sys/stat.h>
 #include <filesystem>
+#include <direct.h>
 
 
 void Logger::log(string s) {
-	readyLogFile("log.txt");
+	readyLogFile(LOG_FILE);
 	writeLog(s);
 }
 
 void Logger::writeLog(string s) {
 
-	vector<string> dataBuf;
-	string fileName = "log.txt";
-	ofstream file(fileName, ios_base::app);
+	if (std::filesystem::exists(LOG_DIR) == false)
+	{
+		if (_mkdir(LOG_DIR.c_str()) != 0) {
+			cout << "Result Dir Make Fail" << endl;
+			return;
+		}
+	}
+
+	ofstream file(LOG_FILE, ios_base::app);
 	if (!file.is_open())
 	{
 		cout << "log.txt file open fail" << endl;

@@ -4,6 +4,8 @@
 
 using namespace std;
 
+const string LOG_DIR = "./Log";
+const string LOG_FILE = LOG_DIR + "/latest.log";
 
 static class Logger {
 public:
