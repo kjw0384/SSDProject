@@ -9,7 +9,7 @@ INSTANTIATE_TEST_CASE_P(CommandStrings,
     CommandValidationTest,
     ::testing::Values(
         "write 3 0xAAAABBBB", "read 3","exit",
-        "help","fullwrite", "fullread"
+        "help","fullwrite 0x11112222", "fullread"
     ));
 
 class InvalidCommandValidationTest : public ::testing::TestWithParam<std::string> {};
