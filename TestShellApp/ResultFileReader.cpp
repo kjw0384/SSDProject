@@ -16,8 +16,7 @@ string ResultFileReader::GetReadResult() {
 }
 
 string ResultFileReader::getResultData(ifstream& rInputStream) {
-	string data = "";
-	while (getline(rInputStream, data));
-	cout << "Read result.txt 's data value is" << data << endl;
+	string data{};
+	rInputStream >> data;
 	return data;
 }
