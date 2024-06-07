@@ -1,0 +1,108 @@
+#include "CommandBuffer.h"
+
+void CommandBuffer::setBufferMemory(vector<CommandFormat> cmdBuf)
+{
+	commandBuffer = cmdBuf;
+}
+
+map<int, string> CommandBuffer::getBufferMemory()
+{
+	return BufferMemory;
+}
+
+vector<CommandFormat> CommandBuffer::getCommandBuffer()
+{
+	return commandBuffer;
+}
+
+int CommandBuffer::getBufferSize()
+{
+	return commandBuffer.size();
+}
+
+bool CommandBuffer::getData(int addr, string& data)
+{
+	if (BufferMemory.find(addr) == BufferMemory.end()) return false;
+
+	data = BufferMemory[addr];
+	return true;
+}
+
+void CommandBuffer::setData(int addr, string data)
+{
+	BufferMemory[addr] = data;
+}
+
+void CommandBuffer::insertCommand(CommandFormat newCmd)
+{
+	vector<CommandFormat> tempPGM;
+	vector<CommandFormat> tempERS;
+	for (auto cmd : commandBuffer)
+	{
+		//overlap
+		if (!((newCmd.startAddr <= cmd.startAddr) && (cmd.endAddr <= newCmd.endAddr)))
+		{
+			if (cmd.command == "PGM")  tempPGM.push_back(cmd);
+			else					   tempERS.push_back(cmd);
+		}
+	}
+	
+	if (newCmd.command == "PGM")
+	{
+		tempERS.insert(tempERS.end(), tempPGM.begin(), tempPGM.end());
+		commandBuffer = tempERS;
+		commandBuffer.push_back(newCmd);
+		BufferMemory[newCmd.startAddr] = newCmd.data;
+	}
+	else if (newCmd.command == "ERS")
+	{
+		for (int addr = newCmd.startAddr; addr < newCmd.endAddr; addr++)
+		{
+			BufferMemory[addr] = newCmd.data;
+		}
+
+		memrgeCommandBuffer(newCmd, tempERS);
+		tempERS.push_back(newCmd);
+		tempERS.insert(tempERS.end(), tempPGM.begin(), tempPGM.end());
+		commandBuffer = tempERS;
+	}
+}
+
+
+void CommandBuffer::memrgeCommandBuffer(CommandFormat& newCmd, vector< CommandFormat>& ersBuf)
+{
+	vector<CommandFormat> temp;
+	for (auto cmd : ersBuf)
+	{
+		//out of range
+		if ((cmd.endAddr < newCmd.startAddr) || (cmd.startAddr > newCmd.endAddr))
+		{
+			temp.push_back(cmd);
+			continue;
+		}
+
+		//range resize
+		int start = min(newCmd.startAddr, cmd.startAddr);
+		int end = max(newCmd.endAddr, cmd.endAddr);
+
+		if (end - start + 1 >= 10)
+		{
+			temp.push_back(cmd);
+
+			//check overlap
+			if (cmd.endAddr > newCmd.endAddr) newCmd.endAddr = cmd.startAddr;
+			if (cmd.startAddr < newCmd.startAddr) newCmd.startAddr = cmd.endAddr;
+			continue;
+		}
+
+		newCmd.startAddr = start;
+		newCmd.endAddr = end;
+	}
+
+	ersBuf = temp;
+}
+
+void CommandBuffer::pushCommandBuffer(CommandFormat cmd)
+{
+	commandBuffer.push_back(cmd);
+}
