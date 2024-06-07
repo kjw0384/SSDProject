@@ -65,3 +65,23 @@ TEST_F(ShellExecuteFixture, ReadNormal) {
 	checkErrorCode({ "R", "12" }, ShellStringParserError::NO_ERROR);
 	checkErrorCode({ "r", "12" }, ShellStringParserError::NO_ERROR);
 }
+
+TEST_F(ShellExecuteFixture, EraseArgumentCountError) {
+	checkErrorCode({ "E", "1" }, ShellStringParserError::CMD_ARGC_ERROR);
+	checkErrorCode({ "E" }, ShellStringParserError::CMD_ARGC_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, EraseArgumentsFormatError) {
+	checkErrorCode({ "E", "qfe5" , "wef" }, ShellStringParserError::CMD_ARGV_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, EraseArgumentsSizeError) {
+	checkErrorCode({ "E", "1", "-11" }, ShellStringParserError::CMD_ARGV_ERROR);
+	checkErrorCode({ "E", "11", "90" }, ShellStringParserError::CMD_ARGV_ERROR);
+}
+
+TEST_F(ShellExecuteFixture, EraseNormal) {
+	checkErrorCode({ "E", "1", "10"}, ShellStringParserError::NO_ERROR);
+	checkErrorCode({ "E", "12", "9"}, ShellStringParserError::NO_ERROR);
+	checkErrorCode({ "e", "90", "1"}, ShellStringParserError::NO_ERROR);
+}

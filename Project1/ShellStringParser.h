@@ -20,6 +20,8 @@ public:
 
 private:
 	bool isNotLBA(string strLBA);
+	bool isNotSize(string strSize);
+	bool isNotInRangeSize(string strLBA, string strSize);
 	bool isNotValue(string strValue);
 };
 

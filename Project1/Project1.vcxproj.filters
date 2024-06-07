@@ -8,6 +8,7 @@
     <ClCompile Include="ReadCommand.cpp" />
     <ClCompile Include="NANDDevice.cpp" />
     <ClCompile Include="WriteCommand.cpp" />
+    <ClCompile Include="EraseCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
@@ -18,5 +19,6 @@
     <ClInclude Include="NANDDevice.h" />
     <ClInclude Include="ShellStringParser.h" />
     <ClInclude Include="WriteCommand.h" />
+    <ClInclude Include="EraseCommand.h" />
   </ItemGroup>
 </Project>
