@@ -15,12 +15,11 @@ public:
 	typedef vector<Command> TestVector_t;
 
 	explicit TestScriptRunner(VirtualSsdProcessInterface* pSsdProcIf, ReadIOInterface* pReadResultIO);
-	Result_e inputCmd(Command cmd);
+	Result_e inputCmd(Command& cmd);
 	Result_e run();
 
 private:
 	Result_e callSsdProcess(Command cmd);
-	int getLBAAddr(int LBAIndex);
 
 	TestVector_t m_TestCommandVector;
 	VirtualSsdProcessInterface* m_ssdProcessIf;
