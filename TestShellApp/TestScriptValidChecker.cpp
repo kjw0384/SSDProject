@@ -28,8 +28,7 @@ bool TestScriptValidChecker::isValidCommand(string command) {
 
 bool TestScriptValidChecker::isValidScenario(string command, TestScenario& testScenario) {
 	vector<string> scenarios = testScenario.getScenarios();
-	if (auto it = std::find(scenarios.begin(), scenarios.end(), command);
-		it != scenarios.end())
+	if (std::find(scenarios.begin(), scenarios.end(), command) != scenarios.end())
 		return true;
 	return false;
 }
