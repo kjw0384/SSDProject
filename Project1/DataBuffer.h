@@ -18,10 +18,13 @@ public:
 		return instance;
 	}
 
-	bool readCacheData(int addr, unsigned int * data);
-	void writeCacheData(int addr, unsigned int data);
+	int getBufferSize();
+	void setBufferMemory(map<int, string> mapBuf);
+	map<int, string> getBufferMemory();
+	bool getData(int addr, string& data);
+	void setData(int addr, string data);
 
 private:
 	DataBuffer() {}
-	map<int, unsigned int> cacheMemory;
+	map<int, string> BufferMemory;
 };

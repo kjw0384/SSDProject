@@ -6,6 +6,7 @@
 #include "../Project1/WriteCommand.cpp"
 #include "../Project1/FileManager.cpp"
 #include "../Project1/NANDDevice.cpp"
+#include "../Project1/Invoker.h"
 
 using namespace std;
 using namespace testing;
@@ -38,20 +39,11 @@ public:
 		fileManager.setFilePath();
 	}
 };
-
-TEST_F(DataBufferFixture, DataBufferReadEmptyTest) {
-	unsigned int data = 0;
-	bool ret = dataBuffer.readCacheData(10, &data);
-	EXPECT_EQ(ret, false);
-}
-
-TEST_F(DataBufferFixture, DataBufferWriteTest) {
-
-	dataBuffer.writeCacheData(10, 0x500);
-	unsigned int data = 0;
-	bool ret = dataBuffer.readCacheData(10, &data);
-	EXPECT_EQ(data, 0x500);
-}
+class CommandFixture : public testing::Test {
+public:
+	NANDDevice device;
+	Invoker invoker;
+};
 
 TEST_F(CommandTestFixture, Read) {
 	EXPECT_CALL(mockDevice, read)
@@ -83,4 +75,21 @@ TEST_F(FileManagerFixture, WriteNandAndResult) {
 
 	EXPECT_EQ(ret2, ret);
 }
+
+TEST_F(FileManagerFixture, WriteBufferData) {
+	initData();
+
+	int addr = 4;
+	string data = "0x44422222";
+	
+	//vector<string> nandRet = fileManager.readFromNand();
+	string ret = "";
+
+	fileManager.writeBufferData(addr, data);
+	bool result = fileManager.readBufferData(addr, ret);
+
+	EXPECT_EQ(data, ret);
+}
+
+
 

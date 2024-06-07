@@ -48,6 +48,24 @@ void FileManager::getNandData(ifstream& file, vector<string>& ret)
 	}
 }
 
+void FileManager::getBufferData(ifstream& file, map<int, string>& ret)
+{
+	string line = "";
+	while (getline(file, line))
+	{
+		vector<string> splitLine;
+		std::istringstream ss(line);
+		string token;
+
+		while (ss >> token) {
+			splitLine.push_back(token);
+		}
+	
+		int add = std::stoi(splitLine[0]);
+		ret[add] = splitLine[1];
+	}
+}
+
 void FileManager::writeToResult(string data)
 {
 	ofstream file(RESULT_FILE);
@@ -97,4 +115,56 @@ void FileManager::setFilePath()
 	{
 		createOutputFiles();
 	}
+}
+
+bool FileManager::readBufferData(int addr, string& data)
+{
+	readFromBuffer();
+
+	return dataBuffer.getData(addr, data);
+}
+bool FileManager::writeBufferData(int addr, string data)
+{
+	readFromBuffer();
+	dataBuffer.setData(addr, data);
+
+	writeToBuffer(dataBuffer.getBufferMemory());
+
+	return (dataBuffer.getBufferSize() >= 10);
+}
+
+void FileManager::readFromBuffer()
+{
+	ifstream file(BUFFER_FILE);
+	map<int, string> ret;
+
+	if (file.is_open())
+	{
+		getBufferData(file, ret);
+		file.close();
+	}
+	dataBuffer.setBufferMemory(ret);
+	
+	return;
+}
+
+void FileManager::writeToBuffer(map<int, string> dataBuf)
+{
+	ofstream file(BUFFER_FILE);
+	if (!file.is_open())
+	{
+		cout << "Buffer.txt file open fail" << endl;  //todo : exception?
+		return;
+	}
+
+	for (auto data : dataBuf)
+	{
+		file << data.first << " " <<data.second << endl;
+	}
+	file.close();
+}
+
+map<int, string> FileManager::getBufferMemory()
+{
+	return dataBuffer.getBufferMemory();
 }
