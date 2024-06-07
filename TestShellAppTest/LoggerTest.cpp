@@ -12,6 +12,9 @@ TEST(LoggerTest, writeLog) {
 	ifstream file(LOG_FULL_PATH_NAME);
 	string data;
 	getline(file, data);
-	EXPECT_EQ(data, "abcd");
+	EXPECT_THAT(data, MatchesRegex("\\[.*\\] .* : abcd$"));
+	// TODO : regex change
+	//EXPECT_THAT(data, MatchesRegex("\\[[0-9]{2}\\.[0-9]{2}\\.[0-9]{2} [0-9]{2}h:[0-9]{2}m\\] .{50} : abcd$"));
+	//EXPECT_THAT(data, MatchesRegex("\[[0-9]{2}\.[0-9]{2}\.[0-9]{2} [0-9]{2}h:[0-9]{2}m\] .{50} : abcd$"));
 }
 

@@ -10,9 +10,9 @@
 
 #define LOG_MESSAGE(message) Logger::log(message, __FUNCTION__)
 
-void Logger::log(string s, const char* function) {
+void Logger::log(string inputStr, const char* function) {
 	readyLogFile(LOG_FULL_PATH_NAME);
-	writeLog(s, function);
+	writeLog(inputStr, function);
 }
 
 void Logger::writeLog(string inputStr, const char* function) {
@@ -34,7 +34,13 @@ void Logger::writeLog(string inputStr, const char* function) {
 		cout << "log.txt file open fail" << endl;
 		return;
 	}
-	logfile << inputStr << endl;
+
+	time_t now = time(nullptr);
+	tm tmNow;
+	localtime_s(&tmNow, &now);
+	char logstr[100];
+	strftime(logstr, sizeof(logstr), "[%y.%m.%d %Hh:%Mm]", &tmNow);
+	logfile << format("{0} {1:50s} : {2}", (string)logstr, function, inputStr);
 	logfile.close();
 }
 
