@@ -1,5 +1,5 @@
 ﻿#include "TestScriptDataBase.h"
-#include "TestScriptReadAndCompare.h" //todo: split to TestScript Factory
+#include "TestScript.h" //todo: split to TestScript Factory
 
 TestScriptDataBase::TestScriptDataBase() {
 	TestScript* tscObj = nullptr;
@@ -8,7 +8,9 @@ TestScriptDataBase::TestScriptDataBase() {
 			tscObj->setName( #NAME );
 #define TEST_SCRIPT_DESC_COMMAND(COMMAND)\
 			tscObj->InsertCommand( #COMMAND );
-#define TEST_SCRIPT_DESC_END()
+#define TEST_SCRIPT_DESC_RUN()
+#define TEST_SCRIPT_DESC_END()\
+			m_TestScriptDB.push_back(tscObj);
 #include "TestScriptDescriptor.h"
 }
 

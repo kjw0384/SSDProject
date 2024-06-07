@@ -130,7 +130,6 @@
   <ItemGroup>
     <ClCompile Include="CommandHandler.cpp" />
     <ClCompile Include="ResultFileReader.cpp" />
-    <ClCompile Include="TestCaseContianer.cpp" />
     <ClCompile Include="TestCommand.h" />
     <ClCompile Include="TestScriptRunner.h" />
     <ClCompile Include="main.cpp" />
