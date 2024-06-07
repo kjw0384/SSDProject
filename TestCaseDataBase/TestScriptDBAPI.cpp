@@ -4,6 +4,6 @@
 //TODO: singleton
 TestScriptDataBase g_TestCaseDB;
 
-TestScript* TestScriptCaseDBAPI::GetTestCaseObj(std::string TcName) {
+IScenario* TestScriptCaseDBAPI::GetTestCaseObj(std::string TcName) {
 	return g_TestCaseDB.GetTestScriptCase(TcName);
 }

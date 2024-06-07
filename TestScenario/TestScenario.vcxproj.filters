@@ -27,10 +27,10 @@
     <ClInclude Include="TestScriptDataBase.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TestScript.h">
+    <ClInclude Include="TestScenarioAPI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TestScenarioAPI.h">
+    <ClInclude Include="TestScript.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TestScenario.cpp">
+    <ClCompile Include="TestScenarioAPI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TestScriptDataBase.cpp">

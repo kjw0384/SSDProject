@@ -7,7 +7,12 @@ using namespace std;
 class TestScriptDataBase {
 public:
 	TestScriptDataBase();
-	TestScript* GetTestScriptCase(string TestScriptName);
+	IScenario* GetTestScriptCase(string TestScriptName);
+	vector<IScenario*> GetAllTestScript() {
+		return m_TestScriptDB;
+	}
 
-	vector<TestScript*> m_TestScriptDB; //TODO: consider <string , TestCase> map container
+
+private:
+	vector<IScenario*> m_TestScriptDB; //TODO: consider <string , TestCase> map container
 };

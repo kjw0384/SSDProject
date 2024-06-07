@@ -4,5 +4,5 @@
 #include <string>
 
 class TestScriptCaseDBAPI {
-	static TestScript* GetTestCaseObj(std::string TcName);
+	static IScenario* GetTestCaseObj(std::string TcName);
 };

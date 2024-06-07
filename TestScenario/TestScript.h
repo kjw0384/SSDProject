@@ -1,40 +1,9 @@
 #pragma once
-#include <string>
-#include <vector>
 
-struct Command {
-	//TODO: sync to ShellCommand spec.
-	std::string cmdName;
-};
-
-using namespace std;
-
-class TestScript {
-public:
-	string getName() {
-		return m_name;
-	}
-
-	void setName(string name) {
-		m_name = name;
-	}
-
-	void InsertCommand(string CmdName) {
-		Command cmd;
-		cmd.cmdName = CmdName;
-	}
-
-	virtual void run() = 0;
-
-private:
-	string m_name;
-	vector<Command> m_CmdVector;
-};
-
-
+#include "../TestShellApp/IScenario.h"
 
 #define TEST_SCRIPT_DESC_STRAT(NAME)\
-class TestScript##NAME : public  TestScript\
+class TestScript##NAME : public  IScenario\
 {\
 public :
 #define TEST_SCRIPT_DESC_COMMAND(CMD)
