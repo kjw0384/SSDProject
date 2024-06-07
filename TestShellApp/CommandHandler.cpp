@@ -17,6 +17,9 @@ Result_e CommandHandler::runCommand(const string& testScript) {
     if (commandType == CommandType_e::HELP) {
         handleHelp();
     }
+    if (commandType == CommandType_e::TESTSCRIPT) {
+        return Result_e::SUCCESS;
+    }
     return Result_e::SUCCESS;
 }
 

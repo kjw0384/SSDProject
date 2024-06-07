@@ -131,6 +131,7 @@
     <ClCompile Include="CommandHandler.cpp" />
     <ClCompile Include="ResultFileReader.cpp" />
     <ClCompile Include="TestCommand.h" />
+    <ClCompile Include="TestScript.cpp" />
     <ClCompile Include="TestScriptRunner.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestScriptRunner.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="CommandHandler.h" />
     <ClInclude Include="ReadIOInterface.h" />
     <ClInclude Include="ResultFileReader.h" />
+    <ClInclude Include="Testscript.h" />
     <ClInclude Include="TestScriptParser.h" />
     <ClInclude Include="TestScriptValidChecker.h" />
     <ClInclude Include="TestShellCommon.h" />

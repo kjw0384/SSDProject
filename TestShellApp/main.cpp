@@ -5,6 +5,7 @@
 #include "TestScriptRunner.h"
 #include "VirtualSsdProcess.h"
 #include "ResultFileReader.h"
+#include "TestScript.h"
 
 using std::vector;
 using std::cout;
@@ -32,8 +33,13 @@ static void RunMain() {
         ResultFileReader* pReadResultIO = new ResultFileReader();
 
         TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
-        runner->inputCmd(cmd);
-
+        if (cmd.type.find("testscript") == 0) {
+            TestScript *mTestscript = new TestScript();
+            runner->setvector(mTestscript->m_TestScriptCommandVector);
+        }
+        else {
+            runner->inputCmd(cmd);
+        }
         runner->run();
     }
 }

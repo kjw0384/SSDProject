@@ -17,7 +17,7 @@ public:
 	explicit TestScriptRunner(VirtualSsdProcessInterface* pSsdProcIf, ReadIOInterface* pReadResultIO);
 	Result_e inputCmd(Command& cmd);
 	Result_e run();
-
+	void setvector(TestVector_t vector);
 private:
 	Result_e callSsdProcess(Command cmd);
 

@@ -13,7 +13,8 @@ bool TestScriptValidChecker::isValidCommand(string command) {
 		regex("^exit$"),
 		regex("^help$"),
 		regex("^fullwrite +0[xX][0-9a-fA-F]{8}$"),
-		regex("^fullread$")
+		regex("^fullread$"),
+		regex("^testscript$")
 	};
 
 	for (const auto& pattern : patterns) {

@@ -52,6 +52,9 @@ CommandType_e TestScriptParser::getCommandType(cmdType_t type) {
     if (type == "fullwrite") {
         return CommandType_e::FULLWRITE;
     }
+    if (type.find("testscript") == 0) {
+        return CommandType_e::TESTSCRIPT;
+    }
     return CommandType_e::EXIT;
 }
 

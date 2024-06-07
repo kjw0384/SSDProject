@@ -10,6 +10,7 @@
     <ClCompile Include="TestScriptValidChecker.cpp" />
     <ClCompile Include="VirtualSsdProcess.cpp" />
     <ClCompile Include="CommandHandler.cpp" />
+    <ClCompile Include="TestScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReadIOInterface.h" />
@@ -21,5 +22,6 @@
     <ClInclude Include="VirtualSsdProcessInterface.h" />
     <ClInclude Include="VirtualSsdProcessMock.h" />
     <ClInclude Include="CommandHandler.h" />
+    <ClInclude Include="Testscript.h" />
   </ItemGroup>
 </Project>
