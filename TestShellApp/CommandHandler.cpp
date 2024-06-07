@@ -8,7 +8,7 @@ Result_e CommandHandler::runCommand(const string& testScript) {
         return Result_e::FAIL;
     }
 
-    CommandType_e commandType=parser.executeParse(testScript);
+    CommandType_e commandType = parser.executeParse(testScript);
     cmd = parser.getTestCmd();
 
     if (commandType == CommandType_e::EXIT) {

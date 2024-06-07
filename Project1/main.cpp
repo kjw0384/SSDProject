@@ -6,6 +6,7 @@
 #include "NANDDevice.h"
 #include "ReadCommand.h"
 #include "WriteCommand.h"
+#include "EraseCommand.h"
 #include "ShellStringParser.h"
 
 int main(int argc, char* argv[]) {
@@ -30,6 +31,11 @@ int main(int argc, char* argv[]) {
     if (command == "W" || command == "w") {
         string data = argv[3];
         invoker.setCommand(new WriteCommand(&device, adress, data));
+        invoker.executeCommand();
+    }
+    if (command == "E" || command == "e") {
+        int size = stoi(argv[3]);
+        invoker.setCommand(new EraseCommand(&device, adress, size));
         invoker.executeCommand();
     }
 }

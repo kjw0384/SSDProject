@@ -37,4 +37,12 @@ void NANDDevice::flush() {
    
     fileManager.writeToNand(setData);
     fileManager.initBufferFile();
+
+}
+
+void NANDDevice::erase(const int address, const int size) {
+    for (int addr = address; addr < address + size; ++addr) {
+        write(addr, "0x00000000");
+    }
+
 }

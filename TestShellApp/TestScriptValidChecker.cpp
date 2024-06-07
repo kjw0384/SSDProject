@@ -12,7 +12,7 @@ bool TestScriptValidChecker::isValidCommand(string command) {
 		regex("^read +[0-9]{1,2}$"),
 		regex("^exit$"),
 		regex("^help$"),
-		regex("^fullwrite$"),
+		regex("^fullwrite +0[xX][0-9a-fA-F]{8}$"),
 		regex("^fullread$")
 	};
 
