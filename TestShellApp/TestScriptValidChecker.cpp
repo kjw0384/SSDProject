@@ -1,6 +1,8 @@
-#include "TestScriptValidChecker.h"
 #include <regex>
 #include <vector>
+#include <algorithm>
+#include "TestScriptValidChecker.h"
+#include "../TestScenario/TestScenario.h"
 
 using std::vector;
 using std::string;
@@ -21,5 +23,12 @@ bool TestScriptValidChecker::isValidCommand(string command) {
 			return true;
 		}
 	}
+	return false;
+}
+
+bool TestScriptValidChecker::isValidScenario(string command, TestScenario& testScenario) {
+	vector<string> scenarios = testScenario.getScenarios();
+	if (std::find(scenarios.begin(), scenarios.end(), command) != scenarios.end())
+		return true;
 	return false;
 }
