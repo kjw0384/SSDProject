@@ -128,11 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TestScriptDescriptor_ReadAndCompare.h" />
     <ClCompile Include="TestScriptDBAPI.cpp" />
     <ClCompile Include="TestScriptDataBase.cpp" />
     <ClCompile Include="TestScriptDataBase.h" />
-    <ClCompile Include="TestScriptRead.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestScript.h" />
