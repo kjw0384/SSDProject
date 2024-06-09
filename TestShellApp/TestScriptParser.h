@@ -15,10 +15,9 @@ public:
     vector<string> splitTestScript(const string& testScript);
     Command parseTestScript(vector<string> scriptTokens);
     CommandType_e getCommandType(cmdType_t type);
-    CommandType_e executeParse(const string& testScript);
-    Command getTestCmd();
+    CommandType_e executeParse(vector<string> scriptTokens);
+    Command getCommand();
 
 private:
-    Command testCmd;
-    TestScriptValidChecker checker;
+    Command command;
 };

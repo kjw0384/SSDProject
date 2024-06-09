@@ -13,4 +13,7 @@ enum class CommandType_e {
 	WRITE,
 	FULLREAD,
 	FULLWRITE,
+	ERASE,
+	ERASE_RANGE,
+	FLUSH,
 };

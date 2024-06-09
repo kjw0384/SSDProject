@@ -18,18 +18,24 @@ vector<string> TestScriptParser::splitTestScript(const string& testScript) {
 
 Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
     Command cmd;
-    if (scriptTokens.size() > 0) {
-        cmd.type = scriptTokens[0];
-    }
-    if (scriptTokens.size() > 1) {
-        cmd.LBAIndexNum = std::stoi(scriptTokens[1]);
-    }
-    if (scriptTokens.size() > 2) {
+
+    cmd.type = scriptTokens[0];
+    cmd.LBAIndexNum = stoi(scriptTokens[1]);
+
+    if (cmd.type == "write") {
         cmd.value = scriptTokens[2];
     }
     if (cmd.type == "fullwrite") {
         cmd.value = scriptTokens[1];
     }
+    if (cmd.type == "erase") {
+        cmd.size = stoi(scriptTokens[2]);
+    }
+    if (cmd.type == "erase_range") {
+        cmd.type = "erase";
+        cmd.size = stoi(scriptTokens[2]) - stoi(scriptTokens[1]);
+    }
+
     return cmd;
 }
 
@@ -52,19 +58,27 @@ CommandType_e TestScriptParser::getCommandType(cmdType_t type) {
     if (type == "fullwrite") {
         return CommandType_e::FULLWRITE;
     }
+    if (type == "erase") {
+        return CommandType_e::ERASE;
+    }
+    if (type == "erase_range") {
+        return CommandType_e::ERASE_RANGE;
+    }
+    if (type == "flush") {
+        return CommandType_e::FLUSH;
+    }
     return CommandType_e::EXIT;
 }
 
-CommandType_e TestScriptParser::executeParse(const string& testScript) {
+CommandType_e TestScriptParser::executeParse(vector<string> scriptTokens) {
 
-    vector<string> scriptTokens = splitTestScript(testScript);
-    testCmd = parseTestScript(scriptTokens);
-    return getCommandType(testCmd.type);
+    command = parseTestScript(scriptTokens);
+    return getCommandType(command.type);
 }
 
-Command TestScriptParser::getTestCmd() {
-    if (testCmd.type.empty()) {
+Command TestScriptParser::getCommand() {
+    if (command.type.empty()) {
         throw std::exception();
     }
-    return testCmd;
+    return command;
 }
