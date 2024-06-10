@@ -5,7 +5,6 @@
 #include "../TestScenario/TestScenario.h"
 
 Result_e CommandHandler::runCommand(const string& testScript) {
-
     vector<string> testScriptTokens = parser.splitTestScript(testScript);
     TestScenario testScenario;
 
