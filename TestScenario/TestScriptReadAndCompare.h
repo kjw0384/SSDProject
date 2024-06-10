@@ -10,6 +10,7 @@ class TestScriptReadAndCompare : public  IScenario
 {
 public :
 	TestScriptReadAndCompare(){
+		m_name = "ReadAndCompare";
 		vector<string> scenarios{
 		"read 3 0x33333333",
 		"write 5 0x55555555",

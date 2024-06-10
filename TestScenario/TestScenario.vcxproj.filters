@@ -24,7 +24,7 @@
     <ClInclude Include="TestScenario.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TestScript.h">
+    <ClInclude Include="TestScriptReadAndCompare.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="TestScriptDataBase.h">
@@ -42,6 +42,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TestScriptDataBase.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScriptFactory.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScriptFactory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

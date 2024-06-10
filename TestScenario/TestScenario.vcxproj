@@ -142,7 +142,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="TestScenario.h" />
-    <ClInclude Include="TestScript.h" />
+    <ClInclude Include="TestScriptReadAndCompare.h" />
     <ClInclude Include="TestScriptDataBase.h" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +157,8 @@
     </ClCompile>
     <ClCompile Include="TestScenario.cpp" />
     <ClCompile Include="TestScriptDataBase.cpp" />
+    <ClCompile Include="TestScriptFactory.cpp" />
+    <ClCompile Include="TestScriptFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

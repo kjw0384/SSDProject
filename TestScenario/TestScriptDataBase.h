@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TestScript.h"
+#include "../TestShellApp/IScenario.h"
 #include <vector>
 #include <string>
 
@@ -8,11 +8,13 @@ using namespace std;
 
 class TestScriptDataBase {
 public:
+	static TestScriptDataBase& getInstance();
+	
+	void createTestScript(string testScriptName);
 	IScenario* GetTestScriptCase(string TestScriptName);
-
 	vector<string> getScenarioList();
 
-	static TestScriptDataBase& getInstance();
+
 private:
 	TestScriptDataBase();
 	vector<IScenario*> m_TestScriptDB;

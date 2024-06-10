@@ -3,6 +3,7 @@
 #include <string>
 
 #include <sstream>
+#include <vector>
 #include "TestCommand.h"
 
 #define interface struct
