@@ -7,17 +7,24 @@ using namespace testing;
 
 int getRegexMatchingFileCount(string fileFormat) {
 	int nResult = 0;
-	if (filesystem::exists(LOG_DIR)) {
-		for (const auto& entry : filesystem::directory_iterator(LOG_DIR)) {
-			if (entry.is_regular_file()) {
-				string fileName = entry.path().filename().string();
-				regex txt_regex(fileFormat);
-				if (regex_match(fileName, txt_regex) == true)
-					nResult++;
-			}
-		}
+
+	if (!filesystem::exists(LOG_DIR))
+		return 0;
+
+	for (const auto& entry : filesystem::directory_iterator(LOG_DIR)) {
+		if (!entry.is_regular_file())
+			continue;
+		
+		string fileName = entry.path().filename().string();
+		if (regex_match(fileName, regex(fileFormat)) == true)
+			nResult++;
 	}
 	return nResult;
+}
+
+void write10K(string str, const char* function) {
+	for (int i = 0; i < 150; i++)
+		Logger::writeLog("abcd", function);
 }
 
 TEST(LoggerTest, writeLog) {
@@ -37,13 +44,11 @@ TEST(LoggerTest, checkBackup) {
 	if (filesystem::exists(LOG_DIR))
 		filesystem::remove_all(LOG_DIR);
 
-	for (int i = 0; i < 150; i++)
-		Logger::writeLog("abcd", __FUNCTION__);
+	write10K("abcd", __FUNCTION__);
 
 	LOG_MESSAGE("efgh");
 
-	for (int i = 0; i < 150; i++)
-		Logger::writeLog("qwer", __FUNCTION__);
+	write10K("qwer", __FUNCTION__);
 
 	LOG_MESSAGE("fdsa");
 	EXPECT_EQ(getRegexMatchingFileCount("^until_[0-9]{6}_[0-9]{2}h_[0-9]{2}m_[0-9]{2}s.log$"), 1);

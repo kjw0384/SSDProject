@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -13,5 +14,7 @@ public:
 	static void log(string s, const char* function);
 	static void writeLog(string s, const char* function);
 private:
-	static void readyLogFile(string fileName);
+	static void backupLogFileIfNeeded(string fileName);
+	static vector<string> getLogFileList();
+	static string getCurrentTimeFormat(string strFormat);
 };

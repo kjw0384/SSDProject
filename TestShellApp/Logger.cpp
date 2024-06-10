@@ -11,8 +11,13 @@
 
 #define LOG_MESSAGE(message) Logger::log(message, __FUNCTION__)
 
+const int TIME_FORMAT_MAX_SIZE = 100;
+const int SIZE_10K = (10 * 1024);
+const int FUNCTION_LOG_SIZE = 50;
+const string UNTIL_LOG_FILE_FORMAT = "^until_[0-9]{6}_[0-9]{2}h_[0-9]{2}m_[0-9]{2}s.log$";
+
 void Logger::log(string inputStr, const char* function) {
-	readyLogFile(LOG_FULL_PATH_NAME);
+	backupLogFileIfNeeded(LOG_FULL_PATH_NAME);
 	writeLog(inputStr, function);
 }
 
@@ -33,52 +38,58 @@ void Logger::writeLog(string inputStr, const char* function) {
 		return;
 	}
 
-	time_t now = time(nullptr);
-	tm tmNow;
-	localtime_s(&tmNow, &now);
-	char logstr[100];
-	strftime(logstr, sizeof(logstr), "[%y.%m.%d %Hh:%Mm]", &tmNow);
-	logfile << format("{0} {1:50s} : {2}\n", (string)logstr, function, inputStr);
+	string timeHeaderLog = getCurrentTimeFormat("[%y.%m.%d %Hh:%Mm]");
+	logfile << timeHeaderLog << " " << setw(FUNCTION_LOG_SIZE) << std::left << function << " : " << inputStr << endl;
 	logfile.close();
+
+	std::cout << std::right; //back to default option
 }
 
-void Logger::readyLogFile(string fileName) {
+void Logger::backupLogFileIfNeeded(string fileName) {
 
 	int fileSize = filesystem::file_size(fileName);
-	vector<string> filelist;
 
-	if (fileSize < 10 * 1024)
+	if (fileSize < SIZE_10K)
 		return;
 
-	//rename before
+	vector<string> filelist = getLogFileList();
+	for (string filename : filelist) {
+		if (regex_match(filename, regex(UNTIL_LOG_FILE_FORMAT)))
+		{
+			//rename to zip
+			string newfile = filename.substr(0, filename.length() - 4) + ".zip";
+			filesystem::rename(LOG_DIR + "/" + filename, LOG_DIR + "/" + newfile);
+		}
+	}
+
+	string untilLogFileName = getCurrentTimeFormat("until_%y%m%d_%Hh_%Mm_%Ss.log");
+	filesystem::rename(fileName, LOG_DIR + "/" + untilLogFileName);
+	return;
+}
+
+vector<string> Logger::getLogFileList() {
+	vector<string> fileList;
 	if (filesystem::exists(LOG_DIR)) {
 		for (const auto& entry : filesystem::directory_iterator(LOG_DIR)) {
 			if (entry.is_regular_file()) {
-				filelist.push_back(entry.path().filename().string());
+				fileList.push_back(entry.path().filename().string());
 			}
 		}
 	}
+	return fileList;
+}
 
-	for (int i = 0; i < filelist.size(); i++) {
-		regex txt_regex("^until_[0-9]{6}_[0-9]{2}h_[0-9]{2}m_[0-9]{2}s.log$");
-
-		if (filelist[i] == LOG_FILE_NAME)
-			continue;
-		else if (regex_match(filelist[i], txt_regex))
-		{
-			//rename to zip
-			string newfile = filelist[i].substr(0, filelist[i].length() - 4) + ".zip";
-			filesystem::rename(LOG_DIR + "/" + filelist[i], LOG_DIR + "/" + newfile);
-		}
+string Logger::getCurrentTimeFormat(string strFormat) {
+	char strTemp[TIME_FORMAT_MAX_SIZE];
+	
+	if (strFormat.size() > TIME_FORMAT_MAX_SIZE / 2) {
+		cout << "getCurrentTimeFormat Size > " << (TIME_FORMAT_MAX_SIZE / 2) << endl;
+		return "";
 	}
 
-	//filesystem::rename
-	//rename current
 	time_t now = time(nullptr);
 	tm tmNow;
 	localtime_s(&tmNow, &now);
-	char untilLogFileName[100];
-	strftime(untilLogFileName, sizeof(untilLogFileName), "until_%y%m%d_%Hh_%Mm_%Ss.log", &tmNow);
-	filesystem::rename(fileName, LOG_DIR + "/" + (string)untilLogFileName);
-	return;
+	strftime(strTemp, sizeof(strTemp), strFormat.c_str(), &tmNow);
+	return (string)strTemp;
 }
