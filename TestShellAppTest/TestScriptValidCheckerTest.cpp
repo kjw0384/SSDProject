@@ -5,7 +5,7 @@
 
 class CommandValidationVectorStringTest : public ::testing::TestWithParam<std::vector<std::string>> {};
 
-INSTANTIATE_TEST_CASE_P(CommandVectorStrings,
+INSTANTIATE_TEST_SUITE_P(CommandVectorStrings,
     CommandValidationVectorStringTest,
     ::testing::Values(
         vector<string>{ "write", "3", "0xAAAABBBB" },
@@ -18,7 +18,7 @@ INSTANTIATE_TEST_CASE_P(CommandVectorStrings,
 
 class CommandInvalidationVectorStringTest : public ::testing::TestWithParam<std::vector<std::string>> {};
 
-INSTANTIATE_TEST_CASE_P(InvalidCommandVectorStrings,
+INSTANTIATE_TEST_SUITE_P(InvalidCommandVectorStrings,
     CommandInvalidationVectorStringTest,
     ::testing::Values(
         vector<string>{ "write", "3"},
