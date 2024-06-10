@@ -49,7 +49,28 @@ Result_e TestScriptRunner::runTC() {
 	return Result_e::SUCCESS;
 }
 void TestScriptRunner::setvector(TestVector_t vector) {
-	m_TestCommandVector = vector;
+	m_TestCommandVector.clear();
+	m_TestCommandVector.reserve(vector.size());
+
+	for (Command& cmd : vector) {
+		if (cmd.type == "fullread") {
+			cmd.type = "read";
+			for (int lba = START_LBA; lba < END_LBA; ++lba) {
+				cmd.LBAIndexNum = lba;
+				m_TestCommandVector.push_back(cmd);
+			}
+		}
+		else if (cmd.type == "fullwrite") {
+			cmd.type = "write";
+			for (int lba = START_LBA; lba < END_LBA; ++lba) {
+				cmd.LBAIndexNum = lba;
+				m_TestCommandVector.push_back(cmd);
+			}
+		}
+		else {
+			m_TestCommandVector.push_back(cmd);
+		}
+	}
 }
 
 Result_e TestScriptRunner::callSsdProcessInternal(Command cmd) {
@@ -82,6 +103,7 @@ Result_e TestScriptRunner::callSsdProcess(Command cmd) {
 	if (cmd.type == "read") {
 		m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);
 		string readResult = m_ReadResultIO->GetReadResult();
+
 		std::cout << readResult << "\n";
 		return Result_e::SUCCESS;
 	}
@@ -95,6 +117,7 @@ Result_e TestScriptRunner::callSsdProcessAndCompare(Command cmd) {
 	if (cmd.type == "read") {
 		m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);
 		string readResult = m_ReadResultIO->GetReadResult();
+
 		if (cmd.value != readResult)
 			return Result_e::FAIL;
 		return Result_e::SUCCESS;
