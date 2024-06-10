@@ -12,9 +12,9 @@ public :
 	TestScriptReadAndCompare(){
 		m_name = "ReadAndCompare";
 		vector<string> scenarios{
-		"read 3 0x33333333",
+		"read 3 0x00000000",
 		"write 5 0x55555555",
-		"read 5",
+		"read 5 0x55555555",
 		};
 
 		for (const auto& scenario : scenarios) {

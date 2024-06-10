@@ -9,8 +9,6 @@
 #include <direct.h>
 #include <regex>
 
-#define LOG_PRINT(message) Logger::print(message, __FUNCTION__)
-
 const int TIME_FORMAT_MAX_SIZE = 100;
 const int SIZE_10K = (10 * 1024);
 const int FUNCTION_LOG_SIZE = 50;
@@ -22,14 +20,9 @@ void Logger::print(string inputStr, const char* function) {
 }
 
 void Logger::writeLog(string inputStr, const char* function) {
-
-	if (filesystem::exists(LOG_DIR) == false)
-	{
-		if (_mkdir(LOG_DIR.c_str()) != 0) {
-			cout << "Result Dir Make Fail" << endl;
-			return;
-		}
-	}
+	
+	if (checkOrMakeLogDirectory() == false)
+		return;
 
 	ofstream logfile(LOG_FULL_PATH_NAME, ios_base::app);
 	if (!logfile.is_open())
@@ -46,8 +39,12 @@ void Logger::writeLog(string inputStr, const char* function) {
 }
 
 void Logger::backupLogFileIfNeeded() {
+	if (checkOrMakeLogDirectory() == false)
+		return;
 
-	int fileSize = filesystem::file_size(LOG_FULL_PATH_NAME);
+	int fileSize = 0;
+	if (filesystem::exists(LOG_FULL_PATH_NAME))
+		fileSize = filesystem::file_size(LOG_FULL_PATH_NAME);
 
 	if (fileSize < SIZE_10K)
 		return;
@@ -91,4 +88,15 @@ string Logger::getCurrentTimeFormat(string strFormat) {
 	localtime_s(&tmNow, &now);
 	strftime(strTemp, sizeof(strTemp), strFormat.c_str(), &tmNow);
 	return (string)strTemp;
+}
+
+bool Logger::checkOrMakeLogDirectory() {
+	if (filesystem::exists(LOG_DIR) == false)
+	{
+		if (_mkdir(LOG_DIR.c_str()) != 0) {
+			cout << "Result Dir Make Fail" << endl;
+			return false;
+		}
+	}
+	return true;
 }
