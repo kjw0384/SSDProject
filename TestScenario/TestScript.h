@@ -31,10 +31,7 @@ class TestScriptTestApp1 : public  IScenario
 {
 public:
 	TestScriptTestApp1() {
-<<<<<<< HEAD
 		m_name = "testapp1";
-=======
->>>>>>> 70c0df996627486b8704a5c7c8be2aec8878fce2
 		vector<string> scenarios{
 		"fullwrite 0x11223344",
 		"fullread 0x11223344",
