@@ -11,13 +11,12 @@ public:
 		static CommandHandler commandHandler;
 		return commandHandler;
 	}
-	IScenario* scenario;
 	Result_e runParse(const string& testScript);
 	Command getCommand();
 	void handleHelp();
-
 	void handleScenario(const string& testScenario, TestScenario& scenarioLib);
 
+	IScenario* scenario;
 private:
 	CommandHandler() {}
 	CommandHandler& operator = (const CommandHandler& other) = delete;

@@ -11,6 +11,14 @@
 using std::cout;
 using std::vector;
 
+void PrintTestcaseResult(Result_e result, CommandHandler& handler)
+{
+    if (result == Result_e::FAIL)
+        std::cout << handler.scenario->getName() << "   ---   Run... Fail" << std::endl;
+    else
+        std::cout << handler.scenario->getName() << "   ---   Run... Pass" << std::endl;
+}
+
 static void RunCommand(CommandHandler& handler)
 {
     Command cmd = handler.getCommand();
@@ -20,18 +28,9 @@ static void RunCommand(CommandHandler& handler)
     TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
     runner->inputCmd(cmd);
 
-    if (cmd.type.find("testcase") == 0) {
-        runner->setvector(handler.scenario->getCommands());
-        Result_e result = runner->runTC();
-        if (result == Result_e::FAIL)
-            std::cout << handler.scenario->getName()<<"   ---   Run... Fail" << std::endl;
-        else
-            std::cout << handler.scenario->getName()<<"   ---   Run... Pass" << std::endl;
-    }
-    else {
-        runner->inputCmd(cmd);
-        runner->run();
-    }
+    runner->setvector(handler.scenario->getCommands());
+    Result_e result = runner->runTC();
+    PrintTestcaseResult(result, handler);
 }
 
 static void RunMain() {
@@ -62,10 +61,8 @@ static void RunMain() {
         if (cmd.type.find("testcase") == 0) {
             runner->setvector(handler.scenario->getCommands());
             Result_e result = runner->runTC();
-            if (result == Result_e::FAIL)
-                std::cout << "runTC fail" << std::endl;
-            else
-                std::cout << "runTC success" << std::endl;
+
+            PrintTestcaseResult(result, handler);
         }
         else {
             runner->inputCmd(cmd);
