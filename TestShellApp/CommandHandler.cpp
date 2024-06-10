@@ -4,7 +4,7 @@
 #include "IScenario.h"
 #include "../TestScenario/TestScenario.h"
 
-Result_e CommandHandler::runCommand(const string& testScript) {
+Result_e CommandHandler::runParse(const string& testScript) {
     vector<string> testScriptTokens = parser.splitTestScript(testScript);
     TestScenario testScenario;
 
@@ -62,7 +62,5 @@ void CommandHandler::handleHelp() {
 
 void CommandHandler::handleScenario(const string& testScenario, TestScenario& scenarioLib) {
     // Call DLL to get the scenario class
-    //IScenario* scenario = scenarioLib.getScenario(testScenario);
     scenario = scenarioLib.getScenario(testScenario);
-    scenario->run();
 }

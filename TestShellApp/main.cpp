@@ -30,7 +30,7 @@ static void RunMain() {
         std::cout << "> ";
         std::getline(std::cin, testScript);
 
-        Result_e result = handler.runCommand(testScript);
+        Result_e result = handler.runParse(testScript);
         if (result == Result_e::FAIL) {
             std::cout << "INVALID COMMAND" << std::endl;
             continue;
@@ -66,7 +66,7 @@ static void RunScript(std::ifstream &istrm)
         if (!(istrm >> testScript))
             break;
 
-        Result_e result = handler.runCommand(testScript);
+        Result_e result = handler.runParse(testScript);
         if (result == Result_e::FAIL)
         {
             std::cout << "INVALID COMMAND" << std::endl;
