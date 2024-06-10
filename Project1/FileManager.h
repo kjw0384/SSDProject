@@ -14,7 +14,7 @@ const string DEFAULT_DATA = "0x00000000";
 const int START_LBA = 0;
 const int END_LBA = 100;
 
-class FileManager{
+class FileManager {
 public:
 	static FileManager& getInstance()
 	{

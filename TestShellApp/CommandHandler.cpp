@@ -63,6 +63,7 @@ void CommandHandler::handleHelp() {
 
 void CommandHandler::handleScenario(const string& testScenario, TestScenario& scenarioLib) {
     // Call DLL to get the scenario class
-    IScenario* scenario = scenarioLib.getScenario(testScenario);
+    //IScenario* scenario = scenarioLib.getScenario(testScenario);
+    scenario = scenarioLib.getScenario(testScenario);
     scenario->run();
 }

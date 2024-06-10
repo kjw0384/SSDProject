@@ -11,7 +11,7 @@ public:
 		static CommandHandler commandHandler;
 		return commandHandler;
 	}
-
+	IScenario* scenario;
 	Result_e runCommand(const string& testScript);
 	Command getCommand();
 	void handleHelp();

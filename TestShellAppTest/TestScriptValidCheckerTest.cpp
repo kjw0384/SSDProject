@@ -8,12 +8,8 @@ class CommandValidationVectorStringTest : public ::testing::TestWithParam<std::v
 INSTANTIATE_TEST_SUITE_P(CommandVectorStrings,
     CommandValidationVectorStringTest,
     ::testing::Values(
-        vector<string>{ "write", "3", "0xAAAABBBB" },
-        vector<string>{ "read", "3"},
-        vector<string>{ "exit" },
-        vector<string>{ "help" },
-        vector<string>{ "fullwrite", "0x11112222" },
-        vector<string>{ "fullread" }
+        "write 3 0xAAAABBBB", "read 3","exit",
+        "help","fullwrite 0x11112222", "fullread"
     ));
 
 class CommandInvalidationVectorStringTest : public ::testing::TestWithParam<std::vector<std::string>> {};
