@@ -22,7 +22,7 @@ public:
 };
 
 TEST_F(TestRunnerFixture, InputCmd) {
-	Command testCmd = { "READ", 23, "0x77777777" };
+	Command testCmd = { "read", 23, "0x77777777" };
 	EXPECT_EQ(m_testRunner.inputCmd(testCmd), Result_e::SUCCESS);
 }
 
@@ -38,7 +38,7 @@ TEST(VirtualSsdProcMock, RunTest) {
 		.Times(1)
 		.WillOnce(Return("0x77777777"));
 
-	Command testCmd = { "READ", 23, "0x77777777" };
+	Command testCmd = { "read", 23, "0x77777777" };
 	TestScriptRunner testRunner(&mockVirtualSSDproc, &mockReadIO);
 	testRunner.inputCmd(testCmd);
 	EXPECT_EQ(testRunner.run(), Result_e::SUCCESS);

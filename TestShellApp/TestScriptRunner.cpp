@@ -50,5 +50,22 @@ Result_e TestScriptRunner::callSsdProcess(Command cmd) {
 		m_ssdProcessIf->sendWriteIpc(cmd.LBAIndexNum, cmd.value);
 		return Result_e::SUCCESS;
 	}
+	else if (cmd.type == "erase") {
+		int startLBA = cmd.LBAIndexNum;
+		int remainSize = cmd.size;
+
+		while (remainSize > 10) {
+			m_ssdProcessIf->sendEraseIpc(startLBA, 10);
+			startLBA += 10;
+			remainSize -= 10;
+		}
+		m_ssdProcessIf->sendEraseIpc(startLBA, remainSize);
+
+		return Result_e::SUCCESS;
+	}
+	else if (cmd.type == "flush") {
+		m_ssdProcessIf->sendFlushIpc();
+		return Result_e::SUCCESS;
+	}
 	return Result_e::FAIL;
 }

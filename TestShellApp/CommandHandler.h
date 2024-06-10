@@ -23,7 +23,7 @@ private:
 	CommandHandler& operator = (const CommandHandler& other) = delete;
 	CommandHandler(const CommandHandler& other) = delete;
 
-	Command cmd;
+	Command command;
 	TestScriptValidChecker checker;
 	TestScriptParser parser;
 };
