@@ -15,6 +15,6 @@ using std::vector;
 class TESTSCENARIOLIBRARY_API TestScenario {
 public:
     //TestScenario();
-    IScenario* getScenario(const string& testScenario);
-    vector<string> getScenarios();
+    static IScenario* getScenario(const string& testScenarioName);
+    static vector<string> getScenarios();
 };
