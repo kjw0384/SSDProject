@@ -87,7 +87,6 @@ Result_e TestScriptRunner::callSsdProcessAndCompare(Command cmd) {
 	if (cmd.type == "read") {
 		m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);
 		string readResult = m_ReadResultIO->GetReadResult();
-		std::cout << readResult << "\n";
 		if (cmd.value != readResult)
 			return Result_e::FAIL;
 		return Result_e::SUCCESS;
