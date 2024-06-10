@@ -21,19 +21,6 @@ Result_e TestScriptRunner::inputCmd(Command& cmd) {
 			m_TestCommandVector.push_back(cmd);
 		}
 	}
-	else if (cmd.type == "erase") {
-		int startLBA = cmd.LBAIndexNum;
-		int remainSize = cmd.size;
-
-		while (remainSize > 10) {
-			m_ssdProcessIf->sendEraseIpc(startLBA, 10);
-			startLBA += 10;
-			remainSize -= 10;
-		}
-		m_ssdProcessIf->sendEraseIpc(startLBA, remainSize);
-
-		return Result_e::SUCCESS;
-	}
 	else {
 		m_TestCommandVector.push_back(cmd);
 	}
