@@ -7,8 +7,8 @@ TestScriptDataBase::TestScriptDataBase() {
 #define TEST_SCRIPT_DESC_STRAT(NAME)\
 			tscObj = new TestScript##NAME;\
 			tscObj->setName( #NAME );
-#define TEST_SCRIPT_DESC_COMMAND(COMMAND)\
-			tscObj->InsertCommand( #COMMAND );
+#define TEST_SCRIPT_DESC_COMMAND(COMMAND)
+
 #define TEST_SCRIPT_DESC_RUN(RUN_IMPLE)
 #define TEST_SCRIPT_DESC_END()\
 			m_TestScriptDB.push_back(tscObj);

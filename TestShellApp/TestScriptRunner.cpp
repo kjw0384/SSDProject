@@ -35,6 +35,10 @@ Result_e TestScriptRunner::run() {
 	return Result_e::SUCCESS;
 }
 
+void TestScriptRunner::setvector(TestVector_t vector) {
+	m_TestCommandVector = vector;
+}
+
 Result_e TestScriptRunner::callSsdProcess(Command cmd) {
 	if (cmd.type == "read") {
 		m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);

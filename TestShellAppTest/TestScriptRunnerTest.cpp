@@ -1,45 +1,38 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "../TestShellApp/TestScriptRunner.cpp"
-#include "../TestShellApp/VirtualSsdProcessInterface.h"
-#include "../TestShellApp/VirtualSsdProcessMock.h"
+#include "../TestShellApp/TestScriptValidChecker.cpp"
 
-using namespace testing;
+class CommandValidationTest : public ::testing::TestWithParam<std::string> {};
 
-//TODO: check mock redundancy of MocReadIO class (duplicated to TestReadIOTest.cpp)
-class MockReadIO : public ReadIOInterface {
-public:
-	MOCK_METHOD(string, GetReadResult, (), (override));
-};
+INSTANTIATE_TEST_CASE_P(CommandStrings,
+    CommandValidationTest,
+    ::testing::Values(
+        "write 3 0xAAAABBBB", "read 3", "exit",
+        "help", "fullwrite 0x11112222", "fullread"
+    ));
 
-class TestRunnerFixture : public ::testing::Test {
-public:
-	TestRunnerFixture() {
-	}
+class InvalidCommandValidationTest : public ::testing::TestWithParam<std::string> {};
 
-	TestScriptRunner m_testRunner {new VirtualSsdProcessMock, new MockReadIO };
-};
+INSTANTIATE_TEST_CASE_P(InvalidCommandStrings,
+    InvalidCommandValidationTest,
+    ::testing::Values(
+        "write 3", "read 3 0xAAAABBBB", "exit 3",
+        "helpp", "fullwrite 3", "fullread 0xAAAABBBB"
+    ));
 
-TEST_F(TestRunnerFixture, InputCmd) {
-	Command testCmd = { "READ", 23, "0x77777777" };
-	EXPECT_EQ(m_testRunner.inputCmd(testCmd), Result_e::SUCCESS);
+TEST_P(CommandValidationTest, IsValidCommand) {
+
+    TestScriptValidChecker checker;
+
+    const std::string& command = GetParam();
+    EXPECT_TRUE(checker.isValidCommand(command));
 }
 
-TEST(VirtualSsdProcMock, RunTest) {
-	VirtualSsdProcessMock mockVirtualSSDproc; 
-	MockReadIO mockReadIO;
+TEST_P(InvalidCommandValidationTest, IsNotValidCommand) {
 
-	EXPECT_CALL(mockVirtualSSDproc, sendReadIpc)
-		.Times(1)
-		.WillOnce(Return(Result_e::SUCCESS));
+    TestScriptValidChecker checker;
 
-	EXPECT_CALL(mockReadIO, GetReadResult)
-		.Times(1)
-		.WillOnce(Return("0x77777777"));	
-
-	Command testCmd = { "READ", 23, "0x77777777" };
-	TestScriptRunner testRunner(&mockVirtualSSDproc, &mockReadIO);
-	testRunner.inputCmd(testCmd);
-	EXPECT_EQ(testRunner.run(), Result_e::SUCCESS);
+    const std::string& command = GetParam();
+    EXPECT_FALSE(checker.isValidCommand(command));
 }
