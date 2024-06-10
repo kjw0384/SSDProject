@@ -10,21 +10,20 @@
 #include "ShellStringParser.h"
 
 int main(int argc, char* argv[]) {
-    vector<string> arguments;
-    for (int i = 1; i < argc; i++)
-    {
-        arguments.push_back(argv[i]);
-    }
-    ShellStringParser parser;
-    parser.validCheck(arguments);
-
-    string command = argv[1];
-    int adress = stoi(argv[2]);
-
-    NANDDevice device;
-    Invoker invoker;
-
     try {
+        vector<string> arguments;
+        for (int i = 1; i < argc; i++)
+        {
+            arguments.push_back(argv[i]);
+        }
+        ShellStringParser parser;
+        parser.validCheck(arguments);
+
+        string command = argv[1];
+        int adress = stoi(argv[2]);
+
+        NANDDevice device;
+        Invoker invoker;
 
         if (command == "R" || command == "r") {
             invoker.setCommand(new ReadCommand(&device, adress));
@@ -40,9 +39,10 @@ int main(int argc, char* argv[]) {
             invoker.setCommand(new EraseCommand(&device, adress, size));
             invoker.executeCommand();
         }
-
     }
     catch (const std::runtime_error& e) {
         std::cout << "Error: " << e.what() << std::endl;
+        return 1;
     }
+    return 0;
 }
