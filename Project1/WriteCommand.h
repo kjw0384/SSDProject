@@ -9,13 +9,14 @@
 
 class WriteCommand : public Command {
 private:
-    NANDDevice* device;
-    int address;
-    string data;
+    int address = -1;
+    string data = "";
 
 public:
-    WriteCommand(NANDDevice* device, const int address, const string& data)
-        : device(device), address(address), data(data) {}
+    WriteCommand(NANDDevice* device)
+        : Command(device) {}
         
     void execute() override;
+    ShellStringParserError parse(vector<string> inputCmdVec) override;
+
 };

@@ -16,9 +16,6 @@ enum class ShellStringParserError {
 
 class ShellStringParser {
 public:
-	ShellStringParserError validCheck(vector<string> inputCmdVec);
-
-private:
 	bool isNotLBA(string strLBA);
 	bool isNotSize(string strSize);
 	bool isNotInRangeSize(string strLBA, string strSize);

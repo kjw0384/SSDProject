@@ -8,12 +8,10 @@
 
 
 class FlushCommand : public Command {
-private:
-    NANDDevice* device;
-
 public:
     FlushCommand(NANDDevice* device)
-        : device(device) {}
+        : Command(device) {}
 
     void execute() override;
+    ShellStringParserError parse(vector<string> inputCmdVec) override;
 };
