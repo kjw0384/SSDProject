@@ -26,8 +26,8 @@ IScenario* TestScriptDataBase::GetTestScriptCase(string TestScriptName) {
 
 vector<string> TestScriptDataBase::getScenarioList() {
 	vector<string> retStrVector;
-	for (string iterStr: retStrVector ) {
-		retStrVector.push_back(iterStr);
+	for (IScenario* testScriptCasetIter : m_TestScriptDB) {
+		retStrVector.push_back(testScriptCasetIter->getName());
 	}
 	return retStrVector;
 }
