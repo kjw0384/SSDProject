@@ -8,7 +8,8 @@ ShellStringParserError ShellStringParser::validCheck(vector<string> inputCmdVec)
 	
 	if (inputCmdVec[0] != "W" && inputCmdVec[0] != "w" &&
 		inputCmdVec[0] != "R" && inputCmdVec[0] != "r" &&
-		inputCmdVec[0] != "E" && inputCmdVec[0] != "e")
+		inputCmdVec[0] != "E" && inputCmdVec[0] != "e" &&
+		inputCmdVec[0] != "F" && inputCmdVec[0] != "f")
 	{
 		return ShellStringParserError::CMD_NOT_FOUND;
 	}
@@ -47,6 +48,12 @@ ShellStringParserError ShellStringParser::validCheck(vector<string> inputCmdVec)
 
 		if (isNotInRangeSize(inputCmdVec[1], inputCmdVec[2]))
 			return ShellStringParserError::CMD_ARGV_ERROR;
+	}
+
+	if (inputCmdVec[0] == "F" || inputCmdVec[0] == "f")
+	{
+		if (inputCmdVec.size() != 1)
+			return ShellStringParserError::CMD_ARGC_ERROR;
 	}
 
 	return ShellStringParserError::NO_ERROR;

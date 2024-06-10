@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "TestScriptValidChecker.h"
 #include "../TestScenario/TestScenario.h"
+#include "Logger.h"
 
 using std::vector;
 using std::regex;
@@ -10,19 +11,26 @@ using std::regex;
 bool TestScriptValidChecker::isValidScenario(string command, TestScenario& testScenario) {
 	vector<string> scenarios = testScenario.getScenarios();
 	if (std::find(scenarios.begin(), scenarios.end(), command) != scenarios.end())
+	{
+		LOG_PRINT("Valid Scenarios");
 		return true;
+	}
+	LOG_PRINT("Invalid Scenarios");
 	return false;
 }
 
 bool TestScriptValidChecker::isValidCommand(string command, vector<string> testScriptTokens) {
 	if (isValidPattern(command) == false) {
+		LOG_PRINT("Invalid Pattern");
 		return false;
 	}
 
 	if (isValidErase(testScriptTokens) == false) {
+		LOG_PRINT("Invalid Erase");
 		return false;
 	}
-
+	
+	LOG_PRINT("Valid Command");
 	return true;
 }
 
