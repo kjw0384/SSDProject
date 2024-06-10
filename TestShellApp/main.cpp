@@ -1,50 +1,105 @@
-#include <vector>
 #include <iostream>
+#include <vector>
 
+#include "../TestScenario/TestScenario.h"
 #include "CommandHandler.h"
+#include "ResultFileReader.h"
 #include "TestScriptRunner.h"
 #include "VirtualSsdProcess.h"
-#include "ResultFileReader.h"
-#include "../TestScenario/TestScenario.h"
 
-using std::vector;
 using std::cout;
+using std::vector;
 
-static void RunMain() {
-    CommandHandler& handler = CommandHandler::getCommandHandler();
+static void RunCommand(CommandHandler& handler)
+{
+    Command cmd = handler.getCommand();
+    VirtaulSsdProcess* pSsdProcIf = new VirtaulSsdProcess();
+    ResultFileReader* pReadResultIO = new ResultFileReader();
 
-    while (true) {
+    TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
+    runner->inputCmd(cmd);
+
+    runner->run();
+}
+
+static void RunMain()
+{
+    CommandHandler &handler = CommandHandler::getCommandHandler();
+
+    while (true)
+    {
         string testScript = "";
         std::cout << "> ";
         std::getline(std::cin, testScript);
 
         Result_e result = handler.runCommand(testScript);
-        if (result == Result_e::FAIL) {
+        if (result == Result_e::FAIL)
+        {
             std::cout << "INVALID COMMAND" << std::endl;
             continue;
         }
 
-        if (result == Result_e::EXIT) {
+        if (result == Result_e::EXIT)
+        {
             break;
         }
 
-        Command cmd = handler.getCommand();
-        VirtaulSsdProcess* pSsdProcIf = new VirtaulSsdProcess();
-        ResultFileReader* pReadResultIO = new ResultFileReader();
-
-        TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
-        runner->inputCmd(cmd);
-
-        runner->run();
+        RunCommand(handler);
     }
 }
 
-int main(int argc, char* argv[]) {
-    try {
-        cout << "*** TestShellApp version 1.0 ***\n";
-        RunMain();
+static void RunScript(std::ifstream &istrm)
+{
+    CommandHandler &handler = CommandHandler::getCommandHandler();
+
+    while (true)
+    {
+        string testScript = "";
+        if (!(istrm >> testScript))
+            break;
+
+        Result_e result = handler.runCommand(testScript);
+        if (result == Result_e::FAIL)
+        {
+            std::cout << "INVALID COMMAND" << std::endl;
+            continue;
+        }
+
+        if (result == Result_e::EXIT)
+        {
+            break;
+        }
+
+        RunCommand(handler);
     }
-    catch (const std::exception& e) {
+}
+
+int main(int argc, char *argv[])
+{
+    try
+    {
+        if (argc == 1)
+        {
+            cout << "*** TestShellApp version 1.0 ***\n";
+            RunMain();
+        }
+        else
+        {
+            string filename{argv[1]};
+            std::ifstream istrm(filename);
+            if (!istrm.is_open())
+            {
+                std::cout << "failed to open " << filename << '\n';
+                throw std::exception();
+            }
+            else
+            {
+                RunScript(istrm);
+            }
+        }
+    }
+    catch (const std::exception &e)
+    {
         cout << "EXCEPTION! : " << e.what() << std::endl;
     }
 }
