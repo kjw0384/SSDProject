@@ -8,11 +8,12 @@ using namespace std;
 
 class TestScriptDataBase {
 public:
-	TestScriptDataBase();
 	IScenario* GetTestScriptCase(string TestScriptName);
 
 	vector<string> getScenarioList();
 
+	static TestScriptDataBase& getInstance();
 private:
-	vector<IScenario*> m_TestScriptDB; //TODO: consider <string , TestCase> map container
+	TestScriptDataBase();
+	vector<IScenario*> m_TestScriptDB;
 };
