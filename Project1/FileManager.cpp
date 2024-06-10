@@ -26,8 +26,7 @@ void FileManager::writeToNand(vector<string> dataBuf)
 	ofstream file(NAND_FILE);
 	if (!file.is_open())
 	{
-		cout << "Nand.txt file open fail" << endl;  //todo : exception?
-		return;
+		throw std::runtime_error("Nand.txt file open fail");
 	}
 
 	for (string data : dataBuf)
@@ -81,8 +80,7 @@ void FileManager::writeToResult(string data)
 	ofstream file(RESULT_FILE);
 	if (!file.is_open())
 	{
-		cout << "Nand.txt file open fail" << endl;  //todo : exception?
-		return;
+		throw std::runtime_error("Nand.txt file open fail");
 	}
 
 	file << data << endl;
@@ -102,7 +100,7 @@ void FileManager::createOutputFiles()
 			}
 			else
 			{
-				cout << "File Open Error" << endl;
+				throw std::runtime_error("File Open Error");
 			}
 		}
 	}
@@ -118,7 +116,7 @@ void FileManager::setFilePath()
 		}
 		else
 		{
-			cout << "Result Dir Make Fail" << endl;
+			throw std::runtime_error("Nand.txt file open fail");
 		}
 	}
 	else
@@ -172,8 +170,7 @@ void FileManager::writeToBuffer()
 	ofstream file(BUFFER_FILE);
 	if (!file.is_open())
 	{
-		cout << "Buffer.txt file open fail" << endl;  //todo : exception?
-		return;
+		throw std::runtime_error("Buffer.txt file open fail");
 	}
 
 	vector<CommandFormat> cmdBuf = commandBuffer.getCommandBuffer();
@@ -194,8 +191,7 @@ void FileManager::initBufferFile()
 	ofstream file(BUFFER_FILE);
 	if (!file.is_open())
 	{
-		cout << "Buffer.txt file open fail" << endl;  //todo : exception?
-		return;
+		throw std::runtime_error("Buffer.txt file open fail");
 	}
 	file.close();
 }
