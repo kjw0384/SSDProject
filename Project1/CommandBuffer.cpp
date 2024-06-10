@@ -73,7 +73,7 @@ void CommandBuffer::memrgeCommandBuffer(CommandFormat& newCmd, vector< CommandFo
 		int start = min(newCmd.startAddr, cmd.startAddr);
 		int end = max(newCmd.endAddr, cmd.endAddr);
 
-		if (end - start + 1 >= 10)
+		if (end - start > 10)
 		{
 			temp.push_back(cmd);
 

@@ -160,3 +160,21 @@ TEST_F(CommandFixture, eraseMergeTest2) {
 	invoker.setCommand(new EraseCommand(&device, 7, 7));
 	invoker.executeCommand();
 }
+
+
+TEST_F(CommandFixture, eraseMergeTest3) {
+	int adress = 0;
+	string data = "";
+
+	FileManager& fileManager = FileManager::getInstance();
+	fileManager.initialize();
+
+
+	fileManager.initialize();
+	invoker.setCommand(new EraseCommand(&device, adress, 5));
+	invoker.executeCommand();
+
+	fileManager.initialize();
+	invoker.setCommand(new EraseCommand(&device, 5, 5));
+	invoker.executeCommand();
+}
