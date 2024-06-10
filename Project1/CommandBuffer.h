@@ -29,7 +29,6 @@ public:
 	}
 
 	int getBufferSize();
-	void setBufferMemory(vector<CommandFormat> cmdBuf);
 	map<int, string> getBufferMemory();
 	vector<CommandFormat> getCommandBuffer();
 	bool getData(int addr, string& data);
@@ -43,7 +42,7 @@ public:
 	}
 private:
 	CommandBuffer() {
-	
+
 	}
 	vector<CommandFormat>  commandBuffer;
 	map<int, string>   BufferMemory;

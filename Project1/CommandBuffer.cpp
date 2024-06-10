@@ -1,10 +1,5 @@
 #include "CommandBuffer.h"
 
-void CommandBuffer::setBufferMemory(vector<CommandFormat> cmdBuf)
-{
-	commandBuffer = cmdBuf;
-}
-
 map<int, string> CommandBuffer::getBufferMemory()
 {
 	return BufferMemory;
@@ -46,7 +41,7 @@ void CommandBuffer::insertCommand(CommandFormat newCmd)
 			else					   tempERS.push_back(cmd);
 		}
 	}
-	
+
 	if (newCmd.command == "PGM")
 	{
 		tempERS.insert(tempERS.end(), tempPGM.begin(), tempPGM.end());
