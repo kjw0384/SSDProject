@@ -21,7 +21,7 @@ void NANDDevice::write(const int address, const string& data) {
 
     if (fileManager.writeBufferData(address, data) == true)
     {
-       flush();
+       _flush();
     }
 }
 
@@ -29,11 +29,16 @@ void NANDDevice::erase(const int address, const int size) {
 
     if (fileManager.eraseBufferData(address, size))
     {
-        flush();
+        _flush();
     }
 }
+void NANDDevice::flush()
+{
+    fileManager.readFromBuffer();
+    _flush();
+}
 
-void NANDDevice::flush() {
+void NANDDevice::_flush() {
 
     vector<string> setData = fileManager.readFromNand();
     map<int, string>buf =  fileManager.getBufferMemory();
