@@ -4,11 +4,13 @@
 #include <sstream>
 #include <stdexcept>
 #include <cctype>
+#include "Logger.h"
 
 vector<string> TestScriptParser::splitTestScript(const string& testScript) {
     vector<string> scriptTokens;
     std::istringstream ss(testScript);
     string token;
+    LOG_PRINT(testScript);
 
     while (ss >> token) {
         scriptTokens.push_back(token);
@@ -36,11 +38,12 @@ Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
         cmd.type = "erase";
         cmd.size = stoi(scriptTokens[2]) - stoi(scriptTokens[1]);
     }
-
+    LOG_PRINT(cmd.type);
     return cmd;
 }
 
 CommandType_e TestScriptParser::getCommandType(cmdType_t type) {
+    LOG_PRINT(type);
     if (type == "exit") {
         return CommandType_e::EXIT;
     } 
@@ -72,14 +75,16 @@ CommandType_e TestScriptParser::getCommandType(cmdType_t type) {
 }
 
 CommandType_e TestScriptParser::executeParse(vector<string> scriptTokens) {
-
+    LOG_PRINT("");
     command = parseTestScript(scriptTokens);
     return getCommandType(command.type);
 }
 
 Command TestScriptParser::getCommand() {
     if (command.type.empty()) {
+        LOG_PRINT("Command Type Error");
         throw std::exception();
     }
+    LOG_PRINT("return Command");
     return command;
 }

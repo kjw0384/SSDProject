@@ -6,6 +6,7 @@
 #include "ResultFileReader.h"
 #include "TestScriptRunner.h"
 #include "VirtualSsdProcess.h"
+#include "Logger.h"
 
 using std::cout;
 using std::vector;
@@ -19,10 +20,22 @@ static void RunCommand(CommandHandler& handler)
     TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
     runner->inputCmd(cmd);
 
-    runner->run();
+    if (cmd.type.find("testcase") == 0) {
+        runner->setvector(handler.scenario->getCommands());
+        Result_e result = runner->runTC();
+        if (result == Result_e::FAIL)
+            std::cout << handler.scenario->getName()<<"   ---   Run... Fail" << std::endl;
+        else
+            std::cout << handler.scenario->getName()<<"   ---   Run... Pass" << std::endl;
+    }
+    else {
+        runner->inputCmd(cmd);
+        runner->run();
+    }
 }
 
 static void RunMain() {
+    LOG_PRINT("Run Main");
     CommandHandler& handler = CommandHandler::getCommandHandler();
 
     while (true) {
@@ -48,11 +61,16 @@ static void RunMain() {
 
         if (cmd.type.find("testcase") == 0) {
             runner->setvector(handler.scenario->getCommands());
+            Result_e result = runner->runTC();
+            if (result == Result_e::FAIL)
+                std::cout << "runTC fail" << std::endl;
+            else
+                std::cout << "runTC success" << std::endl;
         }
         else {
             runner->inputCmd(cmd);
+            runner->run();
         }
-        runner->run();
     }
 }
 

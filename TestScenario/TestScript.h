@@ -12,9 +12,9 @@ public :
 	TestScriptReadAndCompare(){
 		m_name = "ReadAndCompare";
 		vector<string> scenarios{
-		"read 3 0x33333333",
+		"read 3 0x00000000",
 		"write 5 0x55555555",
-		"read 5",
+		"read 5 0x55555555",
 		};
 
 		for (const auto& scenario : scenarios) {
@@ -31,7 +31,10 @@ class TestScriptTestApp1 : public  IScenario
 {
 public:
 	TestScriptTestApp1() {
+<<<<<<< HEAD
 		m_name = "testapp1";
+=======
+>>>>>>> 70c0df996627486b8704a5c7c8be2aec8878fce2
 		vector<string> scenarios{
 		"fullwrite 0x11223344",
 		"fullread 0x11223344",
