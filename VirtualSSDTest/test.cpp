@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
@@ -178,3 +179,4 @@ TEST_F(CommandFixture, eraseMergeTest3) {
 	invoker.setCommand(new EraseCommand(&device, 5, 5));
 	invoker.executeCommand();
 }
+

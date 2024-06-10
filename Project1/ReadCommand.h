@@ -9,12 +9,13 @@
 
 class ReadCommand : public ShellCommand {
 private:
-    NANDDevice* device;
-    int address;
+    int address = -1;
 
 public:
-    ReadCommand(NANDDevice* device, const int address)
-        : device(device), address(address) {}
+    ReadCommand(NANDDevice* device)
+        : Command(device) {}
 
     void execute() override;
+
+    ShellStringParserError parse(vector<string> inputCmdVec) override;
 };

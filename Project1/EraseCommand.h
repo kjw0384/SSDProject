@@ -8,13 +8,13 @@
 
 class EraseCommand : public ShellCommand {
 private:
-    NANDDevice* device;
-    int address;
-    int size;
+    int address = -1;
+    int size = -1;
 
 public:
-    EraseCommand(NANDDevice* device, const int address, const int size)
-        : device(device), address(address), size(size) {}
+    EraseCommand(NANDDevice* device)
+        : Command(device) {}
 
     void execute() override;
+    ShellStringParserError parse(vector<string> inputCmdVec) override;
 };

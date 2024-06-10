@@ -10,6 +10,7 @@
     <ClCompile Include="WriteCommand.cpp" />
     <ClCompile Include="EraseCommand.cpp" />
     <ClCompile Include="FlushCommand.cpp" />
+    <ClCompile Include="CommandFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
@@ -22,5 +23,6 @@
     <ClInclude Include="WriteCommand.h" />
     <ClInclude Include="EraseCommand.h" />
     <ClInclude Include="FlushCommand.h" />
+    <ClInclude Include="CommandFactory.h" />
   </ItemGroup>
 </Project>
