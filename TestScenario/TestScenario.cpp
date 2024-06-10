@@ -12,7 +12,7 @@ test1app::test1app() {
 	vector<string> scenarios{
 		"read 1 0x11111111",
 		"write 7 0x22222222",
-		"read 2"
+		"read 7"
 	};
 
 	for (const auto& scenario : scenarios) {

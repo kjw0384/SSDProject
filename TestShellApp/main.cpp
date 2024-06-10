@@ -33,8 +33,13 @@ static void RunMain() {
         ResultFileReader* pReadResultIO = new ResultFileReader();
 
         TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
-        runner->inputCmd(cmd);
 
+        if (cmd.type.find("testcase") == 0) {
+            runner->setvector(handler.scenario->m_TestScriptCommandVector);
+        }
+        else {
+            runner->inputCmd(cmd);
+        }
         runner->run();
     }
 }

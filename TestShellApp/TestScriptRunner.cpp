@@ -48,3 +48,7 @@ Result_e TestScriptRunner::callSsdProcess(Command cmd) {
 	}
 	return Result_e::FAIL;
 }
+void TestScriptRunner::setvector(TestVector_t vector) {
+
+	m_TestCommandVector = vector;
+}

@@ -10,6 +10,7 @@ Result_e CommandHandler::runCommand(const string& testScript) {
         if (checker.isValidScenario(testScript, testScenario) == false) {
             return Result_e::FAIL;
         }
+        cmd.type = "testcase";
         handleScenario(testScript, testScenario);
         return Result_e::SUCCESS;
     }
