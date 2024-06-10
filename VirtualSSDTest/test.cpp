@@ -7,7 +7,7 @@
 #include "../Project1/EraseCommand.cpp"
 #include "../Project1/FileManager.cpp"
 #include "../Project1/NANDDevice.cpp"
-#include "../Project1/Invoker.h"
+#include "../Project1/CommandInvoker.h"
 
 using namespace std;
 using namespace testing;
@@ -37,7 +37,7 @@ public:
 class CommandFixture : public testing::Test {
 public:
 	NANDDevice device;
-	Invoker invoker;
+	CommandInvoker invoker;
 };
 
 TEST_F(CommandTestFixture, Read) {

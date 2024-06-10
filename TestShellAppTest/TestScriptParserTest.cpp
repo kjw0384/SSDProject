@@ -56,7 +56,7 @@ TEST_F(TestScriptParserFixture, getTestCmdSuccess) {
     vector<string> scriptTokens = { "write", "3", "0xAAAABBBB" };
 
     parser->executeParse(scriptTokens);
-    ShellCommand cmd = parser->getCommand();
+    ShellCommand cmd = parser->getParseResultCmd();
 
     EXPECT_EQ(cmd.type, "write");
     EXPECT_EQ(cmd.LBAIndexNum, 3);
@@ -64,5 +64,5 @@ TEST_F(TestScriptParserFixture, getTestCmdSuccess) {
 }
 
 TEST_F(TestScriptParserFixture, getTestCmdFailed) {
-    EXPECT_THROW(parser->getCommand(), std::exception);
+    EXPECT_THROW(parser->getParseResultCmd(), std::exception);
 }

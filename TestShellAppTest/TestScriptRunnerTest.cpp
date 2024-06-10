@@ -23,7 +23,7 @@ public:
 
 TEST_F(TestRunnerFixture, InputCmd) {
 	ShellCommand testCmd = { "read", 23, "0x77777777" };
-	EXPECT_EQ(m_testRunner.inputCmd(testCmd), Result_e::SUCCESS);
+	EXPECT_EQ(m_testRunner.inputShellCmd(testCmd), Result_e::SUCCESS);
 }
 
 TEST(VirtualSsdProcMock, RunTest) {
@@ -40,6 +40,6 @@ TEST(VirtualSsdProcMock, RunTest) {
 
 	ShellCommand testCmd = { "read", 23, "0x77777777" };
 	TestScriptRunner testRunner(&mockVirtualSSDproc, &mockReadIO);
-	testRunner.inputCmd(testCmd);
+	testRunner.inputShellCmd(testCmd);
 	EXPECT_EQ(testRunner.run(), Result_e::SUCCESS);
 }

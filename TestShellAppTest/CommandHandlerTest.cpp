@@ -18,10 +18,12 @@ INSTANTIATE_TEST_CASE_P(InvalidCommandStrings,
 TEST_P(ShellCommandHandlerParamFixture, InvalidCommand) {
 
     const std::string& command = GetParam();
-    EXPECT_EQ(Result_e::FAIL,  handler.runParse(command));
+    ShellCommand retCmd;
+    EXPECT_EQ(Result_e::FAIL,  handler.exportCmdWithString(command, &retCmd));
 }
 
 TEST_P(ShellCommandHandlerParamFixture, exitCommand) {
     const std::string& command = "exit";
-    EXPECT_EQ(Result_e::EXIT, handler.runParse(command));
+    ShellCommand retCmd;
+    EXPECT_EQ(Result_e::EXIT, handler.exportCmdWithString(command, &retCmd));
 }
