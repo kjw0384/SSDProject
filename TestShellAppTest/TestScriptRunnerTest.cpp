@@ -18,7 +18,7 @@ public:
 	TestRunnerFixture() {
 	}
 
-	TestScriptRunner m_testRunner {new VirtualSsdProcessMock, new MockReadIO };
+	TestScriptRunner m_testRunner{ new VirtualSsdProcessMock, new MockReadIO };
 };
 
 TEST_F(TestRunnerFixture, InputCmd) {
@@ -27,7 +27,7 @@ TEST_F(TestRunnerFixture, InputCmd) {
 }
 
 TEST(VirtualSsdProcMock, RunTest) {
-	VirtualSsdProcessMock mockVirtualSSDproc; 
+	VirtualSsdProcessMock mockVirtualSSDproc;
 	MockReadIO mockReadIO;
 
 	EXPECT_CALL(mockVirtualSSDproc, sendReadIpc)
@@ -36,7 +36,7 @@ TEST(VirtualSsdProcMock, RunTest) {
 
 	EXPECT_CALL(mockReadIO, GetReadResult)
 		.Times(1)
-		.WillOnce(Return("0x77777777"));	
+		.WillOnce(Return("0x77777777"));
 
 	Command testCmd = { "READ", 23, "0x77777777" };
 	TestScriptRunner testRunner(&mockVirtualSSDproc, &mockReadIO);

@@ -13,4 +13,5 @@ enum class CommandType_e {
 	WRITE,
 	FULLREAD,
 	FULLWRITE,
+	TESTCASE
 };
