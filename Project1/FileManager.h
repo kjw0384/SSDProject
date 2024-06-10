@@ -29,6 +29,7 @@ public:
 	bool readBufferData(int addr, string& data);
 	bool writeBufferData(int addr, string data);
 	bool eraseBufferData(int addr, int size);
+	void readFromBuffer();
 	map<int, string> getBufferMemory();
 	void initBufferFile();
 	void initialize()
@@ -41,7 +42,7 @@ private:
 	vector<string> Files = { NAND_FILE , RESULT_FILE, BUFFER_FILE };
 	CommandBuffer& commandBuffer;
 
-	void readFromBuffer();
+
 	void writeToBuffer();
 	void getNandData(ifstream& file, vector<string>& ret);
 	void getBufferData(ifstream& file);

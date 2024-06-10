@@ -16,4 +16,5 @@ public:
 
 private:
     FileManager& fileManager;
+    void _flush();
 };
