@@ -22,29 +22,37 @@ static void RunCommand(CommandHandler& handler)
     runner->run();
 }
 
-static void RunMain()
-{
-    CommandHandler &handler = CommandHandler::getCommandHandler();
+static void RunMain() {
+    CommandHandler& handler = CommandHandler::getCommandHandler();
 
-    while (true)
-    {
+    while (true) {
         string testScript = "";
         std::cout << "> ";
         std::getline(std::cin, testScript);
 
         Result_e result = handler.runCommand(testScript);
-        if (result == Result_e::FAIL)
-        {
+        if (result == Result_e::FAIL) {
             std::cout << "INVALID COMMAND" << std::endl;
             continue;
         }
 
-        if (result == Result_e::EXIT)
-        {
+        if (result == Result_e::EXIT) {
             break;
         }
 
-        RunCommand(handler);
+        Command cmd = handler.getCommand();
+        VirtaulSsdProcess* pSsdProcIf = new VirtaulSsdProcess();
+        ResultFileReader* pReadResultIO = new ResultFileReader();
+
+        TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
+
+        if (cmd.type.find("testcase") == 0) {
+            runner->setvector(handler.scenario->getCommands());
+        }
+        else {
+            runner->inputCmd(cmd);
+        }
+        runner->run();
     }
 }
 

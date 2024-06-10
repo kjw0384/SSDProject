@@ -43,7 +43,7 @@ public :\
 		vector<string> scenarios{
 
 #define TEST_SCRIPT_DESC_COMMAND(CMD_STRING)\
-		#CMD_STRING , 
+		CMD_STRING , 
 	
 #define TEST_SCRIPT_DESC_RUN(RUN_FUNC_IMPLE)\
 		};\
