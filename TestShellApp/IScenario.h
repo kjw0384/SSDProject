@@ -3,6 +3,7 @@
 #include <string>
 
 #include <sstream>
+#include <vector>
 #include "TestCommand.h"
 
 #define interface struct
@@ -57,23 +58,3 @@ protected:
 	TestVector_t m_TestScriptCommandVector;
 };
 
-/*class IScenario {
-public:
-	string getName() {
-		return m_name;
-	}
-
-	void setName(string name) {
-		m_name = name;
-	}
-
-	void InsertCommand(string CmdName) {
-		m_CmdVector.push_back(CmdName);
-	}
-
-	virtual void run() = 0;
-
-private:
-	string m_name;
-	vector<string> m_CmdVector;
-};*/
