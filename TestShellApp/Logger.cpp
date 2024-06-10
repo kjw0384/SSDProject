@@ -17,7 +17,7 @@ const int FUNCTION_LOG_SIZE = 50;
 const string UNTIL_LOG_FILE_FORMAT = "^until_[0-9]{6}_[0-9]{2}h_[0-9]{2}m_[0-9]{2}s.log$";
 
 void Logger::print(string inputStr, const char* function) {
-	backupLogFileIfNeeded(LOG_FULL_PATH_NAME);
+	backupLogFileIfNeeded();
 	writeLog(inputStr, function);
 }
 
@@ -45,35 +45,34 @@ void Logger::writeLog(string inputStr, const char* function) {
 	std::cout << std::right; //back to default option
 }
 
-void Logger::backupLogFileIfNeeded(string fileName) {
+void Logger::backupLogFileIfNeeded() {
 
-	int fileSize = filesystem::file_size(fileName);
+	int fileSize = filesystem::file_size(LOG_FULL_PATH_NAME);
 
 	if (fileSize < SIZE_10K)
 		return;
 
-	vector<string> filelist = getLogFileList();
-	for (string filename : filelist) {
-		if (regex_match(filename, regex(UNTIL_LOG_FILE_FORMAT)))
-		{
-			//rename to zip
-			string newfile = filename.substr(0, filename.length() - 4) + ".zip";
-			filesystem::rename(LOG_DIR + "/" + filename, LOG_DIR + "/" + newfile);
-		}
+	vector<string> untilLogFileList = getUntilLogFileList();
+	for (string logFileName : untilLogFileList) {
+		string zipFileName = logFileName.substr(0, logFileName.length() - 4) + ".zip";
+		filesystem::rename(LOG_DIR + "/" + logFileName, LOG_DIR + "/" + zipFileName);
 	}
 
 	string untilLogFileName = getCurrentTimeFormat("until_%y%m%d_%Hh_%Mm_%Ss.log");
-	filesystem::rename(fileName, LOG_DIR + "/" + untilLogFileName);
+	filesystem::rename(LOG_FULL_PATH_NAME, LOG_DIR + "/" + untilLogFileName);
 	return;
 }
 
-vector<string> Logger::getLogFileList() {
+vector<string> Logger::getUntilLogFileList() {
 	vector<string> fileList;
 	if (filesystem::exists(LOG_DIR)) {
 		for (const auto& entry : filesystem::directory_iterator(LOG_DIR)) {
-			if (entry.is_regular_file()) {
-				fileList.push_back(entry.path().filename().string());
-			}
+			if (!entry.is_regular_file())
+				continue;
+			
+			string filename = entry.path().filename().string();
+			if (regex_match(filename, regex(UNTIL_LOG_FILE_FORMAT)))
+				fileList.push_back(filename);
 		}
 	}
 	return fileList;

@@ -14,7 +14,7 @@ public:
 	static void print(string s, const char* function);
 	static void writeLog(string s, const char* function);
 private:
-	static void backupLogFileIfNeeded(string fileName);
-	static vector<string> getLogFileList();
+	static void backupLogFileIfNeeded();
+	static vector<string> getUntilLogFileList();
 	static string getCurrentTimeFormat(string strFormat);
 };
