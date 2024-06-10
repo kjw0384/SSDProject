@@ -142,7 +142,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="TestScenario.h" />
-    <ClInclude Include="TestScriptReadAndCompare.h" />
+    <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestScriptDataBase.h" />
   </ItemGroup>
   <ItemGroup>
