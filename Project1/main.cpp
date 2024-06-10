@@ -9,6 +9,7 @@
 #include "EraseCommand.h"
 #include "FlushCommand.h"
 #include "ShellStringParser.h"
+#include "CommandFactory.h"
 
 int main(int argc, char* argv[]) {
     try {
@@ -17,35 +18,18 @@ int main(int argc, char* argv[]) {
         {
             arguments.push_back(argv[i]);
         }
-        ShellStringParser parser;
-        parser.validCheck(arguments);
-
-        string command = argv[1];
 
         NANDDevice device;
         Invoker invoker;
 
-        if (command == "R" || command == "r") {
-            int adress = stoi(argv[2]);
-            invoker.setCommand(new ReadCommand(&device, adress));
-            invoker.executeCommand();
-        }
-        if (command == "W" || command == "w") {
-            int adress = stoi(argv[2]);
-            string data = argv[3];
-            invoker.setCommand(new WriteCommand(&device, adress, data));
-            invoker.executeCommand();
-        }
-        if (command == "E" || command == "e") {
-            int adress = stoi(argv[2]);
-            int size = stoi(argv[3]);
-            invoker.setCommand(new EraseCommand(&device, adress, size));
-            invoker.executeCommand();
-        }
-        if (command == "F" || command == "f") {
-            invoker.setCommand(new FlushCommand(&device));
-            invoker.executeCommand();
-        }
+        CommandFactory factory = CommandFactory::getInstance();
+        Command* command = factory.getCommand(&device, arguments);
+        if (command == nullptr)
+            return 1;
+
+        invoker.setCommand(command);
+        invoker.executeCommand();
+        
     }
     catch (const std::runtime_error& e) {
         std::cout << "Error: " << e.what() << std::endl;
