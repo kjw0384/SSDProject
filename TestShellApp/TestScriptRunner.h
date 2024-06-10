@@ -23,6 +23,7 @@ public:
 private:
 	Result_e callSsdProcess(Command cmd);
 	Result_e callSsdProcessAndCompare(Command cmd);
+	Result_e callSsdProcessInternal(Command cmd);
 
 	TestVector_t m_TestCommandVector;
 	VirtualSsdProcessInterface* m_ssdProcessIf;
