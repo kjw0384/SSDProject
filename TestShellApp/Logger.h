@@ -9,6 +9,8 @@ const string LOG_DIR = "./Log";
 const string LOG_FILE_NAME = "latest.log";
 const string LOG_FULL_PATH_NAME = LOG_DIR + "/" + LOG_FILE_NAME;
 
+#define LOG_PRINT(message) Logger::print(message, __FUNCTION__)
+
 static class Logger {
 public:
 	static void print(string s, const char* function);

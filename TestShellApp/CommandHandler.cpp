@@ -3,6 +3,7 @@
 #include "CommandHandler.h"
 #include "IScenario.h"
 #include "../TestScenario/TestScenario.h"
+#include "Logger.h"
 
 Result_e CommandHandler::runCommand(const string& testScript) {
 

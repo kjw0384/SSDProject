@@ -6,6 +6,7 @@
 #include "ResultFileReader.h"
 #include "TestScriptRunner.h"
 #include "VirtualSsdProcess.h"
+#include "Logger.h"
 
 using std::cout;
 using std::vector;
@@ -24,6 +25,7 @@ static void RunCommand(CommandHandler& handler)
 
 static void RunMain()
 {
+    LOG_PRINT("Run Main");
     CommandHandler &handler = CommandHandler::getCommandHandler();
 
     while (true)

@@ -9,8 +9,6 @@
 #include <direct.h>
 #include <regex>
 
-#define LOG_PRINT(message) Logger::print(message, __FUNCTION__)
-
 const int TIME_FORMAT_MAX_SIZE = 100;
 const int SIZE_10K = (10 * 1024);
 const int FUNCTION_LOG_SIZE = 50;
