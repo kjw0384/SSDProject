@@ -12,6 +12,5 @@ public:
 	bool isValidCommand(string command, vector<string> testScriptTokens);
 	bool isValidPattern(string command);
 	bool isValidErase(vector<string> scriptTokens);
-	bool isValidSize(Index_t LBA, Size_t size);
-	bool isValidRange(Index_t startLBA, Index_t endLBA);
+	bool isValidRange(Index_t LBA, Size_t size);
 };

@@ -49,37 +49,27 @@ bool TestScriptValidChecker::isValidPattern(string command) {
 
 bool TestScriptValidChecker::isValidErase(vector<string> scriptTokens) {
 	cmdType_t type = scriptTokens[0];
-	if (type == "erase") {
-		int LBA = stoi(scriptTokens[1]);
-		int size = stoi(scriptTokens[2]);
-		if (isValidSize(LBA, size) == false) {
-			return false;
-		}
-	}
+	
+	if (type != "erase" || type != "erase_range") return true;
+
+	int LBA = stoi(scriptTokens[1]);
+	int size = stoi(scriptTokens[2]);
 
 	if (type == "erase_range") {
-		int startLBA = stoi(scriptTokens[1]);
-		int endLBA = stoi(scriptTokens[2]);
-		if (isValidRange(startLBA, endLBA) == false) {
+		if (size > MAX_LBA)
 			return false;
-		}
+		size = size - LBA;
 	}
-	return true;
+
+	return isValidRange(LBA, size);
 }
 
-bool TestScriptValidChecker::isValidSize(Index_t LBA, Size_t size) {
-	if (size > MAX_LBA)
+bool TestScriptValidChecker::isValidRange(Index_t LBA, Size_t size) {
+	if (size > MAX_LBA || size < MIN_LBA)
 		return false;
 
 	if (LBA + size > MAX_LBA)
 		return false;
 
 	return true;
-}
-
-bool TestScriptValidChecker::isValidRange(Index_t startLBA, Index_t endLBA) {
-	if (endLBA <= startLBA)
-		return false;
-
-	return isValidSize(startLBA, endLBA - startLBA);
 }
