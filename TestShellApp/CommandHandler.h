@@ -12,7 +12,7 @@ public:
 		return commandHandler;
 	}
 	IScenario* scenario;
-	Result_e runCommand(const string& testScript);
+	Result_e runParse(const string& testScript);
 	Command getCommand();
 	void handleHelp();
 
