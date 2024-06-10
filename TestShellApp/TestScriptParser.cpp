@@ -20,7 +20,8 @@ Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
     Command cmd;
 
     cmd.type = scriptTokens[0];
-    cmd.LBAIndexNum = stoi(scriptTokens[1]);
+    if (scriptTokens.size() > 1) 
+        cmd.LBAIndexNum = stoi(scriptTokens[1]);
 
     if (cmd.type == "write") {
         cmd.value = scriptTokens[2];
