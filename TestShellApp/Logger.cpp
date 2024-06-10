@@ -9,14 +9,14 @@
 #include <direct.h>
 #include <regex>
 
-#define LOG_MESSAGE(message) Logger::log(message, __FUNCTION__)
+#define LOG_PRINT(message) Logger::print(message, __FUNCTION__)
 
 const int TIME_FORMAT_MAX_SIZE = 100;
 const int SIZE_10K = (10 * 1024);
 const int FUNCTION_LOG_SIZE = 50;
 const string UNTIL_LOG_FILE_FORMAT = "^until_[0-9]{6}_[0-9]{2}h_[0-9]{2}m_[0-9]{2}s.log$";
 
-void Logger::log(string inputStr, const char* function) {
+void Logger::print(string inputStr, const char* function) {
 	backupLogFileIfNeeded(LOG_FULL_PATH_NAME);
 	writeLog(inputStr, function);
 }

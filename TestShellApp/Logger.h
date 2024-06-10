@@ -11,7 +11,7 @@ const string LOG_FULL_PATH_NAME = LOG_DIR + "/" + LOG_FILE_NAME;
 
 static class Logger {
 public:
-	static void log(string s, const char* function);
+	static void print(string s, const char* function);
 	static void writeLog(string s, const char* function);
 private:
 	static void backupLogFileIfNeeded(string fileName);
