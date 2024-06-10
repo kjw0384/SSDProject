@@ -21,7 +21,7 @@
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TestScenario.h">
+    <ClInclude Include="TestScenarioAPI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="TestScript.h">

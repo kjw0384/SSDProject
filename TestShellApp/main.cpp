@@ -1,131 +1,131 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 
-#include "../TestScenario/TestScenario.h"
-#include "CommandHandler.h"
-#include "ResultFileReader.h"
+#include "ShellCommandHandler.h"
 #include "TestScriptRunner.h"
-#include "VirtualSsdProcess.h"
 #include "Logger.h"
 
 using std::cout;
 using std::vector;
 
-static void RunCommand(CommandHandler& handler)
-{
-    Command cmd = handler.getCommand();
-    VirtaulSsdProcess* pSsdProcIf = new VirtaulSsdProcess();
-    ResultFileReader* pReadResultIO = new ResultFileReader();
-
-    TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
-    runner->inputCmd(cmd);
-
-    if (cmd.type.find("testcase") == 0) {
-        runner->setvector(handler.scenario->getCommands());
-        Result_e result = runner->runTC();
-        if (result == Result_e::FAIL)
-            std::cout << handler.scenario->getName()<<"   ---   Run... Fail" << std::endl;
-        else
-            std::cout << handler.scenario->getName()<<"   ---   Run... Pass" << std::endl;
+class TestShellApp {
+public:
+    TestShellApp() : m_rShellCmdHdlr(ShellCommandHandler::getCommandHandler()) {
     }
-    else {
-        runner->inputCmd(cmd);
-        runner->run();
+
+    void run(int argc, char *argv[]) {
+        if (IsPromptExeEnv(argc) == true) promptProcess();
+        else fileProcess(argv);
     }
-}
 
-static void RunMain() {
-    LOG_PRINT("Run Main");
-    CommandHandler& handler = CommandHandler::getCommandHandler();
+private:
+    bool IsPromptExeEnv(int argc) {
+        return argc == 1;
+    }
 
-    while (true) {
-        string testScript = "";
+    void promptProcess() {
+        cout << "*** TestShellApp version 1.0 ***\n";
+        runConsole();
+    }
+
+    void fileProcess(char* argv[]) {
+        string filename{ argv[1] };
+        std::ifstream istrm(filename);
+
+        if (!istrm.is_open()) {
+            std::cout << "failed to open " << filename << '\n';
+            throw std::exception();
+        }
+        else {
+            runScriptFile(istrm);
+        }
+    }
+
+    void runConsole() {
+        LOG_PRINT("run Console");
+               
+        while (true) {
+            ShellCommand exportCmd;
+            Result_e result = m_rShellCmdHdlr.exportCmdWithString(getConsoleInput(), &exportCmd);
+            if (result == Result_e::FAIL) {
+                std::cout << "INVALID COMMAND" << std::endl;
+                continue;
+            }
+            if (result == Result_e::EXIT) break;
+            executeShellCmd(exportCmd);
+        }
+    }
+
+    string getConsoleInput() {
+        string inputScript = "";
         std::cout << "> ";
-        std::getline(std::cin, testScript);
+        std::getline(std::cin, inputScript);
+        return inputScript;
+    }
 
-        Result_e result = handler.runParse(testScript);
-        if (result == Result_e::FAIL) {
-            std::cout << "INVALID COMMAND" << std::endl;
-            continue;
-        }
+    bool IsTestCaseCommand(ShellCommand& rCommand) {
+        return rCommand.type.find("testcase") == 0;
+    }
 
-        if (result == Result_e::EXIT) {
-            break;
-        }
-
-        Command cmd = handler.getCommand();
-        VirtaulSsdProcess* pSsdProcIf = new VirtaulSsdProcess();
-        ResultFileReader* pReadResultIO = new ResultFileReader();
-
-        TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
-
-        if (cmd.type.find("testcase") == 0) {
-            runner->setvector(handler.scenario->getCommands());
-            Result_e result = runner->runTC();
+    void executeShellCmd(ShellCommand& rCommand) {
+        if (IsTestCaseCommand(rCommand) == true) {
+            m_testScriptRunner.setCmdVector(m_rShellCmdHdlr.getCurrentScenario()->getCommandVector());
+            Result_e result = m_testScriptRunner.runTC();
             if (result == Result_e::FAIL)
                 std::cout << "runTC fail" << std::endl;
             else
                 std::cout << "runTC success" << std::endl;
         }
         else {
-            runner->inputCmd(cmd);
-            runner->run();
+            m_testScriptRunner.inputShellCmd(rCommand);
+            m_testScriptRunner.run();
         }
     }
-}
 
-static void RunScript(std::ifstream &istrm)
-{
-    CommandHandler &handler = CommandHandler::getCommandHandler();
+    void runScriptFile(std::ifstream& istrm) {
+        while (true) {
+            string inputString = "";
+            if (!(istrm >> inputString))
+                break;
 
-    while (true)
-    {
-        string testScript = "";
-        if (!(istrm >> testScript))
-            break;
+            ShellCommand exportedCmd;
+            Result_e result = m_rShellCmdHdlr.exportCmdWithString(inputString, &exportedCmd);
+            if (result == Result_e::FAIL) {
+                std::cout << "INVALID COMMAND" << std::endl;
+                continue;
+            }
 
-        Result_e result = handler.runParse(testScript);
-        if (result == Result_e::FAIL)
-        {
-            std::cout << "INVALID COMMAND" << std::endl;
-            continue;
+            if (result == Result_e::EXIT) break;
+
+             m_testScriptRunner.inputShellCmd(exportedCmd); 
+             if (IsTestCaseCommand(exportedCmd) == true) {
+                IScenario* pScenario = m_rShellCmdHdlr.getCurrentScenario();
+                m_testScriptRunner.setCmdVector(pScenario->getCommandVector());
+                Result_e result = m_testScriptRunner.runTC();
+                if (result == Result_e::FAIL)
+                    std::cout << pScenario->getName() << "   ---   Run... Fail" << std::endl;
+                else
+                    std::cout << pScenario->getName() << "   ---   Run... Pass" << std::endl;
+            }
+            else {
+                m_testScriptRunner.inputShellCmd(exportedCmd);
+                m_testScriptRunner.run();
+            }
         }
-
-        if (result == Result_e::EXIT)
-        {
-            break;
-        }
-
-        RunCommand(handler);
     }
-}
+
+    ShellCommandHandler& m_rShellCmdHdlr;
+    TestScriptRunner m_testScriptRunner;
+};
 
 int main(int argc, char *argv[])
 {
-    try
-    {
-        if (argc == 1)
-        {
-            cout << "*** TestShellApp version 1.0 ***\n";
-            RunMain();
-        }
-        else
-        {
-            string filename{argv[1]};
-            std::ifstream istrm(filename);
-            if (!istrm.is_open())
-            {
-                std::cout << "failed to open " << filename << '\n';
-                throw std::exception();
-            }
-            else
-            {
-                RunScript(istrm);
-            }
-        }
+    try {
+        TestShellApp testShellApp;
+        testShellApp.run(argc, argv);
     }
-    catch (const std::exception &e)
-    {
+    catch (const std::exception &e) {
         cout << "EXCEPTION! : " << e.what() << std::endl;
     }
 }

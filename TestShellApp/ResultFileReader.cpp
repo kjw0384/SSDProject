@@ -1,9 +1,8 @@
 #include "ResultFileReader.h"
 #include "Logger.h"
 
-
 string ResultFileReader::GetReadResult() {
-	ifstream resultFileStream(RESULT_FILE);
+	ifstream resultFileStream(RESULT_FILE_PATH);
 
 	if (resultFileStream.is_open() != true) {
 		cout << "result.txt file open fail" << endl;  //todo : exception?

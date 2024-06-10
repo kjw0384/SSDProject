@@ -2,13 +2,12 @@
 #include <vector>
 #include <algorithm>
 #include "TestScriptValidChecker.h"
-#include "../TestScenario/TestScenario.h"
 #include "Logger.h"
 
 using std::vector;
 using std::regex;
 
-bool TestScriptValidChecker::isValidScenario(string command, TestScenario& testScenario) {
+bool TestScriptValidChecker::isValidScenario(string command, TestScenarioAPI& testScenario) {
 	vector<string> scenarios = testScenario.getScenarios();
 	if (std::find(scenarios.begin(), scenarios.end(), command) != scenarios.end())
 	{
@@ -56,7 +55,7 @@ bool TestScriptValidChecker::isValidPattern(string command) {
 }
 
 bool TestScriptValidChecker::isValidErase(vector<string> scriptTokens) {
-	cmdType_t type = scriptTokens[0];
+	ShellCmdType_t type = scriptTokens[0];
 	
 	if (type != "erase" && type != "erase_range") return true;
 

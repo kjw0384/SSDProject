@@ -13,7 +13,7 @@ using namespace std;
 
 interface IScenario {
 public:
-	typedef vector<Command> TestVector_t;
+	typedef vector<ShellCommand> TestVector_t;
 
 	virtual ~IScenario() {
 	}
@@ -28,17 +28,17 @@ public:
 		m_name = name;
 	}
 
-	const TestVector_t& getCommands() const {
+	const TestVector_t& getCommandVector() const {
 		return m_TestScriptCommandVector;
 	}
 
 protected:
-	void addCommand(const Command& cmd) {
+	void addCommand(const ShellCommand& cmd) {
 		m_TestScriptCommandVector.push_back(cmd);
 
 	}
-	Command parseCommand(const string& scenario) {
-		Command cmd;
+	ShellCommand parseCommand(const string& scenario) {
+		ShellCommand cmd;
 		istringstream iss(scenario);
 		string value;
 

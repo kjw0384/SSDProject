@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-class FlushCommand : public Command {
+class FlushCommand : public ShellCommand {
 private:
     NANDDevice* device;
 

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Invoker.h"
+#include "CommandInvoker.h"
 #include "NANDDevice.h"
 #include "ReadCommand.h"
 #include "WriteCommand.h"
@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
         string command = argv[1];
 
         NANDDevice device;
-        Invoker invoker;
+        CommandInvoker invoker;
 
         if (command == "R" || command == "r") {
             int adress = stoi(argv[2]);

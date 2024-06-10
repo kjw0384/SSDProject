@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-class ReadCommand : public Command {
+class ReadCommand : public ShellCommand {
 private:
     NANDDevice* device;
     int address;

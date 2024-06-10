@@ -2,11 +2,9 @@
 
 #include "Command.h"
 
-class Invoker {
-private:
-    Command* command;
+class CommandInvoker {
 public:
-      void setCommand(Command* cmd) {
+      void setCommand(ShellCommand* cmd) {
         this->command = cmd;
     }
 
@@ -15,4 +13,7 @@ public:
             command->execute();
         }
     }
+
+private:
+    ShellCommand* command;
 };

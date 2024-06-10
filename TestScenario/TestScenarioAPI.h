@@ -12,7 +12,7 @@
 using std::string;
 using std::vector;
 
-class TESTSCENARIOLIBRARY_API TestScenario {
+class TESTSCENARIOLIBRARY_API TestScenarioAPI {
 public:
     //TestScenario();
     static IScenario* getScenario(const string& testScenarioName);

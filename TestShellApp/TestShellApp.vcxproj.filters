@@ -9,7 +9,7 @@
     <ClCompile Include="TestScriptParser.cpp" />
     <ClCompile Include="TestScriptValidChecker.cpp" />
     <ClCompile Include="VirtualSsdProcess.cpp" />
-    <ClCompile Include="CommandHandler.cpp" />
+    <ClCompile Include="ShellCommandHandler.cpp" />
     <ClCompile Include="Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -21,12 +21,13 @@
     <ClInclude Include="VirtualSsdProcess.h" />
     <ClInclude Include="VirtualSsdProcessInterface.h" />
     <ClInclude Include="VirtualSsdProcessMock.h" />
-    <ClInclude Include="CommandHandler.h" />
+    <ClInclude Include="ShellCommandHandler.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="IScenario.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="run_list.lst" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

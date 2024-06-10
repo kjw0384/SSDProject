@@ -15,7 +15,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandBuffer.h" />
     <ClInclude Include="FileManager.h" />
-    <ClInclude Include="Invoker.h" />
+    <ClInclude Include="CommandInvoker.h" />
     <ClInclude Include="ReadCommand.h" />
     <ClInclude Include="NANDDevice.h" />
     <ClInclude Include="ShellStringParser.h" />

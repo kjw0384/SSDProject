@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 
-class EraseCommand : public Command {
+class EraseCommand : public ShellCommand {
 private:
     NANDDevice* device;
     int address;

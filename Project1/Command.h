@@ -4,8 +4,8 @@
 
 using namespace std;
 
-interface Command {
+interface ShellCommand {
 public:
-    virtual ~Command() {}
+    virtual ~ShellCommand() {}
     virtual void execute() = 0;
 };

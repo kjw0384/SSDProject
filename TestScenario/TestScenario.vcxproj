@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="TestScenario.h" />
+    <ClInclude Include="TestScenarioAPI.h" />
     <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestScriptDataBase.h" />
   </ItemGroup>
@@ -158,7 +158,7 @@
     <ClCompile Include="TestScenario.cpp" />
     <ClCompile Include="TestScriptDataBase.cpp" />
     <ClCompile Include="TestScriptFactory.cpp" />
-    <ClCompile Include="TestScriptFactory.h" />
+    <ClICompile Include="TestScriptFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
