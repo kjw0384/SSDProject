@@ -11,6 +11,11 @@ TestScriptDataBase::TestScriptDataBase() {
 }
 
 
+TestScriptDataBase& TestScriptDataBase::getInstance() {
+	static TestScriptDataBase testScriptDBInsatnce;
+	return testScriptDBInsatnce;
+}
+
 IScenario* TestScriptDataBase::GetTestScriptCase(string TestScriptName) {
 	for (IScenario* testScriptCasetIter : m_TestScriptDB) {
 		if (testScriptCasetIter->getName() == TestScriptName) {
