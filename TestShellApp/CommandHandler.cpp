@@ -13,6 +13,7 @@ Result_e CommandHandler::runParse(const string& testScript) {
         if (checker.isValidScenario(testScript, testScenario) == false) {
             return Result_e::FAIL;
         }
+        command.type = "testcase";
         handleScenario(testScript, testScenario);
         return Result_e::SUCCESS;
     }

@@ -50,11 +50,16 @@ static void RunMain() {
 
         if (cmd.type.find("testcase") == 0) {
             runner->setvector(handler.scenario->getCommands());
+            Result_e result = runner->runTC();
+            if (result == Result_e::FAIL)
+                std::cout << "runTC fail" << std::endl;
+            else
+                std::cout << "runTC success" << std::endl;
         }
         else {
             runner->inputCmd(cmd);
+            runner->run();
         }
-        runner->run();
     }
 }
 
