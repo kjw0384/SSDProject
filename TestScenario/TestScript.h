@@ -31,6 +31,7 @@ class TestScriptTestApp1 : public  IScenario
 {
 public:
 	TestScriptTestApp1() {
+		m_name = "testapp1";
 		vector<string> scenarios{
 		"fullwrite 0x11223344",
 		"fullread 0x11223344",
@@ -50,6 +51,7 @@ class TestScriptTestApp2 : public  IScenario
 {
 public:
 	TestScriptTestApp2() {
+		m_name = "testapp2";
 		vector<string> scenarios{};
 		const int numWrite = 30;
 		const int startLBA = 0;
