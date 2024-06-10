@@ -1,14 +1,27 @@
 #include "VirtualSsdProcess.h"
 #include <sstream>
 #include <iostream>
+#include <cstdlib>
+#include <filesystem>
 #include "Logger.h"
 
 
 using std::stringstream;
 
+ string VirtaulSsdProcess::getDataDirectory() {
+	std::filesystem::path currentPath = std::filesystem::current_path();
+
+	if (currentPath.string().find("Debug") != std::string::npos) {
+		return "ssd";
+	}
+	else {
+		return "..\\x64\\Debug\\ssd";
+	}
+}
+
 Result_e VirtaulSsdProcess::sendReadIpc(int address) {
 	stringstream strstream;
-	strstream << DATA_DIR << " R " << address;
+	strstream << getDataDirectory() << " R " << address;
 
 	if (system(strstream.str().c_str())) {
 		cout << "ssd read error!\n";
@@ -21,7 +34,7 @@ Result_e VirtaulSsdProcess::sendReadIpc(int address) {
 
 Result_e VirtaulSsdProcess::sendWriteIpc(const int address, const string data) {
 	stringstream strstream;
-	strstream << DATA_DIR << " W " << address;
+	strstream << getDataDirectory() << " W " << address;
 	strstream << " " << data;
 
 	if (system(strstream.str().c_str())) {
@@ -35,7 +48,7 @@ Result_e VirtaulSsdProcess::sendWriteIpc(const int address, const string data) {
 
 Result_e VirtaulSsdProcess::sendEraseIpc(const int address, const int size) {
 	stringstream strstream;
-	strstream << DATA_DIR << " E " << address;
+	strstream << getDataDirectory() << " E " << address;
 	strstream << " " << size;
 
 	if (system(strstream.str().c_str())) {
@@ -49,7 +62,7 @@ Result_e VirtaulSsdProcess::sendEraseIpc(const int address, const int size) {
 
 Result_e VirtaulSsdProcess::sendFlushIpc() {
 	stringstream strstream;
-	strstream << DATA_DIR << " F ";
+	strstream << getDataDirectory() << " F ";
 
 	if (system(strstream.str().c_str())) {
 		cout << "ssd flush error!\n";
