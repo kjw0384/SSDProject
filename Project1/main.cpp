@@ -43,6 +43,6 @@ int main(int argc, char* argv[]) {
 
     }
     catch (const std::runtime_error& e) {
-        std::cout << "오류 발생: " << e.what() << std::endl;
+        std::cout << "Error: " << e.what() << std::endl;
     }
 }
