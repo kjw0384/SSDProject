@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CommandHandler.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="ResultFileReader.cpp" />
     <ClCompile Include="TestCommand.h" />
     <ClCompile Include="TestScriptRunner.h" />
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandHandler.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="IScenario.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="ReadIOInterface.h" />

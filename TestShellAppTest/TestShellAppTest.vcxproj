@@ -110,6 +110,7 @@
     <ClCompile Include="TestScriptRunnerTest.cpp" />
     <ClCompile Include="TestScriptParserTest.cpp" />
     <ClCompile Include="TestScriptValidCheckerTest.cpp" />
+    <ClCompile Include="LoggerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestShellApp\TestShellApp.vcxproj">
