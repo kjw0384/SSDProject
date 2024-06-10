@@ -11,7 +11,8 @@ using std::stringstream;
  string VirtaulSsdProcess::getDataDirectory() {
 	std::filesystem::path currentPath = std::filesystem::current_path();
 
-	if (currentPath.string().find("Debug") != std::string::npos) {
+	if (currentPath.string().find("Debug") != string::npos ||
+		currentPath.string().find("Release") != string::npos) {
 		return "ssd";
 	}
 	else {
