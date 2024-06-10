@@ -11,9 +11,12 @@ class TestScriptReadAndCompare : public  IScenario
 public :
 	TestScriptReadAndCompare(){
 		vector<string> scenarios{
-		"read 3 0x00000000",
-		"write 5 0x55555555",
-		"read 5 0x55555555",
+		//"fullread 0 0x00000000",
+		"fullwrite 0x11111111",
+		"fullread 0x11111111",
+		//"read 3 0x00000000",
+		//"write 5 0x55555555",
+		//"read 5 0x55555555",
 		};
 
 		for (const auto& scenario : scenarios) {

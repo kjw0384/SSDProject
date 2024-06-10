@@ -49,7 +49,28 @@ Result_e TestScriptRunner::runTC() {
 	return Result_e::SUCCESS;
 }
 void TestScriptRunner::setvector(TestVector_t vector) {
-	m_TestCommandVector = vector;
+	m_TestCommandVector.clear();
+	m_TestCommandVector.reserve(vector.size());
+
+	for (Command& cmd : vector) {
+		if (cmd.type == "fullread") {
+			cmd.type = "read";
+			for (int lba = START_LBA; lba < END_LBA; ++lba) {
+				cmd.LBAIndexNum = lba;
+				m_TestCommandVector.push_back(cmd);
+			}
+		}
+		else if (cmd.type == "fullwrite") {
+			cmd.type = "write";
+			for (int lba = START_LBA; lba < END_LBA; ++lba) {
+				cmd.LBAIndexNum = lba;
+				m_TestCommandVector.push_back(cmd);
+			}
+		}
+		else {
+			m_TestCommandVector.push_back(cmd);
+		}
+	}
 }
 
 Result_e TestScriptRunner::callSsdProcess(Command cmd) {
