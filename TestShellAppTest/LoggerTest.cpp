@@ -46,11 +46,11 @@ TEST(LoggerTest, checkBackup) {
 
 	write10K("abcd", __FUNCTION__);
 
-	LOG_MESSAGE("efgh");
+	LOG_PRINT("efgh");
 
 	write10K("qwer", __FUNCTION__);
 
-	LOG_MESSAGE("fdsa");
+	LOG_PRINT("fdsa");
 	EXPECT_EQ(getRegexMatchingFileCount("^until_[0-9]{6}_[0-9]{2}h_[0-9]{2}m_[0-9]{2}s.log$"), 1);
 	EXPECT_EQ(getRegexMatchingFileCount("^until_[0-9]{6}_[0-9]{2}h_[0-9]{2}m_[0-9]{2}s.zip$"), 1);
 	EXPECT_EQ(getRegexMatchingFileCount("^latest.log$"), 1);
