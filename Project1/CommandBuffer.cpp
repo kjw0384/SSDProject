@@ -32,9 +32,10 @@ void CommandBuffer::insertCommand(CommandFormat newCmd)
 {
 	vector<CommandFormat> tempPGM;
 	vector<CommandFormat> tempERS;
+	
+	//check overlap
 	for (auto cmd : commandBuffer)
 	{
-		//overlap
 		if (!((newCmd.startAddr <= cmd.startAddr) && (cmd.endAddr <= newCmd.endAddr)))
 		{
 			if (cmd.command == "PGM")  tempPGM.push_back(cmd);
@@ -42,25 +43,17 @@ void CommandBuffer::insertCommand(CommandFormat newCmd)
 		}
 	}
 
-	if (newCmd.command == "PGM")
+	//update BufferMemory Data
+	for (int addr = newCmd.startAddr; addr < newCmd.endAddr; addr++)
 	{
-		tempERS.insert(tempERS.end(), tempPGM.begin(), tempPGM.end());
-		commandBuffer = tempERS;
-		commandBuffer.push_back(newCmd);
-		BufferMemory[newCmd.startAddr] = newCmd.data;
+		BufferMemory[addr] = newCmd.data;
 	}
-	else if (newCmd.command == "ERS")
-	{
-		for (int addr = newCmd.startAddr; addr < newCmd.endAddr; addr++)
-		{
-			BufferMemory[addr] = newCmd.data;
-		}
 
-		memrgeCommandBuffer(newCmd, tempERS);
-		tempERS.push_back(newCmd);
-		tempERS.insert(tempERS.end(), tempPGM.begin(), tempPGM.end());
-		commandBuffer = tempERS;
-	}
+	//commandBuffer update
+	if (newCmd.command == "ERS")  memrgeCommandBuffer(newCmd, tempERS);
+	tempERS.push_back(newCmd);
+	tempERS.insert(tempERS.end(), tempPGM.begin(), tempPGM.end());
+	commandBuffer = tempERS;
 }
 
 
@@ -76,7 +69,7 @@ void CommandBuffer::memrgeCommandBuffer(CommandFormat& newCmd, vector< CommandFo
 			continue;
 		}
 
-		//range resize
+		//range revisit
 		int start = min(newCmd.startAddr, cmd.startAddr);
 		int end = max(newCmd.endAddr, cmd.endAddr);
 
