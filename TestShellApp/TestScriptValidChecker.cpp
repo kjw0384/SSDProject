@@ -58,7 +58,7 @@ bool TestScriptValidChecker::isValidPattern(string command) {
 bool TestScriptValidChecker::isValidErase(vector<string> scriptTokens) {
 	cmdType_t type = scriptTokens[0];
 	
-	if (type != "erase" || type != "erase_range") return true;
+	if (type != "erase" && type != "erase_range") return true;
 
 	int LBA = stoi(scriptTokens[1]);
 	int size = stoi(scriptTokens[2]);
