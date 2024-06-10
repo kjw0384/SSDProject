@@ -1,5 +1,5 @@
 #include "TestScriptFactory.h"
-#include "TestScriptReadAndCompare.h"
+#include "TestScript.h"
 #include <string>
 
 TestScriptFactory& TestScriptFactory::getInstance() {
@@ -13,10 +13,13 @@ IScenario* TestScriptFactory::createTestScript(string scriptName) {
 	}
 
 	else if (scriptName == "testapp1") {
-		return nullptr;
+		return new TestScriptTestApp1;
 	}
 
 	else if (scriptName == "testapp2") {
-		return nullptr;
+		return new TestScriptTestApp2;
 	}
+
+
+	return nullptr;
 }
