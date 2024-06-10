@@ -135,6 +135,7 @@
     <ClCompile Include="CommandBuffer.cpp" />
     <ClCompile Include="EraseCommand.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="FlushCommand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ShellStringParser.cpp" />
     <ClCompile Include="ReadCommand.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="CommandBuffer.h" />
     <ClInclude Include="EraseCommand.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="FlushCommand.h" />
     <ClInclude Include="Invoker.h" />
     <ClInclude Include="ReadCommand.h" />
     <ClInclude Include="NANDDevice.h" />

@@ -9,6 +9,7 @@
     <ClCompile Include="NANDDevice.cpp" />
     <ClCompile Include="WriteCommand.cpp" />
     <ClCompile Include="EraseCommand.cpp" />
+    <ClCompile Include="FlushCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
@@ -20,5 +21,6 @@
     <ClInclude Include="ShellStringParser.h" />
     <ClInclude Include="WriteCommand.h" />
     <ClInclude Include="EraseCommand.h" />
+    <ClInclude Include="FlushCommand.h" />
   </ItemGroup>
 </Project>
