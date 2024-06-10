@@ -6,7 +6,6 @@
 #include "Logger.h"
 
 Result_e CommandHandler::runParse(const string& testScript) {
-
     vector<string> testScriptTokens = parser.splitTestScript(testScript);
     TestScenario testScenario;
 
