@@ -19,7 +19,18 @@ static void RunCommand(CommandHandler& handler)
     TestScriptRunner* runner = new TestScriptRunner(pSsdProcIf, pReadResultIO);
     runner->inputCmd(cmd);
 
-    runner->run();
+    if (cmd.type.find("testcase") == 0) {
+        runner->setvector(handler.scenario->getCommands());
+        Result_e result = runner->runTC();
+        if (result == Result_e::FAIL)
+            std::cout << handler.scenario->getName()<<"   ---   Run... Fail" << std::endl;
+        else
+            std::cout << handler.scenario->getName()<<"   ---   Run... Pass" << std::endl;
+    }
+    else {
+        runner->inputCmd(cmd);
+        runner->run();
+    }
 }
 
 static void RunMain() {
