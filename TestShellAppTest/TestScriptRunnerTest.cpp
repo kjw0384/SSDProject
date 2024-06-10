@@ -2,12 +2,12 @@
 #include "gmock/gmock.h"
 
 #include "../TestShellApp/TestScriptRunner.cpp"
+#include "../TestShellApp/ResultFileReader.cpp"
 #include "../TestShellApp/VirtualSsdProcessInterface.h"
 #include "../TestShellApp/VirtualSsdProcessMock.h"
 
 using namespace testing;
 
-//TODO: check mock redundancy of MocReadIO class (duplicated to TestReadIOTest.cpp)
 class MockReadIO : public ReadIOInterface {
 public:
 	MOCK_METHOD(string, GetReadResult, (), (override));
