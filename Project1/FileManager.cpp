@@ -26,8 +26,7 @@ void FileManager::writeToNand(vector<string> dataBuf)
 	ofstream file(NAND_FILE);
 	if (!file.is_open())
 	{
-		cout << "Nand.txt file open fail" << endl;  //todo : exception?
-		return;
+		throw std::runtime_error("Nand.txt file open fail");
 	}
 
 	for (string data : dataBuf)
@@ -48,13 +47,40 @@ void FileManager::getNandData(ifstream& file, vector<string>& ret)
 	}
 }
 
+void FileManager::getBufferData(ifstream& file)
+{
+	string line = "";
+	while (getline(file, line))
+	{
+		vector<string> splitLine;
+		std::istringstream ss(line);
+		string token;
+
+		while (ss >> token) {
+			splitLine.push_back(token);
+		}
+	
+		CommandFormat cmd;
+		cmd.command = splitLine[0];
+		cmd.startAddr = std::stoi(splitLine[1]);
+		cmd.endAddr = std::stoi(splitLine[2]);
+		cmd.data = splitLine[3];
+
+		commandBuffer.pushCommandBuffer(cmd);
+		
+		for (int add = cmd.startAddr; add < cmd.endAddr; add++)
+		{
+			commandBuffer.setData(add, cmd.data);
+		}
+	}
+}
+
 void FileManager::writeToResult(string data)
 {
 	ofstream file(RESULT_FILE);
 	if (!file.is_open())
 	{
-		cout << "Nand.txt file open fail" << endl;  //todo : exception?
-		return;
+		throw std::runtime_error("Nand.txt file open fail");
 	}
 
 	file << data << endl;
@@ -74,7 +100,7 @@ void FileManager::createOutputFiles()
 			}
 			else
 			{
-				cout << "File Open Error" << endl;
+				throw std::runtime_error("File Open Error");
 			}
 		}
 	}
@@ -90,11 +116,82 @@ void FileManager::setFilePath()
 		}
 		else
 		{
-			cout << "Result Dir Make Fail" << endl;
+			throw std::runtime_error("Nand.txt file open fail");
 		}
 	}
 	else
 	{
 		createOutputFiles();
 	}
+}
+
+bool FileManager::readBufferData(int addr, string& data)
+{
+	readFromBuffer();
+
+	return commandBuffer.getData(addr, data);
+}
+
+bool FileManager::writeBufferData(int addr, string data)
+{
+	readFromBuffer();
+
+	CommandFormat Newcmd = { "PGM", addr, addr + 1, data };
+	commandBuffer.insertCommand(Newcmd);
+	writeToBuffer();
+
+	return (commandBuffer.getBufferSize() >= 10);
+}
+
+bool FileManager::eraseBufferData(int addr, int size)
+{
+	readFromBuffer();
+	CommandFormat Newcmd = { "ERS", addr, addr + size, DEFAULT_DATA };
+	commandBuffer.insertCommand(Newcmd);
+	writeToBuffer();
+
+	return (commandBuffer.getBufferSize() >= 10);
+}
+
+void FileManager::readFromBuffer()
+{
+	ifstream file(BUFFER_FILE);
+
+	if (file.is_open())
+	{
+		getBufferData(file);
+		file.close();
+	}
+	return;
+}
+
+void FileManager::writeToBuffer()
+{
+	ofstream file(BUFFER_FILE);
+	if (!file.is_open())
+	{
+		throw std::runtime_error("Buffer.txt file open fail");
+	}
+
+	vector<CommandFormat> cmdBuf = commandBuffer.getCommandBuffer();
+	for (auto cmd : cmdBuf)
+	{
+		file << cmd.command << " " << cmd.startAddr << " " << cmd.endAddr << " " << cmd.data <<endl;
+	}
+	file.close();
+}
+
+map<int, string> FileManager::getBufferMemory()
+{
+	return commandBuffer.getBufferMemory();
+}
+
+void FileManager::initBufferFile()
+{
+	ofstream file(BUFFER_FILE);
+	if (!file.is_open())
+	{
+		throw std::runtime_error("Buffer.txt file open fail");
+	}
+	file.close();
 }

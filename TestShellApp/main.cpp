@@ -5,6 +5,7 @@
 #include "TestScriptRunner.h"
 #include "VirtualSsdProcess.h"
 #include "ResultFileReader.h"
+#include "../TestScenario/TestScenario.h"
 
 using std::vector;
 using std::cout;

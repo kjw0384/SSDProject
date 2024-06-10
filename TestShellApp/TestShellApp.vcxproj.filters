@@ -23,5 +23,6 @@
     <ClInclude Include="VirtualSsdProcessMock.h" />
     <ClInclude Include="CommandHandler.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="IScenario.h" />
   </ItemGroup>
 </Project>
