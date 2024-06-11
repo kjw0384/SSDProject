@@ -42,7 +42,9 @@ protected:
 		istringstream iss(scenario);
 		string value;
 
-		iss >> cmd.type >> cmd.LBAIndexNum;
+		iss >> cmd.type;
+		if((cmd.type!="fullwrite") && (cmd.type != "fullread"))
+		iss >> cmd.LBAIndexNum;
 
 		if (iss >> value) {
 			cmd.value = value;
