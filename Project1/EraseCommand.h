@@ -8,10 +8,6 @@
 
 class EraseCommand : public DeviceCommand
 {
-  private:
-    int address = -1;
-    int size = -1;
-
   public:
     EraseCommand(NANDDevice *device) : DeviceCommand(device)
     {
@@ -19,4 +15,8 @@ class EraseCommand : public DeviceCommand
 
     void execute() override;
     ShellStringParserError parse(vector<string> inputCmdVec) override;
+
+  private:
+    int address = -1;
+    int size = -1;
 };
