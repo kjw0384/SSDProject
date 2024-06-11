@@ -1,7 +1,8 @@
 #include "FlushCommand.h"
 #include "NANDDevice.h"
 
-void FlushCommand::execute() {
+void FlushCommand::execute()
+{
     device->flush();
 }
 

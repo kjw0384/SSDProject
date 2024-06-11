@@ -3,20 +3,20 @@
 #include "Command.h"
 #include "NANDdevice.h"
 
-#include <string>
 #include <iostream>
+#include <string>
 
+class ReadCommand : public DeviceCommand
+{
+  private:
+    int address = -1;
 
-class ReadCommand : public DeviceCommand {
-public:
-    ReadCommand(NANDDevice* device)
-        : DeviceCommand(device) {}
+  public:
+    ReadCommand(NANDDevice *device) : DeviceCommand(device)
+    {
+    }
 
     void execute() override;
 
     ShellStringParserError parse(vector<string> inputCmdVec) override;
-
-private:
-    int address = -1;
-
 };
