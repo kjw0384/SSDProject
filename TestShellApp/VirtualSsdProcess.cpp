@@ -26,10 +26,10 @@ Result_e VirtaulSsdProcess::sendReadIpc(int address) {
 
 	if (system(strstream.str().c_str())) {
 		cout << "ssd read error!\n";
-		LOG_PRINT(strstream.str() + " - ssd read error!\n");
+		LOG_PRINT(strstream.str() + " - ssd read error!");
 		return Result_e::FAIL;
 	}
-	LOG_PRINT(strstream.str() + " - Success\n");
+	LOG_PRINT(strstream.str() + " - Success");
 	return Result_e::SUCCESS;
 }
 
@@ -40,10 +40,10 @@ Result_e VirtaulSsdProcess::sendWriteIpc(const int address, const string data) {
 
 	if (system(strstream.str().c_str())) {
 		cout << "ssd write error!\n";
-		LOG_PRINT(strstream.str() + " - ssd write error!\n");
+		LOG_PRINT(strstream.str() + " - ssd write error!");
 		return Result_e::FAIL;
 	}
-	LOG_PRINT(strstream.str() + " - Success\n");
+	LOG_PRINT(strstream.str() + " - Success");
 	return Result_e::SUCCESS;
 }
 
@@ -54,10 +54,10 @@ Result_e VirtaulSsdProcess::sendEraseIpc(const int address, const int size) {
 
 	if (system(strstream.str().c_str())) {
 		cout << "ssd erase error!\n";
-		LOG_PRINT(strstream.str() + " - ssd erase error!\n");
+		LOG_PRINT(strstream.str() + " - ssd erase error!");
 		return Result_e::FAIL;
 	}
-	LOG_PRINT(strstream.str() + " - Success\n");
+	LOG_PRINT(strstream.str() + " - Success");
 	return Result_e::SUCCESS;
 }
 
@@ -67,9 +67,9 @@ Result_e VirtaulSsdProcess::sendFlushIpc() {
 
 	if (system(strstream.str().c_str())) {
 		cout << "ssd flush error!\n";
-		LOG_PRINT(strstream.str() + " - ssd flush error!\n");
+		LOG_PRINT(strstream.str() + " - ssd flush error!");
 		return Result_e::FAIL;
 	}
-	LOG_PRINT(strstream.str() + " - Success\n");
+	LOG_PRINT(strstream.str() + " - Success");
 	return Result_e::SUCCESS;
 }
