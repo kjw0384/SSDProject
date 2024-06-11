@@ -16,6 +16,8 @@ TestScriptRunner::TestScriptRunner(VirtualSsdProcessInterface *pSsdProcInterface
 
 Result_e TestScriptRunner::inputShellCmd(ShellCommand &cmd)
 {
+    m_ShellCmdVector.clear();
+    m_ShellCmdVector.reserve(m_ShellCmdVector.size());
     LOG_PRINT("type - " + cmd.type);
     if (cmd.type == "fullread")
     {
