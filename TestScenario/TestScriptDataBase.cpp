@@ -7,6 +7,14 @@ TestScriptDataBase::TestScriptDataBase() {
 	createTestScript("ReadAndCompare");
 	createTestScript("testapp1");
 	createTestScript("testapp2");
+	createTestScript("ReadFailCase");
+	createTestScript("ReadWrite");
+	createTestScript("PatternMSB");
+	createTestScript("PatternLSB");
+	createTestScript("Pattern0xFFFFFFFF");
+	createTestScript("Pattern0x5A5A5A5A");
+	createTestScript("Pattern0xA5A5A5A5");
+	createTestScript("OneBit");
 }
 
 void TestScriptDataBase::createTestScript(string testScriptName) {
