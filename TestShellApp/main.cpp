@@ -103,10 +103,11 @@ private:
                 IScenario* pScenario = m_rShellCmdHdlr.getCurrentScenario();
                 m_testScriptRunner.setCmdVector(pScenario->getCommandVector());
                 Result_e result = m_testScriptRunner.runTC();
-                if (result == Result_e::FAIL)
-                    std::cout << pScenario->getName() << "   ---   Run... Fail" << std::endl;
-                else
-                    std::cout << pScenario->getName() << "   ---   Run... Pass" << std::endl;
+                if (result == Result_e::FAIL) {
+                    std::cout << pScenario->getName() << "   ---   Run... Fail!" << std::endl;
+                    break;
+                }
+                std::cout << pScenario->getName() << "   ---   Run... Pass" << std::endl;
             }
             else {
                 m_testScriptRunner.inputShellCmd(exportedCmd);
