@@ -5,7 +5,8 @@ using namespace std;
 
 #define interface struct
 
-interface ReadIOInterface {
-public:
+interface ReadIOInterface
+{
+  public:
     virtual string GetReadResult() = 0;
 };
