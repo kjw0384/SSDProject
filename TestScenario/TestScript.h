@@ -76,7 +76,183 @@ public:
 			m_TestScriptCommandVector.push_back(cmd);
 		}
 	}
+
 	virtual void run() {
 		cout << "TestApp2\n";
 	}
+};
+
+class TestScriptReadFailCase : public  IScenario
+{
+public:
+	TestScriptReadFailCase() {
+		m_name = "ReadFailCase";
+		vector<string> scenarios{
+		"write 5 0x55555555",
+		"read 5 0x11111111",
+		};
+
+		for (const auto& scenario : scenarios) {
+			ShellCommand cmd = parseCommand(scenario);
+			m_TestScriptCommandVector.push_back(cmd);
+		}
+	}
+	virtual void run() {
+		cout << "ReadFailCase\n";
+	}
+};
+
+class TestScriptReadWrite : public  IScenario
+{
+public:
+	TestScriptReadWrite() {
+		m_name = "ReadWrite";
+		vector<string> scenarios{
+		"write 1 " + m_value,
+		"read 1 " + m_value,
+		};
+
+		for (const auto& scenario : scenarios) {
+			ShellCommand cmd = parseCommand(scenario);
+			m_TestScriptCommandVector.push_back(cmd);
+		}
+	}
+	virtual void run() {
+		cout << m_name;
+	}
+protected:
+	string m_value{ "0xFFFFFFFF" };
+};
+
+class TestScriptPatternMSB : public  IScenario
+{
+public:
+	TestScriptPatternMSB() {
+		m_name = "PatternMSB";
+		vector<string> scenarios{
+		"write 1 " + m_value,
+		"read 1 " + m_value,
+		};
+
+		for (const auto& scenario : scenarios) {
+			ShellCommand cmd = parseCommand(scenario);
+			m_TestScriptCommandVector.push_back(cmd);
+		}
+	}
+	virtual void run() {
+		cout << m_name;
+	}
+private:
+	string m_value{ "0x80000000" };
+};
+
+class TestScriptPatternLSB : public  IScenario
+{
+public:
+	TestScriptPatternLSB() {
+		m_name = "PatternLSB";
+		vector<string> scenarios{
+		"write 1 " + m_value,
+		"read 1 " + m_value,
+		};
+
+		for (const auto& scenario : scenarios) {
+			ShellCommand cmd = parseCommand(scenario);
+			m_TestScriptCommandVector.push_back(cmd);
+		}
+	}
+	virtual void run() {
+		cout << m_name;
+	}
+private:
+	string m_value{ "0x00000001" };
+};
+
+
+class TestScriptPattern0xFFFFFFFF : public  IScenario
+{
+public:
+	TestScriptPattern0xFFFFFFFF() {
+		m_name = "Pattern0xFFFFFFFF";
+		vector<string> scenarios{
+		"write 1 " + m_value,
+		"read 1 " + m_value,
+		};
+
+		for (const auto& scenario : scenarios) {
+			ShellCommand cmd = parseCommand(scenario);
+			m_TestScriptCommandVector.push_back(cmd);
+		}
+	}
+	virtual void run() {
+		cout << m_name;
+	}
+private:
+	string m_value{ "0xFFFFFFFF" };
+};
+
+class TestScriptPattern0x5A5A5A5A : public  IScenario
+{
+public:
+	TestScriptPattern0x5A5A5A5A() {
+		m_name = "Pattern0x5A5A5A5A";
+		vector<string> scenarios{
+		"write 1 " + m_value,
+		"read 1 " + m_value,
+		};
+
+		for (const auto& scenario : scenarios) {
+			ShellCommand cmd = parseCommand(scenario);
+			m_TestScriptCommandVector.push_back(cmd);
+		}
+	}
+	virtual void run() {
+		cout << m_name;
+	}
+private:
+	string m_value{ "0x5A5A5A5A" };
+};
+
+class TestScriptPattern0xA5A5A5A5 : public  IScenario
+{
+public:
+	TestScriptPattern0xA5A5A5A5() {
+		m_name = "Pattern0xA5A5A5A5";
+		vector<string> scenarios{
+		"write 1 " + m_value,
+		"read 1 " + m_value,
+		};
+
+		for (const auto& scenario : scenarios) {
+			ShellCommand cmd = parseCommand(scenario);
+			m_TestScriptCommandVector.push_back(cmd);
+		}
+	}
+	virtual void run() {
+		cout << m_name;
+	}
+private:
+	string m_value{ "0xA5A5A5A5" };
+};
+
+class TestScriptOneBit : public  IScenario
+{
+public:
+	TestScriptOneBit() {
+		m_name = "OneBit";
+		vector<string> scenarios{
+		"write 1 " + m_value,
+		"read 1 " + m_value,
+		};
+
+		for (const auto& scenario : scenarios) {
+			ShellCommand cmd = parseCommand(scenario);
+			m_TestScriptCommandVector.push_back(cmd);
+		}
+	}
+	virtual void run() {
+		cout << m_name;
+	}
+private:
+	string m_value{ "0x00010000" };
 };

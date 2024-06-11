@@ -5,7 +5,7 @@
 
 #include "TestCommand.h"
 #include "TestShellCommon.h"
-#include "ReadIOInterface.h" //TODO: sync to readio
+#include "ReadIOInterface.h"
 #include "VirtualSsdProcessInterface.h"
 
 using namespace std;

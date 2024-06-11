@@ -95,12 +95,21 @@ private:
 
             if (result == Result_e::EXIT) break;
 
-             m_testScriptRunner.inputShellCmd(exportedCmd);
-
-             IScenario* pScenario = m_rShellCmdHdlr.getCurrentScenario();
-             m_testScriptRunner.setCmdVector(pScenario->getCommandVector());
-             result = m_testScriptRunner.runScenario();
-             PrintTestResult(result, pScenario);
+             m_testScriptRunner.inputShellCmd(exportedCmd); 
+             if (IsTestCaseCommand(exportedCmd) == true) {
+                IScenario* pScenario = m_rShellCmdHdlr.getCurrentScenario();
+                m_testScriptRunner.setCmdVector(pScenario->getCommandVector());
+                Result_e result = m_testScriptRunner.runScenario();
+                if (result == Result_e::FAIL) {
+                    std::cout << pScenario->getName() << "   ---   Run... Fail!" << std::endl;
+                    break;
+                }
+                std::cout << pScenario->getName() << "   ---   Run... Pass" << std::endl;
+            }
+            else {
+                m_testScriptRunner.inputShellCmd(exportedCmd);
+                m_testScriptRunner.run();
+            }
         }
     }
 

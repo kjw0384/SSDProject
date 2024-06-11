@@ -14,6 +14,4 @@ public:
 
     void execute() override;
     ShellStringParserError parse(vector<string> inputCmdVec) override;
-private:
-    NANDDevice* device;
 };
