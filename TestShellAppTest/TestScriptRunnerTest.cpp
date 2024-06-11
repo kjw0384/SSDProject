@@ -2,12 +2,12 @@
 #include "gmock/gmock.h"
 
 #include "../TestShellApp/TestScriptRunner.cpp"
+#include "../TestShellApp/ResultFileReader.cpp"
 #include "../TestShellApp/VirtualSsdProcessInterface.h"
 #include "../TestShellApp/VirtualSsdProcessMock.h"
 
 using namespace testing;
 
-//TODO: check mock redundancy of MocReadIO class (duplicated to TestReadIOTest.cpp)
 class MockReadIO : public ReadIOInterface {
 public:
 	MOCK_METHOD(string, GetReadResult, (), (override));
@@ -22,8 +22,8 @@ public:
 };
 
 TEST_F(TestRunnerFixture, InputCmd) {
-	Command testCmd = { "read", 23, "0x77777777" };
-	EXPECT_EQ(m_testRunner.inputCmd(testCmd), Result_e::SUCCESS);
+	ShellCommand testCmd = { "read", 23, "0x77777777" };
+	EXPECT_EQ(m_testRunner.inputShellCmd(testCmd), Result_e::SUCCESS);
 }
 
 TEST(VirtualSsdProcMock, RunTest) {
@@ -38,8 +38,8 @@ TEST(VirtualSsdProcMock, RunTest) {
 		.Times(1)
 		.WillOnce(Return("0x77777777"));
 
-	Command testCmd = { "read", 23, "0x77777777" };
+	ShellCommand testCmd = { "read", 23, "0x77777777" };
 	TestScriptRunner testRunner(&mockVirtualSSDproc, &mockReadIO);
-	testRunner.inputCmd(testCmd);
+	testRunner.inputShellCmd(testCmd);
 	EXPECT_EQ(testRunner.run(), Result_e::SUCCESS);
 }

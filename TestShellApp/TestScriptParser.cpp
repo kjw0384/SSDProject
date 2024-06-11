@@ -18,8 +18,8 @@ vector<string> TestScriptParser::splitTestScript(const string& testScript) {
     return scriptTokens;
 }
 
-Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
-    Command cmd;
+ShellCommand TestScriptParser::parseTestScript(vector<string> scriptTokens) {
+    ShellCommand cmd;
 
     cmd.type = scriptTokens[0];
     if (scriptTokens.size() > 1) 
@@ -42,7 +42,7 @@ Command TestScriptParser::parseTestScript(vector<string> scriptTokens) {
     return cmd;
 }
 
-CommandType_e TestScriptParser::getCommandType(cmdType_t type) {
+CommandType_e TestScriptParser::getCommandType(ShellCmdType_t type) {
     LOG_PRINT(type);
     if (type == "exit") {
         return CommandType_e::EXIT;
@@ -76,15 +76,15 @@ CommandType_e TestScriptParser::getCommandType(cmdType_t type) {
 
 CommandType_e TestScriptParser::executeParse(vector<string> scriptTokens) {
     LOG_PRINT("");
-    command = parseTestScript(scriptTokens);
-    return getCommandType(command.type);
+    m_parsedCmd = parseTestScript(scriptTokens);
+    return getCommandType(m_parsedCmd.type);
 }
 
-Command TestScriptParser::getCommand() {
-    if (command.type.empty()) {
+ShellCommand TestScriptParser::getParseResultCmd() {
+    if (m_parsedCmd.type.empty()) {
         LOG_PRINT("Command Type Error");
         throw std::exception();
     }
     LOG_PRINT("return Command");
-    return command;
+    return m_parsedCmd;
 }

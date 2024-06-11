@@ -1,37 +1,44 @@
-#include "TestScriptRunner.h"
 #include <iostream>
+#include "TestScriptRunner.h"
+#include "ResultFileReader.h"
+#include "VirtualSsdProcess.h"
 #include "../Project1/FileManager.h"
 #include "Logger.h"
 
-TestScriptRunner::TestScriptRunner(VirtualSsdProcessInterface* pSsdProcIf, ReadIOInterface* pReadResultIO)\
-	: m_ssdProcessIf(pSsdProcIf), m_ReadResultIO(pReadResultIO) {
+
+TestScriptRunner::TestScriptRunner()\
+	: m_ssdProcessIf(new VirtaulSsdProcess), m_ReadResultIO(new ResultFileReader) {
 }
 
-Result_e TestScriptRunner::inputCmd(Command& cmd) {
+TestScriptRunner::TestScriptRunner(VirtualSsdProcessInterface* pSsdProcInterface, ReadIOInterface* pReadIOInterface) 
+	: m_ssdProcessIf(pSsdProcInterface), m_ReadResultIO(pReadIOInterface) {
+
+}
+
+Result_e TestScriptRunner::inputShellCmd(ShellCommand& cmd) {
 	LOG_PRINT("type - " + cmd.type);
 	if (cmd.type == "fullread") {
 		cmd.type = "read";
 		for (int lba = START_LBA; lba < END_LBA; ++lba) {
 			cmd.LBAIndexNum = lba;
-			m_TestCommandVector.push_back(cmd);
+			m_ShellCmdVector.push_back(cmd);
 		}
 	}
 	else if (cmd.type == "fullwrite") {
 		cmd.type = "write";
 		for (int lba = START_LBA; lba < END_LBA; ++lba) {
 			cmd.LBAIndexNum = lba;
-			m_TestCommandVector.push_back(cmd);
+			m_ShellCmdVector.push_back(cmd);
 		}
 	}
 	else {
-		m_TestCommandVector.push_back(cmd);
+		m_ShellCmdVector.push_back(cmd);
 	}
 	return Result_e::SUCCESS;
 }
 
 Result_e TestScriptRunner::run() {
-	
-	for (Command cmdVectIt : m_TestCommandVector){
+	for (ShellCommand cmdVectIt : m_ShellCmdVector){
 		if (callSsdProcess(cmdVectIt) == Result_e::FAIL)
 		{
 			LOG_PRINT(cmdVectIt.type + " Fail");
@@ -41,39 +48,41 @@ Result_e TestScriptRunner::run() {
 	LOG_PRINT("run Success");
 	return Result_e::SUCCESS;
 }
+
 Result_e TestScriptRunner::runTC() {
-	for (Command cmdVectIt : m_TestCommandVector) {
+	for (ShellCommand cmdVectIt : m_ShellCmdVector) {
 		if (callSsdProcessAndCompare(cmdVectIt) == Result_e::FAIL)
 			return Result_e::FAIL;
 	}
 	return Result_e::SUCCESS;
 }
-void TestScriptRunner::setvector(TestVector_t vector) {
-	m_TestCommandVector.clear();
-	m_TestCommandVector.reserve(vector.size());
 
-	for (Command& cmd : vector) {
+void TestScriptRunner::setCmdVector(TestVector_t inputVector) {
+	m_ShellCmdVector.clear();
+	m_ShellCmdVector.reserve(inputVector.size());
+
+	for (ShellCommand& cmd : inputVector) {
 		if (cmd.type == "fullread") {
 			cmd.type = "read";
 			for (int lba = START_LBA; lba < END_LBA; ++lba) {
 				cmd.LBAIndexNum = lba;
-				m_TestCommandVector.push_back(cmd);
+				m_ShellCmdVector.push_back(cmd);
 			}
 		}
 		else if (cmd.type == "fullwrite") {
 			cmd.type = "write";
 			for (int lba = START_LBA; lba < END_LBA; ++lba) {
 				cmd.LBAIndexNum = lba;
-				m_TestCommandVector.push_back(cmd);
+				m_ShellCmdVector.push_back(cmd);
 			}
 		}
 		else {
-			m_TestCommandVector.push_back(cmd);
+			m_ShellCmdVector.push_back(cmd);
 		}
 	}
 }
 
-Result_e TestScriptRunner::callSsdProcessInternal(Command cmd) {
+Result_e TestScriptRunner::callSsdProcessInternal(ShellCommand cmd) {
 	LOG_PRINT(cmd.type);
 	if (cmd.type == "write") {
 		m_ssdProcessIf->sendWriteIpc(cmd.LBAIndexNum, cmd.value);
@@ -99,7 +108,7 @@ Result_e TestScriptRunner::callSsdProcessInternal(Command cmd) {
 	return Result_e::FAIL;
 }
 
-Result_e TestScriptRunner::callSsdProcess(Command cmd) {
+Result_e TestScriptRunner::callSsdProcess(ShellCommand cmd) {
 	if (cmd.type == "read") {
 		m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);
 		string readResult = m_ReadResultIO->GetReadResult();
@@ -113,7 +122,7 @@ Result_e TestScriptRunner::callSsdProcess(Command cmd) {
 	return Result_e::FAIL;
 }
 
-Result_e TestScriptRunner::callSsdProcessAndCompare(Command cmd) {
+Result_e TestScriptRunner::callSsdProcessAndCompare(ShellCommand cmd) {
 	if (cmd.type == "read") {
 		m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);
 		string readResult = m_ReadResultIO->GetReadResult();

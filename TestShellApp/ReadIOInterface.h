@@ -8,12 +8,4 @@ using namespace std;
 interface ReadIOInterface {
 public:
     virtual string GetReadResult() = 0;
-
-};
-
-class FileReadIO : public ReadIOInterface {
-public:
-    virtual string GetReadResult() {
-
-    }
 };

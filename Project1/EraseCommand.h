@@ -6,14 +6,14 @@
 #include <string>
 #include <iostream>
 
-class EraseCommand : public Command {
+class EraseCommand : public DeviceCommand {
 private:
     int address = -1;
     int size = -1;
 
 public:
     EraseCommand(NANDDevice* device)
-        : Command(device) {}
+        : DeviceCommand(device) {}
 
     void execute() override;
     ShellStringParserError parse(vector<string> inputCmdVec) override;

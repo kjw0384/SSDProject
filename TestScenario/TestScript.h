@@ -17,7 +17,7 @@ public :
 		};
 
 		for (const auto& scenario : scenarios) {
-			Command cmd = parseCommand(scenario);
+			ShellCommand cmd = parseCommand(scenario);
 			m_TestScriptCommandVector.push_back(cmd);
 		}
 	}
@@ -37,7 +37,7 @@ public:
 		};
 
 		for (const auto& scenario : scenarios) {
-			Command cmd = parseCommand(scenario);
+			ShellCommand cmd = parseCommand(scenario);
 			m_TestScriptCommandVector.push_back(cmd);
 		}
 	}
@@ -72,7 +72,7 @@ public:
 		}
 
 		for (const auto& scenario : scenarios) {
-			Command cmd = parseCommand(scenario);
+			ShellCommand cmd = parseCommand(scenario);
 			m_TestScriptCommandVector.push_back(cmd);
 		}
 	}

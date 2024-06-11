@@ -7,14 +7,14 @@
 #include <iostream>
 
 
-class WriteCommand : public Command {
+class WriteCommand : public DeviceCommand {
 private:
     int address = -1;
     string data = "";
 
 public:
     WriteCommand(NANDDevice* device)
-        : Command(device) {}
+        : DeviceCommand(device) {}
         
     void execute() override;
     ShellStringParserError parse(vector<string> inputCmdVec) override;

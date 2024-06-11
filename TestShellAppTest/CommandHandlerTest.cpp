@@ -1,27 +1,29 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "../TestShellApp/CommandHandler.cpp"
+#include "../TestShellApp/ShellCommandHandler.cpp"
 
-class CommandHandlerParamFixture : public ::testing::TestWithParam<std::string> {
+class ShellCommandHandlerParamFixture : public ::testing::TestWithParam<std::string> {
 public:
-    CommandHandler& handler = CommandHandler::getCommandHandler();
+    ShellCommandHandler& handler = ShellCommandHandler::getCommandHandler();
 };
 
 INSTANTIATE_TEST_CASE_P(InvalidCommandStrings,
-    CommandHandlerParamFixture,
+    ShellCommandHandlerParamFixture,
     ::testing::Values(
         "write 3", "read 3 0xAAAABBBB", "exit 3",
         "helpp", "fullwrite 3", "fullread 0xAAAABBBB"
     ));
 
-TEST_P(CommandHandlerParamFixture, InvalidCommand) {
+TEST_P(ShellCommandHandlerParamFixture, InvalidCommand) {
 
     const std::string& command = GetParam();
-    EXPECT_EQ(Result_e::FAIL,  handler.runParse(command));
+    ShellCommand retCmd;
+    EXPECT_EQ(Result_e::FAIL,  handler.exportCmdWithString(command, &retCmd));
 }
 
-TEST_P(CommandHandlerParamFixture, exitCommand) {
+TEST_P(ShellCommandHandlerParamFixture, exitCommand) {
     const std::string& command = "exit";
-    EXPECT_EQ(Result_e::EXIT, handler.runParse(command));
+    ShellCommand retCmd;
+    EXPECT_EQ(Result_e::EXIT, handler.exportCmdWithString(command, &retCmd));
 }

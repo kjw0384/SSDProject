@@ -1,25 +1,26 @@
 #include <sstream>
 #include <iostream>
-#include "CommandHandler.h"
+#include "ShellCommandHandler.h"
 #include "IScenario.h"
-#include "../TestScenario/TestScenario.h"
+#include "../TestScenario/TestScenarioAPI.h"
 #include "Logger.h"
 
-Result_e CommandHandler::runParse(const string& testScript) {
-    vector<string> testScriptTokens = parser.splitTestScript(testScript);
-    TestScenario testScenario;
+Result_e ShellCommandHandler::exportCmdWithString(const string& inputString, ShellCommand* retCmd) {
+    vector<string> testScriptTokens = m_Parser.splitTestScript(inputString);
+    TestScenarioAPI testScenario;
 
-    if (checker.isValidCommand(testScript, testScriptTokens) == false) {
-        if (checker.isValidScenario(testScript, testScenario) == false) {
+    if (m_ValidChecker.isValidCommand(inputString, testScriptTokens) == false) {
+        if (m_ValidChecker.isValidScenario(inputString, testScenario) == false) {
             return Result_e::FAIL;
         }
-        command.type = "testcase";
-        handleScenario(testScript, testScenario);
+        m_curCmd.type = "testcase";
+        handleScenario(inputString, testScenario);
+        *retCmd = m_curCmd;
         return Result_e::SUCCESS;
     }
 
-    CommandType_e commandType = parser.executeParse(testScriptTokens);
-    command = parser.getCommand();
+    CommandType_e commandType = m_Parser.executeParse(testScriptTokens);
+    m_curCmd = m_Parser.getParseResultCmd();
 
     if (commandType == CommandType_e::EXIT) {
         return Result_e::EXIT;
@@ -27,17 +28,22 @@ Result_e CommandHandler::runParse(const string& testScript) {
     if (commandType == CommandType_e::HELP) {
         handleHelp();
     }
+    *retCmd = m_curCmd;
     return Result_e::SUCCESS;
 }
 
-Command CommandHandler::getCommand() {
-    if (command.type.empty()) {
+ShellCommand ShellCommandHandler::getCurrentCommand() {
+    if (m_curCmd.type.empty()) {
         throw std::exception();
     }
-    return command;
+    return m_curCmd;
 }
 
-void CommandHandler::handleHelp() {
+IScenario* ShellCommandHandler::getCurrentScenario() {
+    return m_pCurScenario;
+}
+
+void ShellCommandHandler::handleHelp() {
     std::cout << "\n\n*** Command information.***\n\n";
     std::cout << "write [LBA] [data]: Write data to the LBA.\n";
     std::cout << "      [LBA] : 0~99 (decimal number).\n";
@@ -62,7 +68,7 @@ void CommandHandler::handleHelp() {
     std::cout << "exit: Exit the program.\n\n";
 }
 
-void CommandHandler::handleScenario(const string& testScenario, TestScenario& scenarioLib) {
+void ShellCommandHandler::handleScenario(const string& testScenario, TestScenarioAPI& scenarioLib) {
     // Call DLL to get the scenario class
-    scenario = scenarioLib.getScenario(testScenario);
+    m_pCurScenario = scenarioLib.getScenario(testScenario);
 }

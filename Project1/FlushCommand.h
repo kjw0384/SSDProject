@@ -7,11 +7,13 @@
 #include <iostream>
 
 
-class FlushCommand : public Command {
+class FlushCommand : public DeviceCommand {
 public:
     FlushCommand(NANDDevice* device)
-        : Command(device) {}
+        : DeviceCommand(device) {}
 
     void execute() override;
     ShellStringParserError parse(vector<string> inputCmdVec) override;
+private:
+    NANDDevice* device;
 };

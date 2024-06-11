@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Invoker.h"
+#include "CommandInvoker.h"
 #include "NANDDevice.h"
 #include "ReadCommand.h"
 #include "WriteCommand.h"
@@ -20,10 +20,10 @@ int main(int argc, char* argv[]) {
         }
 
         NANDDevice device;
-        Invoker invoker;
+        CommandInvoker invoker;
 
-        CommandFactory factory = CommandFactory::getInstance();
-        Command* command = factory.getCommand(&device, arguments);
+        ShellCommandFactory factory = ShellCommandFactory::getInstance();
+        DeviceCommand* command = factory.getCommand(&device, arguments);
         if (command == nullptr)
             return 1;
 

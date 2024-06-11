@@ -6,11 +6,12 @@
 
 using namespace std;
 
-class Command {
-public:
-    Command(NANDDevice* _device)
+interface DeviceCommand {
+    DeviceCommand(NANDDevice* _device)
         : device(_device) { }
-    virtual ~Command() {}
+public:
+    virtual ~DeviceCommand() {}
+
     virtual void execute() = 0;
     virtual ShellStringParserError parse(vector<string> inputCmdVec) = 0;
 

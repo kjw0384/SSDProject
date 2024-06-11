@@ -150,7 +150,7 @@
     <ClInclude Include="EraseCommand.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="FlushCommand.h" />
-    <ClInclude Include="Invoker.h" />
+    <ClInclude Include="CommandInvoker.h" />
     <ClInclude Include="ReadCommand.h" />
     <ClInclude Include="NANDDevice.h" />
     <ClInclude Include="ShellStringParser.h" />
