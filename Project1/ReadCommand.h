@@ -8,9 +8,6 @@
 
 
 class ReadCommand : public DeviceCommand {
-private:
-    int address = -1;
-
 public:
     ReadCommand(NANDDevice* device)
         : DeviceCommand(device) {}
@@ -18,4 +15,8 @@ public:
     void execute() override;
 
     ShellStringParserError parse(vector<string> inputCmdVec) override;
+
+private:
+    int address = -1;
+
 };

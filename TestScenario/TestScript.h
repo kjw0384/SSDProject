@@ -76,6 +76,7 @@ public:
 			m_TestScriptCommandVector.push_back(cmd);
 		}
 	}
+
 	virtual void run() {
 		cout << "TestApp2\n";
 	}

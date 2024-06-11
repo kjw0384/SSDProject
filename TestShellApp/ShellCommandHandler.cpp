@@ -69,6 +69,5 @@ void ShellCommandHandler::handleHelp() {
 }
 
 void ShellCommandHandler::handleScenario(const string& testScenario, TestScenarioAPI& scenarioLib) {
-    // Call DLL to get the scenario class
     m_pCurScenario = scenarioLib.getScenario(testScenario);
 }
