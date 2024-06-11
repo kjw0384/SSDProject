@@ -144,6 +144,7 @@
     <ClInclude Include="TestScenarioAPI.h" />
     <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestScriptDataBase.h" />
+    <ClInclude Include="TestScriptFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
