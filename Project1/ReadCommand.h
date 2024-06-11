@@ -3,17 +3,18 @@
 #include "Command.h"
 #include "NANDdevice.h"
 
-#include <string>
 #include <iostream>
+#include <string>
 
-
-class ReadCommand : public DeviceCommand {
-private:
+class ReadCommand : public DeviceCommand
+{
+  private:
     int address = -1;
 
-public:
-    ReadCommand(NANDDevice* device)
-        : DeviceCommand(device) {}
+  public:
+    ReadCommand(NANDDevice *device) : DeviceCommand(device)
+    {
+    }
 
     void execute() override;
 

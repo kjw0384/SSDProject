@@ -1,20 +1,21 @@
 #pragma once
-#include <iostream>
-#include <vector>
-#include <string>
 #include "FileManager.h"
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-class NANDDevice {
-public:
+class NANDDevice
+{
+  public:
     NANDDevice();
     virtual void read(const int address);
-    virtual void write(const int address, const string& data);
+    virtual void write(const int address, const string &data);
     virtual void flush();
     virtual void erase(const int address, const int size);
 
-private:
-    FileManager& fileManager;
+  private:
+    FileManager &fileManager;
     void _flush();
 };
