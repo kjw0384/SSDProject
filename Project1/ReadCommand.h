@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-class ReadCommand : public ShellCommand {
+class ReadCommand : public DeviceCommand {
 private:
     int address = -1;
 
 public:
     ReadCommand(NANDDevice* device)
-        : Command(device) {}
+        : DeviceCommand(device) {}
 
     void execute() override;
 

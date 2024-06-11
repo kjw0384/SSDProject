@@ -4,7 +4,7 @@
 
 class CommandInvoker {
 public:
-      void setCommand(ShellCommand* cmd) {
+      void setCommand(DeviceCommand* cmd) {
         this->command = cmd;
     }
 
@@ -15,5 +15,5 @@ public:
     }
 
 private:
-    ShellCommand* command;
+    DeviceCommand* command;
 };

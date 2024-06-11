@@ -5,15 +5,15 @@
 #include "Command.h"
 #include "NANDDevice.h"
 
-class CommandFactory {
+class ShellCommandFactory {
 public:
-	static CommandFactory& getInstance() {
-		static CommandFactory instance{};
+	static ShellCommandFactory& getInstance() {
+		static ShellCommandFactory instance{};
 		return instance;
 	}
-	Command* getCommand(NANDDevice* device, vector<string> inputCommandVec);
+	DeviceCommand* getCommand(NANDDevice* device, vector<string> inputCommandVec);
 
 private:
-	CommandFactory() {}
+	ShellCommandFactory() {}
 	string toUpper(string inputStr);
 };

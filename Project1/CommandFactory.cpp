@@ -7,12 +7,12 @@
 #include "FlushCommand.h"
 
 
-Command* CommandFactory::getCommand(NANDDevice* device, vector<string> inputCmdVec) {
+DeviceCommand* ShellCommandFactory::getCommand(NANDDevice* device, vector<string> inputCmdVec) {
 
     if (inputCmdVec.empty())
         return nullptr;
     
-    Command* commandPtr = nullptr;
+    DeviceCommand* commandPtr = nullptr;
     string command = toUpper(inputCmdVec[0]);
     if (command == "R") {
         commandPtr = new ReadCommand(device);
@@ -37,7 +37,7 @@ Command* CommandFactory::getCommand(NANDDevice* device, vector<string> inputCmdV
     return commandPtr;
 }
 
-string CommandFactory::toUpper(string inputStr) {
+string ShellCommandFactory::toUpper(string inputStr) {
     std::transform(inputStr.begin(), inputStr.end(), inputStr.begin(), ::toupper);
     return inputStr;
 }

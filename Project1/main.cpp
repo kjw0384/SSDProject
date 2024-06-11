@@ -22,8 +22,8 @@ int main(int argc, char* argv[]) {
         NANDDevice device;
         CommandInvoker invoker;
 
-        CommandFactory factory = CommandFactory::getInstance();
-        Command* command = factory.getCommand(&device, arguments);
+        ShellCommandFactory factory = ShellCommandFactory::getInstance();
+        DeviceCommand* command = factory.getCommand(&device, arguments);
         if (command == nullptr)
             return 1;
 
