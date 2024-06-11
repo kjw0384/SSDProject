@@ -44,7 +44,7 @@ private:
 
     void runConsole() {
         LOG_PRINT("run Console");
-               
+
         while (true) {
             ShellCommand exportCmd;
             Result_e result = m_rShellCmdHdlr.exportCmdWithString(getConsoleInput(), &exportCmd);
@@ -71,11 +71,8 @@ private:
     void executeShellCmd(ShellCommand& rCommand) {
         if (IsTestCaseCommand(rCommand) == true) {
             m_testScriptRunner.setCmdVector(m_rShellCmdHdlr.getCurrentScenario()->getCommandVector());
-            Result_e result = m_testScriptRunner.runTC();
-            if (result == Result_e::FAIL)
-                std::cout << "runTC fail" << std::endl;
-            else
-                std::cout << "runTC success" << std::endl;
+            Result_e result = m_testScriptRunner.runScenario();
+            PrintTestResult(result, m_rShellCmdHdlr.getCurrentScenario());
         }
         else {
             m_testScriptRunner.inputShellCmd(rCommand);
@@ -98,21 +95,21 @@ private:
 
             if (result == Result_e::EXIT) break;
 
-             m_testScriptRunner.inputShellCmd(exportedCmd); 
-             if (IsTestCaseCommand(exportedCmd) == true) {
-                IScenario* pScenario = m_rShellCmdHdlr.getCurrentScenario();
-                m_testScriptRunner.setCmdVector(pScenario->getCommandVector());
-                Result_e result = m_testScriptRunner.runTC();
-                if (result == Result_e::FAIL)
-                    std::cout << pScenario->getName() << "   ---   Run... Fail" << std::endl;
-                else
-                    std::cout << pScenario->getName() << "   ---   Run... Pass" << std::endl;
-            }
-            else {
-                m_testScriptRunner.inputShellCmd(exportedCmd);
-                m_testScriptRunner.run();
-            }
+             m_testScriptRunner.inputShellCmd(exportedCmd);
+
+             IScenario* pScenario = m_rShellCmdHdlr.getCurrentScenario();
+             m_testScriptRunner.setCmdVector(pScenario->getCommandVector());
+             result = m_testScriptRunner.runScenario();
+             PrintTestResult(result, pScenario);
         }
+    }
+
+    void PrintTestResult(Result_e result, IScenario* pScenario)
+    {
+        if (result == Result_e::FAIL)
+            std::cout << pScenario->getName() << "   ---   Run... Fail" << std::endl;
+        else
+            std::cout << pScenario->getName() << "   ---   Run... Pass" << std::endl;
     }
 
     ShellCommandHandler& m_rShellCmdHdlr;
