@@ -1,75 +1,84 @@
 #include "VirtualSsdProcess.h"
-#include <sstream>
-#include <iostream>
+#include "Logger.h"
 #include <cstdlib>
 #include <filesystem>
-#include "Logger.h"
-
+#include <iostream>
+#include <sstream>
 
 using std::stringstream;
 
- string VirtaulSsdProcess::getDataDirectory() {
-	std::filesystem::path currentPath = std::filesystem::current_path();
+string VirtaulSsdProcess::getDataDirectory()
+{
+    std::filesystem::path currentPath = std::filesystem::current_path();
 
-	if (currentPath.string().find("Debug") != string::npos ||
-		currentPath.string().find("Release") != string::npos) {
-		return "ssd";
-	}
-	else {
-		return "..\\x64\\Debug\\ssd";
-	}
+    if (currentPath.string().find("Debug") != string::npos || currentPath.string().find("Release") != string::npos)
+    {
+        return "ssd";
+    }
+    else
+    {
+        return "..\\x64\\Debug\\ssd";
+    }
 }
 
-Result_e VirtaulSsdProcess::sendReadIpc(int address) {
-	stringstream strstream;
-	strstream << getDataDirectory() << " R " << address;
+Result_e VirtaulSsdProcess::sendReadIpc(int address)
+{
+    stringstream strstream;
+    strstream << getDataDirectory() << " R " << address;
 
-	if (system(strstream.str().c_str())) {
-		cout << "ssd read error!\n";
-		LOG_PRINT(strstream.str() + " - ssd read error!");
-		return Result_e::FAIL;
-	}
-	LOG_PRINT(strstream.str() + " - Success");
-	return Result_e::SUCCESS;
+    if (system(strstream.str().c_str()))
+    {
+        cout << "ssd read error!\n";
+        LOG_PRINT(strstream.str() + " - ssd read error!");
+        return Result_e::FAIL;
+    }
+    LOG_PRINT(strstream.str() + " - Success");
+    return Result_e::SUCCESS;
 }
 
-Result_e VirtaulSsdProcess::sendWriteIpc(const int address, const string data) {
-	stringstream strstream;
-	strstream << getDataDirectory() << " W " << address;
-	strstream << " " << data;
+Result_e VirtaulSsdProcess::sendWriteIpc(const int address, const string data)
+{
+    stringstream strstream;
+    strstream << getDataDirectory() << " W " << address;
+    strstream << " " << data;
 
-	if (system(strstream.str().c_str())) {
-		cout << "ssd write error!\n";
-		LOG_PRINT(strstream.str() + " - ssd write error!");
-		return Result_e::FAIL;
-	}
-	LOG_PRINT(strstream.str() + " - Success");
-	return Result_e::SUCCESS;
+    if (system(strstream.str().c_str()))
+    {
+        cout << "ssd write error!\n";
+        LOG_PRINT(strstream.str() + " - ssd write error!");
+        return Result_e::FAIL;
+    }
+    LOG_PRINT(strstream.str() + " - Success");
+    return Result_e::SUCCESS;
 }
 
-Result_e VirtaulSsdProcess::sendEraseIpc(const int address, const int size) {
-	stringstream strstream;
-	strstream << getDataDirectory() << " E " << address;
-	strstream << " " << size;
+Result_e VirtaulSsdProcess::sendEraseIpc(const int address, const int size)
+{
+    stringstream strstream;
+    strstream << getDataDirectory() << " E " << address;
+    strstream << " " << size;
 
-	if (system(strstream.str().c_str())) {
-		cout << "ssd erase error!\n";
-		LOG_PRINT(strstream.str() + " - ssd erase error!");
-		return Result_e::FAIL;
-	}
-	LOG_PRINT(strstream.str() + " - Success");
-	return Result_e::SUCCESS;
+    if (system(strstream.str().c_str()))
+    {
+        cout << "ssd erase error!\n";
+        LOG_PRINT(strstream.str() + " - ssd erase error!");
+        return Result_e::FAIL;
+    }
+    LOG_PRINT(strstream.str() + " - Success");
+    return Result_e::SUCCESS;
 }
 
-Result_e VirtaulSsdProcess::sendFlushIpc() {
-	stringstream strstream;
-	strstream << getDataDirectory() << " F ";
+Result_e VirtaulSsdProcess::sendFlushIpc()
+{
+    stringstream strstream;
+    strstream << getDataDirectory() << " F ";
 
-	if (system(strstream.str().c_str())) {
-		cout << "ssd flush error!\n";
-		LOG_PRINT(strstream.str() + " - ssd flush error!");
-		return Result_e::FAIL;
-	}
-	LOG_PRINT(strstream.str() + " - Success");
-	return Result_e::SUCCESS;
+    if (system(strstream.str().c_str()))
+    {
+        cout << "ssd flush error!\n";
+        LOG_PRINT(strstream.str() + " - ssd flush error!");
+        return Result_e::FAIL;
+    }
+    LOG_PRINT(strstream.str() + " - Success");
+    return Result_e::SUCCESS;
 }
