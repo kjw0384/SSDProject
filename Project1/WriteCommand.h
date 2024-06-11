@@ -8,10 +8,6 @@
 
 
 class WriteCommand : public DeviceCommand {
-private:
-    int address = -1;
-    string data = "";
-
 public:
     WriteCommand(NANDDevice* device)
         : DeviceCommand(device) {}
@@ -19,4 +15,7 @@ public:
     void execute() override;
     ShellStringParserError parse(vector<string> inputCmdVec) override;
 
+private:
+    int address = -1;
+    string data = "";
 };
