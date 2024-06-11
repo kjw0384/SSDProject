@@ -5,16 +5,17 @@
 #define TESTSCENARIOLIBRARY_API __declspec(dllimport)
 #endif
 
+#include "../TestShellApp/IScenario.h"
 #include <string>
 #include <vector>
-#include "../TestShellApp/IScenario.h"
 
 using std::string;
 using std::vector;
 
-class TESTSCENARIOLIBRARY_API TestScenarioAPI {
-public:
-    //TestScenario();
-    static IScenario* getScenario(const string& testScenarioName);
+class TESTSCENARIOLIBRARY_API TestScenarioAPI
+{
+  public:
+    // TestScenario();
+    static IScenario *getScenario(const string &testScenarioName);
     static vector<string> getScenarios();
 };

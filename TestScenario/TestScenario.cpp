@@ -1,11 +1,13 @@
+#include "../TestShellApp/IScenario.h"
 #include "TestScenarioAPI.h"
 #include "TestScriptDataBase.h"
-#include "../TestShellApp/IScenario.h"
 
-IScenario* TestScenarioAPI::getScenario(const string& testScenarioName) {
-	return 	TestScriptDataBase::getInstance().GetTestScriptCase(testScenarioName);
+IScenario *TestScenarioAPI::getScenario(const string &testScenarioName)
+{
+    return TestScriptDataBase::getInstance().GetTestScriptCase(testScenarioName);
 }
 
-vector<string> TestScenarioAPI::getScenarios() {
-	return 	TestScriptDataBase::getInstance().getScenarioList();
+vector<string> TestScenarioAPI::getScenarios()
+{
+    return TestScriptDataBase::getInstance().getScenarioList();
 }
