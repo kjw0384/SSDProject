@@ -1,13 +1,15 @@
-#include <map>
 #include "NANDDevice.h"
+#include <map>
 
-NANDDevice::NANDDevice() : fileManager(FileManager::getInstance()) {
+NANDDevice::NANDDevice() : fileManager(FileManager::getInstance())
+{
     fileManager.setFilePath();
 }
 
-void NANDDevice::read(const int address) {
+void NANDDevice::read(const int address)
+{
     string data = "";
-    
+
     if (fileManager.readBufferData(address, data) == false)
     {
         vector<string> getData = fileManager.readFromNand();
@@ -17,15 +19,17 @@ void NANDDevice::read(const int address) {
     fileManager.writeToResult(data);
 }
 
-void NANDDevice::write(const int address, const string& data) {
+void NANDDevice::write(const int address, const string &data)
+{
 
     if (fileManager.writeBufferData(address, data) == true)
     {
-       _flush();
+        _flush();
     }
 }
 
-void NANDDevice::erase(const int address, const int size) {
+void NANDDevice::erase(const int address, const int size)
+{
 
     if (fileManager.eraseBufferData(address, size))
     {
@@ -38,18 +42,17 @@ void NANDDevice::flush()
     _flush();
 }
 
-void NANDDevice::_flush() {
+void NANDDevice::_flush()
+{
 
     vector<string> setData = fileManager.readFromNand();
-    map<int, string>buf =  fileManager.getBufferMemory();
+    map<int, string> buf = fileManager.getBufferMemory();
 
     for (auto target : buf)
     {
         setData[target.first] = target.second;
     }
-   
+
     fileManager.writeToNand(setData);
     fileManager.initBufferFile();
-
 }
-

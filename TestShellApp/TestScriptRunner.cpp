@@ -1,18 +1,17 @@
-#include <iostream>
 #include "TestScriptRunner.h"
-#include "ResultFileReader.h"
-#include "VirtualSsdProcess.h"
 #include "../Project1/FileManager.h"
 #include "Logger.h"
+#include "ResultFileReader.h"
+#include "VirtualSsdProcess.h"
+#include <iostream>
 
-
-TestScriptRunner::TestScriptRunner()\
-	: m_ssdProcessIf(new VirtaulSsdProcess), m_ReadResultIO(new ResultFileReader) {
+TestScriptRunner::TestScriptRunner() : m_ssdProcessIf(new VirtaulSsdProcess), m_ReadResultIO(new ResultFileReader)
+{
 }
 
-TestScriptRunner::TestScriptRunner(VirtualSsdProcessInterface* pSsdProcInterface, ReadIOInterface* pReadIOInterface) 
-	: m_ssdProcessIf(pSsdProcInterface), m_ReadResultIO(pReadIOInterface) {
-
+TestScriptRunner::TestScriptRunner(VirtualSsdProcessInterface *pSsdProcInterface, ReadIOInterface *pReadIOInterface)
+    : m_ssdProcessIf(pSsdProcInterface), m_ReadResultIO(pReadIOInterface)
+{
 }
 
 Result_e TestScriptRunner::inputShellCmd(ShellCommand& cmd) {
@@ -56,11 +55,13 @@ Result_e TestScriptRunner::runScenario() {
 			return Result_e::FAIL;
 	}
 	return Result_e::SUCCESS;
+
 }
 
-void TestScriptRunner::setCmdVector(TestVector_t inputVector) {
-	m_ShellCmdVector.clear();
-	m_ShellCmdVector.reserve(inputVector.size());
+void TestScriptRunner::setCmdVector(TestVector_t inputVector)
+{
+    m_ShellCmdVector.clear();
+    m_ShellCmdVector.reserve(inputVector.size());
 
 	for (ShellCommand& cmd : inputVector) {
 		if (cmd.type == "fullread") {
@@ -75,57 +76,68 @@ void TestScriptRunner::setCmdVector(TestVector_t inputVector) {
 	}
 }
 
-Result_e TestScriptRunner::callSsdProcessInternal(ShellCommand cmd) {
-	LOG_PRINT(cmd.type);
-	if (cmd.type == "write") {
-		m_ssdProcessIf->sendWriteIpc(cmd.LBAIndexNum, cmd.value);
-		return Result_e::SUCCESS;
-	}
-	else if (cmd.type == "erase") {
-		int startLBA = cmd.LBAIndexNum;
-		int remainSize = cmd.size;
+Result_e TestScriptRunner::callSsdProcessInternal(ShellCommand cmd)
+{
+    LOG_PRINT(cmd.type);
+    if (cmd.type == "write")
+    {
+        m_ssdProcessIf->sendWriteIpc(cmd.LBAIndexNum, cmd.value);
+        return Result_e::SUCCESS;
+    }
+    else if (cmd.type == "erase")
+    {
+        int startLBA = cmd.LBAIndexNum;
+        int remainSize = cmd.size;
 
-		while (remainSize > 10) {
-			m_ssdProcessIf->sendEraseIpc(startLBA, 10);
-			startLBA += 10;
-			remainSize -= 10;
-		}
-		m_ssdProcessIf->sendEraseIpc(startLBA, remainSize);
+        while (remainSize > 10)
+        {
+            m_ssdProcessIf->sendEraseIpc(startLBA, 10);
+            startLBA += 10;
+            remainSize -= 10;
+        }
+        m_ssdProcessIf->sendEraseIpc(startLBA, remainSize);
 
-		return Result_e::SUCCESS;
-	}
-	else if (cmd.type == "flush") {
-		m_ssdProcessIf->sendFlushIpc();
-		return Result_e::SUCCESS;
-	}
-	return Result_e::FAIL;
+        return Result_e::SUCCESS;
+    }
+    else if (cmd.type == "flush")
+    {
+        m_ssdProcessIf->sendFlushIpc();
+        return Result_e::SUCCESS;
+    }
+    return Result_e::FAIL;
 }
 
-Result_e TestScriptRunner::callSsdProcess(ShellCommand cmd) {
-	if (cmd.type == "read") {
-		m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);
-		string readResult = m_ReadResultIO->GetReadResult();
+Result_e TestScriptRunner::callSsdProcess(ShellCommand cmd)
+{
+    if (cmd.type == "read")
+    {
+        m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);
+        string readResult = m_ReadResultIO->GetReadResult();
 
-		std::cout << readResult << "\n";
-		return Result_e::SUCCESS;
-	}
-	else {
-		return callSsdProcessInternal(cmd);
-	}
-	return Result_e::FAIL;
+        std::cout << readResult << "\n";
+        return Result_e::SUCCESS;
+    }
+    else
+    {
+        return callSsdProcessInternal(cmd);
+    }
+    return Result_e::FAIL;
 }
 
-Result_e TestScriptRunner::callSsdProcessAndCompare(ShellCommand cmd) {
-	if (cmd.type == "read") {
-		m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);
-		string readResult = m_ReadResultIO->GetReadResult();
+Result_e TestScriptRunner::callSsdProcessAndCompare(ShellCommand cmd)
+{
+    if (cmd.type == "read")
+    {
+        m_ssdProcessIf->sendReadIpc(cmd.LBAIndexNum);
+        string readResult = m_ReadResultIO->GetReadResult();
 
-		if (cmd.value != readResult)
-			return Result_e::FAIL;
-		return Result_e::SUCCESS;
-	}
-	else {
-		return callSsdProcessInternal(cmd);
-	}
-	return Result_e::FAIL;
+        if (cmd.value != readResult)
+            return Result_e::FAIL;
+        return Result_e::SUCCESS;
+    }
+    else
+    {
+        return callSsdProcessInternal(cmd);
+    }
+    return Result_e::FAIL;
 }

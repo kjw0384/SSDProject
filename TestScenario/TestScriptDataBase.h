@@ -1,21 +1,21 @@
 #pragma once
 
 #include "../TestShellApp/IScenario.h"
-#include <vector>
 #include <string>
+#include <vector>
 
 using namespace std;
 
-class TestScriptDataBase {
-public:
-	static TestScriptDataBase& getInstance();
-	
-	void createTestScript(string testScriptName);
-	IScenario* GetTestScriptCase(string TestScriptName);
-	vector<string> getScenarioList();
+class TestScriptDataBase
+{
+  public:
+    static TestScriptDataBase &getInstance();
 
+    void createTestScript(string testScriptName);
+    IScenario *GetTestScriptCase(string TestScriptName);
+    vector<string> getScenarioList();
 
-private:
-	TestScriptDataBase();
-	vector<IScenario*> m_TestScriptDB;
+  private:
+    TestScriptDataBase();
+    vector<IScenario *> m_TestScriptDB;
 };
