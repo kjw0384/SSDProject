@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "ReadIOInterface.h" //TODO: sync to readio
+#include "ReadIOInterface.h"
 #include "TestCommand.h"
 #include "TestShellCommon.h"
 #include "VirtualSsdProcessInterface.h"
